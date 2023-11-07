@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mona Hotel Clone</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  </head>
+  <!-- 1. Còn thiếu hover ở phần giá phòng (làm xám phông, hiện div giá) và ưu đãi đặc
+  biệt (mặc định thì màu ảnh xám hơn, hover cursor vào thì màu ảnh xám hơn) 
+2. Khuyến mãi 3 ngày 2 đêm đang ko đồng đều vs 2 ảnh còn lại-->
+  <!-- 3. Đoạn văn khách sạn sang trọng nhất thành phố bị dài quá, cho ngắn lại -->
+  <!-- Ko chỉnh được height của promotion image (ảnh phần ưu đãi đặc biệt) -->
+  <body>
+    <header>
+      <img src="assets/banner.jpg" alt="banner" class="banner" />
+      <img
+        src="assets/logo-header-mona.png"
+        alt="logo-header"
+        class="logo-header"
+      />
+      <section class="nav-bar">
+        <ul>
+          <li>TRANG CHỦ</li>
+
+          <li>LOẠI PHÒNG</li>
+
+          <li>TIN TỨC</li>
+
+          <li>GIỚI THIỆU</li>
+
+          <li>LIÊN HỆ</li>
+        </ul>
+      </section>
+
+      <div class="banner-text">
+        <h1>
+          ẨM THỰC <br />
+          NGON TUYỆT
+        </h1>
+        <p>
+          <!-- fix font style -->
+          Trải nghiệm ngôi sao Michelin của chúng tôi từ nhà hàng quốc tế
+          <br />của chúng tôi
+        </p>
+
+        <button>XEM CHI TIẾT</button>
+      </div>
+    </header>
+    <main>
+      <section class="about">
+        <div class="about-text">
+          <h1>Khách sạn sang trọng nhất tọa lạc trung tâm thành phố</h1>
+          <br />
+          <p>
+            <!-- fix font style -->
+            Chúng tôi tự hào nói rằng kể từ khi mở cửa vào năm 1896, chúng tôi
+            đã phục vụ khách truy cập theo cách tốt nhất có thể. Trong khách sạn
+            Monavi, nơi mỗi một trong số 17 phòng của chúng tôi – với cá tính và
+            phong cách riêng – sẽ giúp bạn cảm thấy như ở nhà và sống trải
+            nghiệm Monavi trải nghiệm như bạn sẽ không bao giờ tưởng tượng được.
+          </p>
+          <br />
+          <img src="assets/signature.png" alt="signature" class="signature" />
+          <br />
+          <h5>RICHARD MORGAN - TỔNG GIÁM ĐỐC</h5>
+        </div>
+        <div class="about-images">
+          <img
+            style="width: 100%; height: 90%"
+            src="assets/about-pic.jpg"
+            alt="about-pic"
+          />
+        </div>
+      </section>
+      <section class="room-types">
+        <div class="deluxe-room">
+          <img
+            style="width: 100%; height: 100%"
+            src="assets/deluxe-room.jpg"
+            alt="deluxe-room"
+          />
+          <div class="room-type-info-text">
+            <h1>Deluxe Room</h1>
+            <h3>Từ 800k/ đêm</h3>
+            <button class="book-room">ĐẶT PHÒNG NGAY</button>
+          </div>
+        </div>
+        <div class="superior-room">
+          <img
+            style="width: 100%; height: 100%"
+            src="assets/superior-room.jpg"
+            alt="superior-room"
+          />
+          <div class="room-type-info-text">
+            <h1>Superior Room</h1>
+            <h3>Từ 500k/ đêm</h3>
+            <button class="book-room">ĐẶT PHÒNG NGAY</button>
+          </div>
+        </div>
+        <div class="signature-room">
+          <img
+            style="width: 100%; height: 100%"
+            src="assets/signature-room.jpg"
+            alt="signature-room"
+          />
+          <div class="room-type-info-text">
+            <h1>Signature Room</h1>
+            <h3>Từ 950k/ đêm</h3>
+            <button class="book-room">ĐẶT PHÒNG NGAY</button>
+          </div>
+        </div>
+        <div class="luxury-room">
+          <img
+            style="width: 100%; height: 100%"
+            src="assets/luxury-room.jpg"
+            alt="luxury-room"
+          />
+          <div class="room-type-info-text">
+            <h1>Luxury Room</h1>
+            <h3>Từ 1200k/ đêm</h3>
+            <button class="book-room">ĐẶT PHÒNG NGAY</button>
+          </div>
+        </div>
+      </section>
+      <section class="discover">
+        <br />
+        <h1>Không gian sống đỉnh cao</h1>
+        <br />
+        <h3>TẠI HỒ CHÍ MINH</h3>
+        <br />
+        <div class="discover-text">
+          <div>
+            <p1>
+              Khách sạn Đệ Nhất tọa lạc gần sân bay quốc tế và quốc nội Tân Sơn
+              Nhất của thành phố Hồ Chí Minh và khu vực phía Nam. Là cánh cửa
+              đầu tiên của TP. HCM mở ra đón bạn bè quốc tế đến với các di sản
+              thiên nhiên – văn hóa nổi tiếng thế giới và các trung tâm thương
+              mại lớn của Việt Nam.
+            </p1>
+            <br /><br />
+            <br />
+            <button class="discover-button">KHÁM PHÁ THÊM</button>
+            <br />
+            <br />
+            <br />
+          </div>
+
+          <div>
+            <p2>
+              Khách sạn được chia thành 5 hạng phòng khác nhau, được du khách
+              yêu thích bởi sự sạch sẽ và dịch vụ phòng hoàn hảo. Ngoài ra,
+              khách sạn Đệ Nhất còn trang bị phòng tập thể hình, hồ bơi, 3 sân
+              tennis, CLB trò chơi có thưởng (chỉ dành cho khách nước ngoài) &
+              khu mát-xa – xông hơi để phục vụ khách lưu trú.
+            </p2>
+          </div>
+        </div>
+
+        <div class="discover-images">
+          <img src="assets/explore1.jpg" alt="explore1" />
+          <img src="assets/explore2.jpg" alt="explore2" />
+          <img src="assets/explore3.jpg" alt="explore3" />
+        </div>
+      </section>
+      <br /><br />
+      <section class="promotion">
+        <h1>Ưu đãi đặc biệt</h1>
+        <br />
+        <h3>TẬN HƯỞNG ĐẶC QUYỀN CAO CẤP CỦA MONA</h3>
+        <br /><br />
+        <div class="promotion-images">
+          <div class="promotion1">
+            <img src="assets/promotion1.jpg" alt="promotion1" />
+            <!-- this image currently cannot spread full width -->
+            <div class="promotion-text">
+              <h3>Khuyến mãi 3 ngày 2 đêm</h3>
+              <br />
+              <h6><a href="">ĐỌC THÊM</a></h6>
+            </div>
+          </div>
+          <div class="promotion2">
+            <img src="assets/promotion2.jpg" alt="promotion2" />
+            <div class="promotion-text">
+              <h3>Buffet món Âu mỗi sáng</h3>
+              <br />
+              <h6><a href="">ĐỌC THÊM</a></h6>
+            </div>
+          </div>
+          <div class="promotion3">
+            <img src="assets/promotion3.jpg" alt="promotion3" />
+            <div class="promotion-text">
+              <h3>Gói tuần trăng mật 5 đêm</h3>
+              <br />
+              <h6><a href="">ĐỌC THÊM</a></h6>
+            </div>
+          </div>
+        </div>
+      </section>
+      <br /><br /><br />
+      <section class="comment">
+        <h1 style="text-align: center">Nhận xét</h1>
+        <br />
+        <h3 style="text-align: center">
+          NHỮNG KHÁCH HÀNG HÀI LÒNG CỦA CHÚNG TÔI ĐÃ NÓI GÌ VỀ CHÚNG TÔI
+        </h3>
+        <br />
+        <div class="comment-brochure">
+          <div class="comment-texts">
+            <div class="comment-text-1">
+              <h1>Khách sạn tuyệt đẹp với tậm nhìn đáng kinh ngạc</h1>
+            </div>
+            <br />
+            <div class="comment-text-2">
+              <h3>
+                Tôi đã đặt khách sạn này dựa trên các đánh giá về dịch vụ và địa
+                điểm. Và khách sạn không làm tôi thất vọng
+              </h3>
+              <br />
+              <button class="view-comments">XEM NHẬN XÉT</button>
+            </div>
+          </div>
+
+          <div class="comment-image-1">
+            <img src="assets/comment1.jpg" alt="comment-image-1" />
+          </div>
+          <div class="comment-image-2">
+            <img src="assets/comment2.jpg" alt="comment-image-2" />
+          </div>
+          <div class="comment-image-3">
+            <img src="assets/comment3.jpg" alt="comment-image-3" />
+          </div>
+        </div>
+      </section>
+    </main>
+    <br /><br />
+    <footer>
+      <div class="footer-logo">
+        <img
+          src="assets/logo-footer-mona.png"
+          alt="logo-footer-mona"
+          class="footer-logo-image"
+        />
+      </div>
+      <br /><br />
+      <div class="footer-layout">
+        <div class="adrress">
+          <h3>ĐỊA CHỈ</h3>
+          <br />
+          <p><b>HOTEL Mona Beach</b></p>
+          <br />
+          <p>319 C16 Lý Thường Kiệt Quận 11, TP. HCM</p>
+        </div>
+        <div class="contact-info">
+          <h3>ĐẶT CHỖ</h3>
+          <h6>Tel : 076 922 0162</h6>
+          <h6>Fax : 076 922 0162</h6>
+          <h6>mon@mona.media</h6>
+        </div>
+        <div class="receive-news">
+          <h3>NHẬN TIN</h3>
+          <form action="">
+            <input type="text" name="" id="" placeholder="Đăng kí nhận tin" />
+            <br />
+            <br />
+            <button class="receive-news-button">ĐĂNG KÝ</button>
+          </form>
+        </div>
+        <div class="prizes">
+          <h3>GIẢI THƯỞNG</h3>
+          <div class="prizes-image">
+            <img style="width: 50%" src="assets/prize1.jpg" alt="prize1" />
+            <img style="width: 50%" src="assets/prize2.png" alt="prize2" />
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <span
+          >© All rights reserved. Thiết kế website
+          <b>MonaMedia Mona Media</b></span
+        >
+      </div>
+    </footer>
+  </body>
+</html>

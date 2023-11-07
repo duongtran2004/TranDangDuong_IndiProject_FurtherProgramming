@@ -1,0 +1,365 @@
+// out: "style.css", compress: false, sourceMap: true
+//GLOBAL CSS
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    // why do we need three line above? 
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+
+}
+// Mixins
+// Center text over an image
+.center-text-over-image{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+//Bottom-centered text over an image
+.bottom-centered-text-over-image{
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+// Container holding background images and text
+.container{
+    position: relative;
+    text-align: center;
+
+}
+//overlay
+.overlay{
+    opacity: 1;
+}
+
+// CSS by sections
+// HEADER
+header{
+    .container;
+    text-align: center;
+    color: white;
+   
+}
+.banner{
+    width: 100%;
+    height: 100%;
+}
+.logo-header{
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    width: 5%;
+    margin-left: 8%;
+    margin-bottom: 20px;
+}
+
+.nav-bar{
+    display: flex;
+
+    position: absolute;
+    top: 50px;
+    right: 16px;
+    justify-content: space-around;
+    justify-items: auto;
+    font-size: large;
+    word-spacing: 1px;
+    letter-spacing: 1px;
+
+
+  
+    ul{
+        list-style-type: none;
+     
+       
+    }
+    li{
+        display:inline;
+        margin-right:20px
+    }
+    
+}
+.banner-text{
+    position: absolute;
+
+    bottom: 50%;
+    left: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 8%;
+    h1{text-align: left;
+        font-size: 3em;
+        line-height:150%;
+    }
+    p{
+        text-align: left;
+        font-size: 1.5em;
+        line-height:150%;
+    }
+    button{
+        margin-top: 20px;
+        width: 200px;
+        background-color: transparent;
+        border: solid white 2px;
+        color: white;
+        font-weight: bold;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+ 
+    
+    
+}
+// ABOUT
+.about{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+    
+    padding: 5%;
+
+    .about-text{
+        display: flex;
+        flex-direction: column;
+        padding-left: 15%;
+
+        height: 100%;
+        h1{font-size: 30px;}
+        p{line-height: 150%;
+        font-size: 20px;}
+        img{width: 60%;}
+    }
+   
+    
+}
+// ROOM CATAGORIES
+// room-name-div = .container
+// room-type-info-text = .overlay
+
+.room-types{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px;
+}
+
+.deluxe-room{.container
+}
+.deluxe-room:hover .overlay {
+    width: 100%;
+    left: 0;
+  }
+.superior-room{.container}
+.superior-room:hover .overlay {
+    width: 100%;
+    left: 0;
+  }
+.signature-room{.container}
+.ignature-room:hover .overlay {
+    width: 100%;
+    left: 0;
+  }
+.luxury-room{.container}
+.luxury-room:hover .overlay {
+    width: 100%;
+    left: 0;
+  }
+.room-type-info-text{
+    .center-text-over-image;
+    color: white;
+    line-height: 4em;
+    // overlay
+    overflow: hidden;
+    background-color: #444446;
+    transition: .5s ease;
+    -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+   
+    // other css
+    h1{font-size: 3em;}
+    h3{font-size: 2em;}
+    button{margin-top: 20px;
+        width: 200px;
+        background-color: transparent;
+        border: solid white 3px;
+        color: white;
+       
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-weight: bold;
+        word-spacing: 1px;}
+      
+    // còn thiếu grey background color #444446
+
+}
+
+// DISCOVER
+.discover{
+    h1{text-align: center; 
+    font-size: 30px;}
+    h3{text-align: center;}
+    .discover-text{
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        padding-left: 5%;
+        padding-right: 5%;
+        word-spacing: 1px;
+        letter-spacing: 1px;
+        line-height: 150%;
+
+        font-size: larger;
+        p1{font-weight: bold;}
+        
+    button{ width: 200px;
+        background-color: transparent;
+        border: solid black 2px;
+        color: black;
+        font-weight: bold;
+        padding-top: 15px;
+        padding-bottom: 15px;}
+
+}
+}
+.discover-images{
+    display: flex;
+    justify-content: space-evenly;
+    img{width: 33.33%;}
+}
+//PROMOTION
+.promotion{
+
+    h1{text-align: center;
+    font-size: 3em;}
+    h3{text-align: center; font-size: 1.5em;}
+    height: 80%;
+    img{ width: 100%;
+        height: 100%;
+        object-fit: cover;}
+
+}
+.promotion-images{
+
+
+    display: flex;
+    align-items: center;
+
+}
+
+.promotion-text{
+    h3{text-wrap: nowrap}
+    a{
+        font-size: larger;
+        text-decoration: none;
+        
+    }
+    a:link, a:visited {
+        color:white;
+        text-decoration: none;
+      }
+}
+.promotion1{.container;width: 33.33%;}
+.promotion2{.container;width: 33.33%;}
+.promotion3{.container;width: 33.33%;}
+.promotion-text{
+    .bottom-centered-text-over-image;
+    color:white;
+}
+//COMMENTS
+.comment{
+    h1{text-align: left;
+        font-size: 3em;}
+    h3{text-align: left; font-size: 1.5em;}
+}
+.comment-brochure{
+    padding: 40px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-areas: 
+    'txt img1 img2'
+    'txt img1 img3';
+    gap: 30px;
+    background-color:#0F172B;
+    color: white;
+    .comment-texts{
+        grid-area: txt;
+        display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    }
+    img{width: 100%;
+    border-radius: 10px}
+    button{ margin-top: 20px;
+        width: 200px;
+        background-color: transparent;
+        border: solid white 2px;
+        color: white;
+       
+        padding-top: 15px;
+        padding-bottom: 15px;
+    font-size: large;}
+ 
+}
+
+
+.comment-image-1{
+    grid-area: img1;
+ 
+}
+.comment-image-2{   grid-area: img2;
+  
+}
+.comment-image-3{   grid-area: img3;
+
+}
+//FOOTER
+.footer-logo{
+    display: flex;
+    justify-content: center;
+ 
+}
+.footer-layout{
+    display: flex;
+    justify-content: space-between;
+    justify-items:center;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.contact-info{
+    line-height: 1.5em;
+    h6{font-size: medium;}
+}
+.receive-news{
+    input{
+        border-top:none;
+        border-left: none;
+        border-right: none;
+    }
+    button{ 
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        color: white;
+        background-color: black;
+
+    }
+}
+.prizes-image{
+    display: flex;
+    height: 100px;
+}
+.copyright{
+    font-size: larger;
+    text-align: center;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+   
+}
