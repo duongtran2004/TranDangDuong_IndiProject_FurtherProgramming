@@ -1,12 +1,22 @@
 /**
- * @author Tran Dang Duong
- * Student ID: s3979381
- * @version ${11.0.18}
- * @created 13-Mar-24 2:01 PM
+ * The interface Welcoming screen.
+ *
+ * @author Tran Dang Duong Student ID: s3979381
+ * @version $ {11.0.18}
+ * @created 13 -Mar-24 2:01 PM
  * @project IndiProject
- * @since ${11.0.18}
+ * @since $ {11.0.18}
  */
-public interface WelcomingScreen {
+public class WelcomingScreen {
+    /**
+     * Display welcome screen.
+     * Course code
+     * Assignment name
+     * Project name
+     * Lecturer
+     * Tutorial Session
+     * Student ID - Student Name
+     */
     public static void displayWelcomeScreen() {
         System.out.println("******************************************************************************");
         System.out.println("                      COSC 2440: FURTHER PROGRAMMING");
@@ -18,6 +28,11 @@ public interface WelcomingScreen {
         System.out.println("******************************************************************************");
     }
 
+    /**
+     * The entry point of the WelcomingScreen Class.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
 displayWelcomeScreen();
     }
