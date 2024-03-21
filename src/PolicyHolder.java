@@ -11,4 +11,8 @@ import java.util.ArrayList;
 public class PolicyHolder  extends  Customer{
     private ArrayList<Dependent> listOfDependents;
 
+    public PolicyHolder(String cId, String fullName, String insuranceCard, ArrayList<String> listOfClaims, ArrayList<Dependent> listOfDependents) {
+        super(cId, fullName, insuranceCard, listOfClaims);
+        this.listOfDependents = listOfDependents;
+    }
 }

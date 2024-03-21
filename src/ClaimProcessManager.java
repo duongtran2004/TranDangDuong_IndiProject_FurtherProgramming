@@ -1,3 +1,4 @@
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
 /**
@@ -10,10 +11,10 @@ import java.util.ArrayList;
  */
 public interface ClaimProcessManager {
 
-    public void addClaim();
-    public void updateClaim();
-    public void deleteClaim();
-    public ArrayList<Claim> getAllClaim();
-    public void deleteClaim(Claim claim);
+    void add(Claim claim);
+    void update(Claim claim);
+    void delete(String id);
+    Claim getOne(String id);
+   ArrayList<Claim> getAll();
 
 }
