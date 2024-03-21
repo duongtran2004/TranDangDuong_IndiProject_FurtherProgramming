@@ -6,7 +6,7 @@
  * @project IndiProject
  * @since ${11.0.18}
  */
-public class WelcomingScreen {
+public interface WelcomingScreen {
     public static void displayWelcomeScreen() {
         System.out.println("******************************************************************************");
         System.out.println("                      COSC 2440: FURTHER PROGRAMMING");

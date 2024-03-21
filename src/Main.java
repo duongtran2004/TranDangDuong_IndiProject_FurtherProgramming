@@ -15,9 +15,11 @@ import java.util.Scanner;
  * @since ${11.0.18}
  */
 public class Main {
-    private static final String CUSTOMERS_FILE_PATH = "customers.txt";
-    private static final String INSURANCE_CARDS_FILE_PATH = "insurance_cards.txt";
-    private static final String CLAIMS_FILE_PATH = "claims.txt";
+    //naming convention for final variable
+    private static final String CUSTOMERS_FILE_PATH = "src\\DataFiles\\CustomersData.txt";
+    private static final String INSURANCE_CARDS_FILE_PATH = "src\\DataFiles\\InsuranceCardsData.txt";
+
+    private static final String CLAIMS_FILE_PATH = "src\\DataFiles\\ClaimsData.txt";
 
     private static ArrayList<Customer> customers = new ArrayList<>();
     private static ArrayList<InsuranceCard> insuranceCards = new ArrayList<>();

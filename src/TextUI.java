@@ -1,11 +1,12 @@
 import java.util.Scanner;
 
-public class TextUI {
+public class TextUI implements WelcomingScreen {
     private Scanner scanner;
 
     public TextUI() {
         this.scanner = new Scanner(System.in);
     }
+
 
     public void displayMainMenu() {
         System.out.println("Welcome to the Insurance Claims Management System!");
