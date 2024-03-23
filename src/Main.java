@@ -1,10 +1,9 @@
+import UserInterface.TextUI;
+import UserInterface.WelcomingScreen;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * The  Main Class (Entry point for the whole program. Please start executing from this file.
@@ -18,51 +17,79 @@ import java.util.Scanner;
 public class Main {
 
     //naming convention for final variable : cap locks + underscore
-    //file name format for Window OS: ..\\..\\..
-    //define constant path for Data Files
-    private static final String CUSTOMERS_FILE_PATH = "src\\DataFiles\\CustomersData.txt";
-    private static final String INSURANCE_CARDS_FILE_PATH = "src\\DataFiles\\InsuranceCardsData.txt";
+    //filepath format for Window OS: ..\\..\\..
+    //define constant variables to store FilePath String for Data Files
+    public static final String CUSTOMERS_FILE_PATH = "src\\DataFiles\\CustomersData.txt";
+    public static final String INSURANCE_CARDS_FILE_PATH = "src\\DataFiles\\InsuranceCardsData.txt";
 
-    private static final String CLAIMS_FILE_PATH = "src\\DataFiles\\ClaimsData.txt";
+    public static final String CLAIMS_FILE_PATH = "src\\DataFiles\\ClaimsData.txt";
     //Create temporary ArrayList to hold File Data, and display to user.
     //Once the user quit the program, these ArrayList would be empty.
 
     private static ArrayList<Customer> customers = new ArrayList<>();
     private static ArrayList<InsuranceCard> insuranceCards = new ArrayList<>();
     private static ArrayList<Claim> claims = new ArrayList<>();
-    //Create a dataPopulator object to populate data from the DataFiles to the temporary ArrayLists.
-
+    //Create DataFileCreator object to create new files for Customers(include both Dependent and Policy Holder), InsuranceCard and Claim.
+    //If there exist DataFiles and those DataFiles are not empty => skip the DataFile creation process
+    public   static DataFileCreator dataFileCreator = new DataFileCreator();
+    //Create a DataPopulator object to populate DataFiles with some sample data with specific format if DataFile exist AND DataFile is empty.
     private static DataPopulator dataPopulator = new DataPopulator();
+
+    //Create a LoadDataFromFile object to populate (load) data from the DataFiles to the temporary ArrayLists.
+
+    private static LoadDataFromFile loadDataFromFile = new LoadDataFromFile();
+    //Create a DataSaver object to save data from temporary ArrayLists to the DataFiles when user quit the program.
+    private static  DataSaver dataSaver = new DataSaver();
 
     //Create a welcomingScreen object to display welcoming screen only once when the program start.
 
     private static WelcomingScreen welcomingScreen = new WelcomingScreen();
-    //Create a TextUI object to display menu with options to user.
+    //Create a UserInterface.TextUI object to display menu with options to user.
     private static TextUI textUI = new TextUI();
+    // Create 4 methods:
+    //1. createNewFile
+    //2. populateData
+    //3. loadData
+    //4. saveData
+/**
+ * Method to create new DataFiles  no files ever created or
+ */
+public static void createNewFiles() throws IOException {
+
+    dataFileCreator.createEmptyFile(CUSTOMERS_FILE_PATH);
+    dataFileCreator.createEmptyFile(INSURANCE_CARDS_FILE_PATH);
+    dataFileCreator.createEmptyFile(CLAIMS_FILE_PATH);
+}
 
 
 
+
+
+    /**
+     * Method to populate data to DataFiles if File exists AND file is empty
+     */
+public static void populateData() throws IOException {}
 
     /**
      * Method to load data from file to temporary Collections (ArrayList) that can be shown to user
-     *
-     *
      */
     private static void loadData() throws IOException {
-        customers = dataPopulator.populateCustomersFromFile(new File(CUSTOMERS_FILE_PATH));
-        insuranceCards = dataPopulator.populateInsuranceCardsFromFile(new File(INSURANCE_CARDS_FILE_PATH));
-        claims = dataPopulator.populateClaimsFromFile(new File(CLAIMS_FILE_PATH));
+        customers = loadDataFromFile.loadCustomersFromFile(new File(CUSTOMERS_FILE_PATH));
+        insuranceCards = loadDataFromFile.loadInsuranceCardsFromFile(new File(INSURANCE_CARDS_FILE_PATH));
+        claims = loadDataFromFile.loadClaimsFromFile(new File(CLAIMS_FILE_PATH));
     }
+
     /**
-     *save and update  data from the temporary ArrayList to DataFiles once the user quit the program. So the change
+     *  Method to save and update  data from the temporary ArrayList to DataFiles once the user quit the program.
      */
 
     private static void saveData() throws IOException {
-        dataPopulator.saveCustomersToFile(customers, new File(CUSTOMERS_FILE_PATH));
-        dataPopulator.saveInsuranceCardsToFile(insuranceCards, new File(INSURANCE_CARDS_FILE_PATH));
-        dataPopulator.saveClaimsToFile(claims, new File(CLAIMS_FILE_PATH));
+//        loadDataFromFile.saveCustomersToFile(customers, new File(CUSTOMERS_FILE_PATH));
+//        loadDataFromFile.saveInsuranceCardsToFile(insuranceCards, new File(INSURANCE_CARDS_FILE_PATH));
+//        loadDataFromFile.saveClaimsToFile(claims, new File(CLAIMS_FILE_PATH));
 
     }
+
     /**
      * The entry point of application.
      *
@@ -71,21 +98,15 @@ public class Main {
     public static void main(String[] args) {
         try {
             welcomingScreen.displayWelcomeScreen(); //display the welcoming screen only once at start
-            loadData();
+            createNewFiles(); //create 3 new DataFiles for Customer, InsuranceCard and Claim if these files are not exist
+            //loadData();
             textUI.displayMainMenu(); //display menu of options to users
-            saveData();
-        } catch (IOException e) {
+            //saveData();
+        }
+        catch (IOException e) {
             System.out.println("Error: File not found.");
             e.printStackTrace();
         }
     }
-//In this main class:
-//
-//Defined file paths for storing and loading data.
-//Initialize empty lists for customers, insurance cards, and claims.
-//DataPopulator and TextUI instances to handle data population and user interface.
-//main method: load data from files, display the main menu using the text-based UI, and save data upon program exit.
-//loadData method loads data from files into the respective lists.
-//saveData method saves data from lists back to files.
-// implement the DataPopulator class to populate and save data from/to files according to your file format and implement the TextUI class to display the user interface and handle user interactions.
+
 }

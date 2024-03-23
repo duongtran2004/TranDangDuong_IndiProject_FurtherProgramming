@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class DataSaver {
 
     /**
-     * Save customers objects' information from the temporary ArrayList to the DataFiles.
+     * Save customers objects' information from the temporary ArrayList to the DataFiles, after the user exit the program.
      *
      * @param dependents    the dependents
      * @param policyHolders the policy holders
@@ -31,11 +31,13 @@ public class DataSaver {
      */
     public static void saveCustomersToFile(ArrayList<Dependent> dependents, ArrayList<PolicyHolder> policyHolders, File file) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
-            for (Dependent dependent : dependents) {
-                writer.println(dependent.getcId() + "," + dependent.getFullName() + "," + dependent.getInsuranceCard() + "," + String.join(",", dependent.getListOfClaims()));
+            //save Dependent Objects' info to file
+            for (Dependent dependent : dependents) { //loop through each Dependent object in the ArrayList
+                writer.println(dependent.getcId() + "," + dependent.getFullName() + "," + dependent.getInsuranceCard() + "," + String.join(",", dependent.getListOfClaims())); //format to write each line (append not re-write)
             }
-            for (PolicyHolder policyHolder : policyHolders) {
-                writer.println(policyHolder.getcId() + "," + policyHolder.getFullName() + "," + policyHolder.getInsuranceCard() + "," + String.join(",", policyHolder.getListOfClaims()));
+            //save PolicyHolder Objects' info to file
+            for (PolicyHolder policyHolder : policyHolders) { //loop through each policyHolder object in the ArrayList
+                writer.println(policyHolder.getcId() + "," + policyHolder.getFullName() + "," + policyHolder.getInsuranceCard() + "," + String.join(",", policyHolder.getListOfClaims())); //format to write each line (append not re-write)
             }
         }
     }
@@ -49,8 +51,8 @@ public class DataSaver {
      */
     public static void saveInsuranceCardsToFile(ArrayList<InsuranceCard> insuranceCards, File file) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
-            for (InsuranceCard card : insuranceCards) {
-                writer.println(card.getCardNumber() + "," + card.getCardHolder() + "," + card.getPolicyOwner() + "," + card.getExpirationDate());
+            for (InsuranceCard card : insuranceCards) { //loop through each Dependent object in the ArrayList
+                writer.println(card.getCardNumber() + "," + card.getCardHolder() + "," + card.getPolicyOwner() + "," + card.getExpirationDate()); //format to write 1 line (append not re-write)
             }
         }
     }
@@ -64,12 +66,12 @@ public class DataSaver {
      */
     public static void saveClaimsToFile(ArrayList<Claim> claims, File file) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
-            for (Claim claim : claims) {
-                String documents = String.join(";", claim.getDocuments());
+            for (Claim claim : claims) { //loop through each Dependent object in the ArrayList
+                String documents = String.join(";", claim.getDocuments()); //variable to store documents
                 writer.println(claim.getId() + "," + claim.getClaimDate() + "," + claim.getInsuredPerson() + "," + claim.getCardNumber() +
                         "," + claim.getExamDate() + "," + documents + "," + claim.getClaimAmount() + "," + claim.getStatus() +
                         "," + claim.getReceiverBankingInfo().getBankName() + "-" + claim.getReceiverBankingInfo().getAccountOwner() +
-                        "-" + claim.getReceiverBankingInfo().getAccountNumber());
+                        "-" + claim.getReceiverBankingInfo().getAccountNumber()); //format to write 1 line (append not re-write)
             }
         }
     }

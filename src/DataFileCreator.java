@@ -6,46 +6,38 @@
  * @project IndiProject
  * @since ${11.0.18}
  */
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * The DataFileCreator Class
+ * Create the 3 DataFiles: CustomersData.txt; InsuranceCardsData.txt and ClaimsData.txt if files NOT exist
+ */
 public class DataFileCreator {
-    private static void createEmptyFile(String filePath) {
+    public static void createEmptyFile(String filePath) throws IOException {
+        // Create a File object to store filepath
+        File file = new File(filePath);
+        if (file.exists()) { //condition to check if file exist
+            //files already exist, skipping File Creation
+            System.out.println(filePath + " already exist, skipping File Creation !");
+            return;
+        }
+        //create new file
         try {
-            // Create a File object
-            File file = new File(filePath);
-            //avoid losing data when restarting the program
-            if (file.exists() && file.length() > 0) {
-                System.out.println("File " + filePath + " already contains data. Skipping population.");
-                return;
-            }
+            if (file.createNewFile()) {
+                System.out.println("File created successfully " + filePath);
 
-            // Create a BufferedWriter to write to the file
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-
-            // Close the BufferedWriter
-            writer.close();
+            } else {
+                System.out.println("Failed to create file " + filePath);
+            } //exception handling
         } catch (IOException e) {
-            System.err.println("Error occurred while creating the file: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("An error occurred: " + e.getMessage());
         }
     }
-
-    public static void main(String[] args) {
-        // Specify the file paths for customers, insurance cards, and claims
-        String customersFilePath = "src\\DataFiles\\CustomersData.txt";
-        String insuranceCardsFilePath = "src\\DataFiles\\InsuranceCardsData.txt";
-        String claimsFilePath = "src\\DataFiles\\ClaimsData.txt";
-
-        // Create empty data files
-        createEmptyFile(customersFilePath);
-        createEmptyFile(insuranceCardsFilePath);
-        createEmptyFile(claimsFilePath);
-
-        System.out.println("Data files created successfully.");
-    }
-
-
 }
+
+
+

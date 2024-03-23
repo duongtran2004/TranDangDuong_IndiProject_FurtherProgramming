@@ -1,3 +1,4 @@
+package UserInterface;
 
 import java.util.Scanner;
 
@@ -7,7 +8,7 @@ import java.util.Scanner;
 public class TextUI  {
     /**
      * Attribute:
-     * Create scanner attribute for TextUI class
+     * Create scanner attribute for UserInterface.TextUI class
      */
     private Scanner scanner;
 
@@ -15,7 +16,7 @@ public class TextUI  {
      * Constructor:
      * Instantiates a new Text ui object
      * new Scanner(System.in): Create scanner objects to read keyboard input
-     * this.scanner = ...: assign new scanner objects to TextUI's scanner attributes
+     * this.scanner = ...: assign new scanner objects to UserInterface.TextUI's scanner attributes
      */
     public TextUI() {
         this.scanner = new Scanner(System.in);
