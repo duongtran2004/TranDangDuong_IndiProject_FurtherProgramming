@@ -14,10 +14,18 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since ${11.0.18}
  */
 class DataPopulatorTest {
+    File customerFile = new File(Main.CUSTOMERS_FILE_PATH);
+    File insuranceCardsFile = new File(Main.INSURANCE_CARDS_FILE_PATH);
 
     @Test
     public void populateSampleCustomerData() throws IOException {
-        File file = new File("src/DataFiles/CustomersData.txt");
-        DataPopulator.populateSampleCustomerData(new File(file.getAbsolutePath()));
+
+
+        DataPopulator.populateSampleCustomerData(customerFile);
+    }
+    @Test
+    public void populateSampleInsuranceCardsData() throws IOException{
+
+        DataPopulator.populateSampleInsuranceCardData(customerFile,insuranceCardsFile);
     }
 }

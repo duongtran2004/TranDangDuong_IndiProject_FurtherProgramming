@@ -18,6 +18,9 @@ public class DataFileLoader {
      * @return the array list
      * @throws IOException the io exception
      */
+
+    //cannot exist general customers
+    //need 2 method: load dependents from file AND load policy holde from file  (all read the same customer file
     public static ArrayList<Customer> loadCustomersFromFile(File file) throws IOException {
         ArrayList<Customer> customers = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
