@@ -15,32 +15,31 @@ import java.util.ArrayList;
 
 public class DataPopulator {
     // Method to populate sample customer data into a file
-    public void populateSampleCustomerData(File file) throws IOException {
+    public static void populateSampleCustomerData(File file) throws IOException {
         // Check if the file exists and is empty
         if (file.exists() && file.length() == 0) {
             try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
                 // Write sample customer data to the file
+                //make listofClaims ArrayList outside the loop so both dependents and policy holders can use it
+                ArrayList<String> listOfClaims = new ArrayList<>();
                 // Populate sample 15 Dependents customer data
                 for (int i = 1; i <= 15; i++) {
-                    String cId = "C" + i;
+                    // id (with the format c-numbers; 7 numbers) => "c-" + 6 formatted numbers + i
+                    String cId = "c-" + "100000" + i;
                     String fullName = "Customer " + i;
-                    String insuranceCard = "IC" + i;//
-                    ArrayList<String> listOfClaims = new ArrayList<>();
-
-                    // Add sample claims for each customer if needed
-                    listOfClaims.add("Claim " + i + "-1");
-                    listOfClaims.add("Claim " + i + "-2");
+                    //insurance card:  card number (10 digits) => 9 formatted number + i
+                    String insuranceCard = "2000000000" + i;
                     // Write customer data to the file
                     bufferedWriter.write(cId + "," + fullName + "," + insuranceCard + "," + listOfClaims.toString() + "\n");
 
                 }
                 //Populate sample 3 PolicyHolder Customer to hold 15 dependents, each hold 5
                 // Write customer data to the file
-                bufferedWriter.write(100 + "," + "RMIT Vietnam," + insuranceCard + "," + listOfClaims.toString() + "\n");
+                bufferedWriter.write("c-1001000" + "," + "RMIT Vietnam," + "20000001000" + "," + listOfClaims.toString() + "\n");
                 // Write customer data to the file
-                bufferedWriter.write(200 + "," + fullName + "," + insuranceCard + "," + listOfClaims.toString() + "\n");
+                bufferedWriter.write("c-1002000" + "," + "FPT" + "," + "20000002000" + "," + listOfClaims.toString() + "\n");
                 // Write customer data to the file
-                bufferedWriter.write(300 + "," + fullName + "," + insuranceCard + "," + listOfClaims.toString() + "\n");
+                bufferedWriter.write("c-1003000" + "," + "BUV" + "," + "20000003000" + "," + listOfClaims.toString() + "\n");
                 System.out.println("Sample " + file.getName() + " data populated successfully.");
             }
         } else {
