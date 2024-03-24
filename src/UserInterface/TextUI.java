@@ -5,12 +5,12 @@ import java.util.Scanner;
 /**
  * The Class for Text ui.
  */
-public class TextUI  {
+public  class TextUI  {
     /**
      * Attribute:
      * Create scanner attribute for UserInterface.TextUI class
      */
-    private Scanner scanner;
+    private static Scanner scanner;
 
     /**
      * Constructor:
@@ -26,7 +26,7 @@ public class TextUI  {
     /**
      * Display main menu with choices
      */
-    public void displayMainMenu() {
+    public static void displayMainMenu() {
         System.out.println("Welcome to the Insurance Claims Management System!");
         System.out.println("1. Manage Customers");
         System.out.println("2. Manage Insurance Cards");
@@ -42,7 +42,7 @@ public class TextUI  {
      *
      * @param choice the choice
      */
-    public void handleMainMenuInput(int choice) {
+    public static void handleMainMenuInput(int choice) {
         switch (choice) {
             case 1:
                 displayCustomerMenu();
@@ -66,7 +66,7 @@ public class TextUI  {
     /**
      * Display customer menu.
      */
-    public void displayCustomerMenu() {
+    public static void displayCustomerMenu() {
         // Implement logic for managing customers (e.g., add, update, delete)
         System.out.println("Customer Menu");
         // Display appropriate options and handle user input
@@ -75,7 +75,7 @@ public class TextUI  {
     /**
      * Display insurance card menu.
      */
-    public void displayInsuranceCardMenu() {
+    public static void displayInsuranceCardMenu() {
         // Implement logic for managing insurance cards
         System.out.println("Insurance Card Menu");
         // Display appropriate options and handle user input
@@ -84,7 +84,7 @@ public class TextUI  {
     /**
      * Display claim menu.
      */
-    public void displayClaimMenu() {
+    public static void displayClaimMenu() {
         // Implement logic for managing claims
         System.out.println("Claim Menu");
         // Display appropriate options and handle user input

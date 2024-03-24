@@ -18,7 +18,7 @@ public class DataFileLoader {
      * @return the array list
      * @throws IOException the io exception
      */
-    public ArrayList<Customer> loadCustomersFromFile(File file) throws IOException {
+    public static ArrayList<Customer> loadCustomersFromFile(File file) throws IOException {
         ArrayList<Customer> customers = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -38,7 +38,7 @@ public class DataFileLoader {
      * @return the array list
      * @throws IOException the io exception
      */
-    public ArrayList<InsuranceCard> loadInsuranceCardsFromFile(File file) throws IOException {
+    public static ArrayList<InsuranceCard> loadInsuranceCardsFromFile(File file) throws IOException {
         ArrayList<InsuranceCard> insuranceCards = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -57,7 +57,7 @@ public class DataFileLoader {
      * @return the array list
      * @throws IOException the io exception
      */
-    public ArrayList<Claim> loadClaimsFromFile(File file) throws IOException {
+    public static ArrayList<Claim> loadClaimsFromFile(File file) throws IOException {
         ArrayList<Claim> claims = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;

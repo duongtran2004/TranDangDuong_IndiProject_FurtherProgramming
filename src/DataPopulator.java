@@ -48,12 +48,12 @@ public class DataPopulator {
     }
 
     // Method to populate sample insurance card data into a file
-    public void populateSampleInsuranceCardData(File file) throws IOException {
+    public static void populateSampleInsuranceCardData(File file) throws IOException {
         // Similar implementation as above for insurance card data
     }
 
     // Method to populate sample claim data into a file
-    public void populateSampleClaimData(File file) throws IOException {
+    public static void populateSampleClaimData(File file) throws IOException {
         // Similar implementation as above for claim data
     }
 }

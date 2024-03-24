@@ -21,7 +21,8 @@ class DataFileCreatorTest {
 
     @Test
     public void testCreateEmptyFile() throws IOException {
-        File file = new File("src/DataFiles/CustomersData.txt");
-      DataFileCreator.createEmptyFile(file.getAbsolutePath());
+      DataFileCreator.createEmptyFile(Main.CUSTOMERS_FILE_PATH);
+      DataFileCreator.createEmptyFile((Main.INSURANCE_CARDS_FILE_PATH));
+      DataFileCreator.createEmptyFile(Main.CLAIMS_FILE_PATH);
     }
 }
