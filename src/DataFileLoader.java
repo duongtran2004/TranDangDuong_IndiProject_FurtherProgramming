@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @project IndiProject
  * @since $ {11.0.18}
  */
-public class LoadDataFromFile {
+public class DataFileLoader {
     /**
      * Populate customers from DataFiles to temporary ArrayList to show to user when the program start.
      *
@@ -32,7 +32,7 @@ public class LoadDataFromFile {
     }
 
     /**
-     * Populate insurance cards from file array list.
+     * Populate insurance cards from file to array list.
      *
      * @param file the file
      * @return the array list

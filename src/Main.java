@@ -35,9 +35,9 @@ public class Main {
     //Create a DataPopulator object to populate DataFiles with some sample data with specific format if DataFile exist AND DataFile is empty.
     private static DataPopulator dataPopulator = new DataPopulator();
 
-    //Create a LoadDataFromFile object to populate (load) data from the DataFiles to the temporary ArrayLists.
+    //Create a DataFileLoader object to populate (load) data from the DataFiles to the temporary ArrayLists.
 
-    private static LoadDataFromFile loadDataFromFile = new LoadDataFromFile();
+    private static DataFileLoader dataFileLoader = new DataFileLoader();
     //Create a DataSaver object to save data from temporary ArrayLists to the DataFiles when user quit the program.
     private static  DataSaver dataSaver = new DataSaver();
 
@@ -54,29 +54,25 @@ public class Main {
 /**
  * Method to create new DataFiles  no files ever created or
  */
-public static void createNewFiles() throws IOException {
+public static void createNewEmptyFiles() throws IOException {
 
     dataFileCreator.createEmptyFile(CUSTOMERS_FILE_PATH);
     dataFileCreator.createEmptyFile(INSURANCE_CARDS_FILE_PATH);
     dataFileCreator.createEmptyFile(CLAIMS_FILE_PATH);
 }
 
-
-
-
-
     /**
      * Method to populate data to DataFiles if File exists AND file is empty
      */
-public static void populateData() throws IOException {}
+public static void populateDataToEmptyFiles() throws IOException {}
 
     /**
      * Method to load data from file to temporary Collections (ArrayList) that can be shown to user
      */
     private static void loadData() throws IOException {
-        customers = loadDataFromFile.loadCustomersFromFile(new File(CUSTOMERS_FILE_PATH));
-        insuranceCards = loadDataFromFile.loadInsuranceCardsFromFile(new File(INSURANCE_CARDS_FILE_PATH));
-        claims = loadDataFromFile.loadClaimsFromFile(new File(CLAIMS_FILE_PATH));
+        customers = dataFileLoader.loadCustomersFromFile(new File(CUSTOMERS_FILE_PATH));
+        insuranceCards = dataFileLoader.loadInsuranceCardsFromFile(new File(INSURANCE_CARDS_FILE_PATH));
+        claims = dataFileLoader.loadClaimsFromFile(new File(CLAIMS_FILE_PATH));
     }
 
     /**
@@ -84,9 +80,9 @@ public static void populateData() throws IOException {}
      */
 
     private static void saveData() throws IOException {
-//        loadDataFromFile.saveCustomersToFile(customers, new File(CUSTOMERS_FILE_PATH));
-//        loadDataFromFile.saveInsuranceCardsToFile(insuranceCards, new File(INSURANCE_CARDS_FILE_PATH));
-//        loadDataFromFile.saveClaimsToFile(claims, new File(CLAIMS_FILE_PATH));
+//        dataFileLoader.saveCustomersToFile(customers, new File(CUSTOMERS_FILE_PATH));
+//        dataFileLoader.saveInsuranceCardsToFile(insuranceCards, new File(INSURANCE_CARDS_FILE_PATH));
+//        dataFileLoader.saveClaimsToFile(claims, new File(CLAIMS_FILE_PATH));
 
     }
 
@@ -98,7 +94,7 @@ public static void populateData() throws IOException {}
     public static void main(String[] args) {
         try {
             welcomingScreen.displayWelcomeScreen(); //display the welcoming screen only once at start
-            createNewFiles(); //create 3 new DataFiles for Customer, InsuranceCard and Claim if these files are not exist
+            createNewEmptyFiles(); //create 3 new DataFiles for Customer, InsuranceCard and Claim if these files are not exist
             //loadData();
             textUI.displayMainMenu(); //display menu of options to users
             //saveData();
