@@ -17,6 +17,10 @@ import java.util.ArrayList;
  * The DataSaver Class
  */
 public class DataSaver {
+    //Step 1: Write from any ArrayList to files, each objects is 1 line
+    //Methods to write from ArrayList to files that can be re-used
+
+
 
     /**
      * Save customers objects' information from the temporary ArrayList to the DataFiles, after the user exit the program.
@@ -68,10 +72,10 @@ public class DataSaver {
         try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
             for (Claim claim : claims) { //loop through each Dependent object in the ArrayList
                 String documents = String.join(";", claim.getDocuments()); //variable to store documents
-                writer.println(claim.getId() + "," + claim.getClaimDate() + "," + claim.getInsuredPerson() + "," + claim.getCardNumber() +
+                writer.println(claim.getClaimID() + "," + claim.getClaimDate() + "," + claim.getInsuredPerson() + "," + claim.getCardNumber() +
                         "," + claim.getExamDate() + "," + documents + "," + claim.getClaimAmount() + "," + claim.getStatus() +
-                        "," + claim.getReceiverBankingInfo().getBankName() + "-" + claim.getReceiverBankingInfo().getAccountOwner() +
-                        "-" + claim.getReceiverBankingInfo().getAccountNumber()); //format to write 1 line (append not re-write)
+                        "," + claim.getBankName() + "-" + claim.getAccountOwner() +
+                        "-" + claim.getAccountNumber()); //format to write 1 line (append not re-write)
             }
         }
     }

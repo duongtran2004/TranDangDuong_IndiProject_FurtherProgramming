@@ -10,19 +10,15 @@
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class DataPopulator {
-    // add listOfDependents that store Cid as String for policy Owner
-    private static ArrayList<String> RMITListOfDependents = new ArrayList<>();
-    private static ArrayList<String> FPTListOfDependents = new ArrayList<>();
-    private static ArrayList<String> BUVListOfDependents = new ArrayList<>();
-    //declare listofClaims ArrayList, cId and insuranceCard variables outside the loop so all methods can use it
-    private static ArrayList<String> listOfClaims = new ArrayList<>();
-    private static String cId = "";
-    private static String insuranceCard = "";
+
+    //declare HashMap to store mapping between insurance card number and ClaimLists
+    //key: insuranceCard/cardNumber
+    //value: claimId
+    private static Map<String, ArrayList<String>> customerClaimsMap = new HashMap<>();
+
 
     //variable to format date
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -33,8 +29,15 @@ public class DataPopulator {
         // Check if the file exists and is empty
         if (customersFile.exists() && customersFile.length() == 0) {
             try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(customersFile))) {
-                // Write sample customer data to the file
 
+                // add listOfDependents that store Cid as String for policy Owner
+                ArrayList<String> RMITListOfDependents = new ArrayList<>();
+                ArrayList<String> FPTListOfDependents = new ArrayList<>();
+                ArrayList<String> BUVListOfDependents = new ArrayList<>();
+
+                ArrayList<String> listOfClaims = new ArrayList<>();
+                String cId = "";
+                String insuranceCard = "";
 
                 // Populate sample 15 Dependents customer data
                 for (int i = 1; i <= 15; i++) {
@@ -84,7 +87,7 @@ public class DataPopulator {
     // Method to populate sample insurance card data into a file
     //Copy data from customers file to insurance card file
     public static void populateSampleInsuranceCardData(File customersFile, File insuranceCardFile) throws IOException {
-        if (insuranceCardFile.exists()  && insuranceCardFile.length() == 0) {
+        if (insuranceCardFile.exists() && insuranceCardFile.length() == 0) {
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(customersFile));
                  BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(insuranceCardFile))) {
                 String line;
@@ -136,10 +139,15 @@ public class DataPopulator {
         }
     }
 
+    // Method to initialize customerClaimsMap by reading customer data from customersFile
+
 
     // Method to populate sample claim data into a file
     public static void populateSampleClaimsData(File customersFile, File claimsFile) throws IOException {
         if (claimsFile.exists() && claimsFile.length() == 0) {
+            // Initialize customerClaimsMap by reading customer data from customersFile.
+            //Do this before the loop
+
 
             //each dependents make 1 claim. Only make claims for dependents
             //read through customersFile
@@ -154,6 +162,7 @@ public class DataPopulator {
                     //String variable to hold 2 defaults documents
                     String hospitalBill = "";
                     String patientRecord = "";
+                    String insuranceCard = "";
 
                     //variable to hold claimAmount
                     double claimAmount = 0;
@@ -166,15 +175,22 @@ public class DataPopulator {
 
                     //1 line = 1 customer object's data
                     //store each attributes of customer's data as 1 element in the customerData Array, each split by ","
-                    String[] customerData = line.split(",");
-                    insuranceCard = customerData[2];
+                    String[] customerDataLine = line.split(",");
+                    insuranceCard = customerDataLine[2];
                     //skip the current line if a customer is a policy holder
-                    if (Integer.parseInt(insuranceCard) >= 2000001000){
+                    if (Integer.parseInt(insuranceCard) >= 2000001000) {
                         continue;
                     }
                     //id (with the format f-numbers; 10 numbers)
                     String claimId = "f-" + insuranceCard;
-                    String insuredPerson = customerData[1];
+                    String insuredPerson = customerDataLine[1];
+                    //store claimId into CustomersData.txt's claimsList ArrayList
+
+                    // Iterate over the populated customer data
+                    for (Map.Entry<String, ArrayList<String>> entry : customerClaimsMap.entrySet()) {
+                        String cId = entry.getKey();
+                        ArrayList<String> customerData = (ArrayList<String>) entry.getValue();
+                    }
 
 
                     //ClaimDate: The day when customers fill in claim form
@@ -233,16 +249,30 @@ public class DataPopulator {
                     //add claimID to Customer claimList (write to customer file) (how to do this?)
 
 
-                    // Write claims data to the file
-                    bufferedWriter.write(claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + listOfDocuments + ","  + claimAmount + ","  + status + ","  + bankName + ","  + accountOwner + ","  + accountNumber  + "\n");
+                    // Add ClaimID to customer's claimList in CustomerData.txt
+
+                    // Write claims data to the ClaimData.txt file
+                    bufferedWriter.write(claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + listOfDocuments + "," + claimAmount + "," + status + "," + bankName + "," + accountOwner + "," + accountNumber + "\n");
                 }
                 System.out.println("Sample " + claimsFile.getName() + " data populated successfully.");
             }
-        }
-        else {
+        } else {
             System.out.println("File " + claimsFile.getName() + " is not empty. Skipping data population.");
-     }
+        }
     }
+
+// Now update the CustomerData.txt by adding claimId into claimList
+    //Method to read through ClaimsData
+    //for each line, extract
+    //Methods to read through CustomerData
+
+    //Write back the updated customerClaimMap to CustomersData.txt's claimLists
+
+    //Here's a general outline of how you can approach this:
+    //
+    //Read the existing customer data from CustomerData.txt.
+    //For each customer entry, update the claim list with the claim IDs from customerClaimsMap.
+    //Rewrite the entire CustomerData.txt file with the updated customer data, including the updated claim lists.
 }
 
 

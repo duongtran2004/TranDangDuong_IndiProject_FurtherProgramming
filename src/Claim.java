@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,24 +20,13 @@ public class Claim {
     private ArrayList<String> documents; // Using ArrayList
     private double claimAmount;
     private String status;
-    private BankingInfo receiverBankingInfo;
+    private String bankName;
+    private String accountOwner;
+    private String accountNumber;
     //constructor
 
-    /**
-     * Instantiates a new Claim.
-     *
-     * @param claimID              the Claim id. Specifically name it claimID to distinguish from Customer's cID.
-     * @param claimDate           the claim date
-     * @param insuredPerson       the insured person
-     * @param cardNumber          the card number
-     * @param examDate            the exam date
-     * @param documents           the documents
-     * @param claimAmount         the claim amount
-     * @param status              the status
-     * @param receiverBankingInfo the receiver banking info
-     */
-    public Claim(String claimID, Date claimDate, String insuredPerson, String cardNumber, Date examDate,
-                 ArrayList<String> documents, double claimAmount, String status, BankingInfo receiverBankingInfo) {
+
+    public Claim(String claimID, Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> documents, double claimAmount, String status, String bankName, String accountOwner, String accountNumber) {
         this.claimID = claimID;
         this.claimDate = claimDate;
         this.insuredPerson = insuredPerson;
@@ -45,170 +35,124 @@ public class Claim {
         this.documents = documents;
         this.claimAmount = claimAmount;
         this.status = status;
-        this.receiverBankingInfo = receiverBankingInfo; // Assigning receiverBankingInfo
+        this.bankName = bankName;
+        this.accountOwner = accountOwner;
+        this.accountNumber = accountNumber;
     }
+    //getters and setters
 
-    //getter and setters
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public String getId() {
+    public String getClaimID() {
         return claimID;
     }
 
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(String id) {
-        this.claimID = id;
+    public void setClaimID(String claimID) {
+        this.claimID = claimID;
     }
 
-    /**
-     * Gets claim date.
-     *
-     * @return the claim date
-     */
     public Date getClaimDate() {
         return claimDate;
     }
 
-    /**
-     * Sets claim date.
-     *
-     * @param claimDate the claim date
-     */
     public void setClaimDate(Date claimDate) {
         this.claimDate = claimDate;
     }
 
-    /**
-     * Gets insured person.
-     *
-     * @return the insured person
-     */
     public String getInsuredPerson() {
         return insuredPerson;
     }
 
-    /**
-     * Sets insured person.
-     *
-     * @param insuredPerson the insured person
-     */
     public void setInsuredPerson(String insuredPerson) {
         this.insuredPerson = insuredPerson;
     }
 
-    /**
-     * Gets card number.
-     *
-     * @return the card number
-     */
     public String getCardNumber() {
         return cardNumber;
     }
 
-    /**
-     * Sets card number.
-     *
-     * @param cardNumber the card number
-     */
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
-    /**
-     * Gets exam date.
-     *
-     * @return the exam date
-     */
     public Date getExamDate() {
         return examDate;
     }
 
-    /**
-     * Sets exam date.
-     *
-     * @param examDate the exam date
-     */
     public void setExamDate(Date examDate) {
         this.examDate = examDate;
     }
 
-    /**
-     * Gets documents.
-     *
-     * @return the documents
-     */
     public ArrayList<String> getDocuments() {
         return documents;
     }
 
-    /**
-     * Sets documents.
-     *
-     * @param documents the documents
-     */
     public void setDocuments(ArrayList<String> documents) {
         this.documents = documents;
     }
 
-    /**
-     * Gets claim amount.
-     *
-     * @return the claim amount
-     */
     public double getClaimAmount() {
         return claimAmount;
     }
 
-    /**
-     * Sets claim amount.
-     *
-     * @param claimAmount the claim amount
-     */
     public void setClaimAmount(double claimAmount) {
         this.claimAmount = claimAmount;
     }
 
-    /**
-     * Gets status.
-     *
-     * @return the status
-     */
     public String getStatus() {
         return status;
     }
 
-    /**
-     * Sets status.
-     *
-     * @param status the status
-     */
     public void setStatus(String status) {
         this.status = status;
     }
 
-    /**
-     * Gets receiver banking info.
-     *
-     * @return the receiver banking info
-     */
-    public BankingInfo getReceiverBankingInfo() {
-        return receiverBankingInfo;
+    public String getBankName() {
+        return bankName;
     }
 
-    /**
-     * Sets receiver banking info.
-     *
-     * @param receiverBankingInfo the receiver banking info
-     */
-    public void setReceiverBankingInfo(BankingInfo receiverBankingInfo) {
-        this.receiverBankingInfo = receiverBankingInfo;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getAccountOwner() {
+        return accountOwner;
+    }
+
+    public void setAccountOwner(String accountOwner) {
+        this.accountOwner = accountOwner;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    //toString
+
+
+    @Override
+    public String toString() {
+        return "Claim{" +
+                "claimID='" + claimID + '\'' +
+                ", claimDate=" + claimDate +
+                ", insuredPerson='" + insuredPerson + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", examDate=" + examDate +
+                ", documents=" + documents +
+                ", claimAmount=" + claimAmount +
+                ", status='" + status + '\'' +
+                ", bankName='" + bankName + '\'' +
+                ", accountOwner='" + accountOwner + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
+                '}';
+    }
+
+    public String getFormattedClaimDate() {
+        // Create a SimpleDateFormat object with desired date format
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        // Format the claimDate
+        return sdf.format(claimDate);
     }
 }
