@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 public class PolicyHolder  extends  Customer{
     private ArrayList<String> listOfDependentsByID;
+    //constructor
 
     /**
      * Instantiates a new Policy holder.
@@ -25,6 +26,7 @@ public class PolicyHolder  extends  Customer{
         super(cId, fullName, insuranceCard, listOfClaims);
         this.listOfDependentsByID = listOfDependentsByID;
     }
+    //getters and setters
 
     public ArrayList<String> getListOfDependentsByID() {
         return listOfDependentsByID;

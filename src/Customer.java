@@ -92,7 +92,7 @@ public abstract class Customer {
      *
      * @return the list of claims
      */
-    public ArrayList<String> getListOfClaims() {
+    public ArrayList<String> getListOfClaimsById() {
         return listOfClaimsById;
     }
 
@@ -101,7 +101,7 @@ public abstract class Customer {
      *
      * @param listOfClaims the list of claims
      */
-    public void setListOfClaims(ArrayList<String> listOfClaims) {
+    public void setListOfClaimsById(ArrayList<String> listOfClaims) {
         this.listOfClaimsById = listOfClaims;
     }
     //toString method

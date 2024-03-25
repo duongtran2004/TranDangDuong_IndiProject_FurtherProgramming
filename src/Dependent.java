@@ -21,4 +21,5 @@ public class Dependent  extends Customer{
     public Dependent(String cId, String fullName, String insuranceCard, ArrayList<String> listOfClaims) {
         super(cId, fullName, insuranceCard, listOfClaims);
     }
+
 }

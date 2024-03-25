@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
  * @since ${11.0.18}
  */
 class DataFileLoaderTest {
+    //create files objects with correct file path
     File claimsFile = new File(Main.CLAIMS_FILE_PATH);
     File insuranceCardsFile = new File(Main.INSURANCE_CARDS_FILE_PATH);
     File customersFile = new File(Main.CUSTOMERS_FILE_PATH);

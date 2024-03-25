@@ -17,7 +17,7 @@ public class Claim {
     private String insuredPerson;
     private String cardNumber;
     private Date examDate;
-    private ArrayList<String> documents; // Using ArrayList
+    private ArrayList<String> listOfDocuments; // Using ArrayList
     private double claimAmount;
     private String status;
     private String bankName;
@@ -26,13 +26,13 @@ public class Claim {
     //constructor
 
 
-    public Claim(String claimID, Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> documents, double claimAmount, String status, String bankName, String accountOwner, String accountNumber) {
+    public Claim(String claimID, Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber) {
         this.claimID = claimID;
         this.claimDate = claimDate;
         this.insuredPerson = insuredPerson;
         this.cardNumber = cardNumber;
         this.examDate = examDate;
-        this.documents = documents;
+        this.listOfDocuments = listOfDocuments;
         this.claimAmount = claimAmount;
         this.status = status;
         this.bankName = bankName;
@@ -40,6 +40,7 @@ public class Claim {
         this.accountNumber = accountNumber;
     }
     //getters and setters
+
 
     public String getClaimID() {
         return claimID;
@@ -81,12 +82,12 @@ public class Claim {
         this.examDate = examDate;
     }
 
-    public ArrayList<String> getDocuments() {
-        return documents;
+    public ArrayList<String> getListOfDocuments() {
+        return listOfDocuments;
     }
 
-    public void setDocuments(ArrayList<String> documents) {
-        this.documents = documents;
+    public void setListOfDocuments(ArrayList<String> listOfDocuments) {
+        this.listOfDocuments = listOfDocuments;
     }
 
     public double getClaimAmount() {
@@ -129,7 +130,7 @@ public class Claim {
         this.accountNumber = accountNumber;
     }
 
-    //toString
+    //toString method
 
 
     @Override
@@ -140,7 +141,7 @@ public class Claim {
                 ", insuredPerson='" + insuredPerson + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
                 ", examDate=" + examDate +
-                ", documents=" + documents +
+                ", listOfDocuments=" + listOfDocuments +
                 ", claimAmount=" + claimAmount +
                 ", status='" + status + '\'' +
                 ", bankName='" + bankName + '\'' +

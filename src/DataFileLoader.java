@@ -111,7 +111,7 @@ public class DataFileLoader {
 
                     String cardHolder = parts[1];
                     String policyHolder = parts[2];
-                    Date expirationDate = dateFormat.parse(parts[3]);
+                    String expirationDate = String.valueOf(dateFormat.parse(parts[3]));
 
                     // Create a InsuranceCard object using parsed data
                     InsuranceCard insuranceCard = new InsuranceCard(cardNumber, cardHolder, policyHolder, expirationDate);
