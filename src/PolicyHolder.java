@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @since $ {11.0.18}
  */
 public class PolicyHolder  extends  Customer{
-    private ArrayList<Dependent> listOfDependents;
+    private ArrayList<String> listOfDependentsByID;
 
     /**
      * Instantiates a new Policy holder.
@@ -19,10 +19,18 @@ public class PolicyHolder  extends  Customer{
      * @param fullName         the customer's full name
      * @param insuranceCard    the insurance card
      * @param listOfClaims     the list of claims
-     * @param listOfDependents the list of dependents
+     * @param listOfDependentsByID the list of dependents
      */
-    public PolicyHolder(String cId, String fullName, String insuranceCard, ArrayList<String> listOfClaims, ArrayList<Dependent> listOfDependents) {
+    public PolicyHolder(String cId, String fullName, String insuranceCard, ArrayList<String> listOfClaims, ArrayList<String> listOfDependentsByID) {
         super(cId, fullName, insuranceCard, listOfClaims);
-        this.listOfDependents = listOfDependents;
+        this.listOfDependentsByID = listOfDependentsByID;
+    }
+
+    public ArrayList<String> getListOfDependentsByID() {
+        return listOfDependentsByID;
+    }
+
+    public void setListOfDependentsByID(ArrayList<String> listOfDependentsByID) {
+        this.listOfDependentsByID = listOfDependentsByID;
     }
 }

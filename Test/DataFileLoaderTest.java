@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 class DataFileLoaderTest {
     File claimsFile = new File(Main.CLAIMS_FILE_PATH);
     File insuranceCardsFile = new File(Main.INSURANCE_CARDS_FILE_PATH);
+    File customersFile = new File(Main.CUSTOMERS_FILE_PATH);
     //@Test
     void testLoadClaimsFromFile() throws IOException {
 
@@ -24,25 +26,36 @@ class DataFileLoaderTest {
         // Call the method to be tested
         ArrayList<Claim> result = DataFileLoader.loadClaimsFromFile(claimsFile);
 
-        // Assert that the result is as expected
-        // Example assertion: check if the result list is not null
-        //assertEquals(null, result); // Change this assertion according to your expected result
+
         System.out.println(result.toString());
     }
 
-    @Test
+    //@Test
     void testLoadInsuranceCardsFromFile() throws IOException {
 
 
         // Call the method to be tested
         ArrayList<InsuranceCard> result = DataFileLoader.loadInsuranceCardsFromFile(insuranceCardsFile);
 
-        // Assert that the result is as expected
-        // Example assertion: check if the result list is not null
-        //assertEquals(null, result); // Change this assertion according to your expected result
+
         System.out.println(result.toString());
     }
+    //@Test
 
+    void testLoadPolicyHoldersFromFile() throws IOException {
+        // Call the method to be tested
+        ArrayList<PolicyHolder> result = DataFileLoader.loadPolicyHoldersFromFile(customersFile);
+
+        System.out.println(result.toString());
+    }
+    @Test
+
+    void testLoadDependentsFromFile() throws IOException {
+        // Call the method to be tested
+        ArrayList<Dependent> result = DataFileLoader.loadDependentsFromFile(customersFile);
+
+        System.out.println(result.toString());
+    }
 
 
 

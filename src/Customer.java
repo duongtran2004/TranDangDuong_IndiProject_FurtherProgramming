@@ -13,7 +13,7 @@ public abstract class Customer {
     private String cId;
     private String fullName;
     private String insuranceCard;
-    private ArrayList<String> listOfClaims;
+    private ArrayList<String> listOfClaimsById;
     //constructor
 
     /**
@@ -28,7 +28,7 @@ public abstract class Customer {
         this.cId = cId;
         this.fullName = fullName;
         this.insuranceCard = insuranceCard;
-        this.listOfClaims = listOfClaims;
+        this.listOfClaimsById = listOfClaims;
     }
     //getters and setters
 
@@ -93,7 +93,7 @@ public abstract class Customer {
      * @return the list of claims
      */
     public ArrayList<String> getListOfClaims() {
-        return listOfClaims;
+        return listOfClaimsById;
     }
 
     /**
@@ -102,6 +102,19 @@ public abstract class Customer {
      * @param listOfClaims the list of claims
      */
     public void setListOfClaims(ArrayList<String> listOfClaims) {
-        this.listOfClaims = listOfClaims;
+        this.listOfClaimsById = listOfClaims;
+    }
+    //toString method
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "cId='" + cId + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", insuranceCard='" + insuranceCard + '\'' +
+                ", listOfClaimsById=" + listOfClaimsById +
+                '}';
     }
 }
+
+

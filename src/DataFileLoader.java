@@ -22,13 +22,13 @@ public class DataFileLoader {
 
     //Canot have a common fileReader method as the logic for data generation is different from each file
 
-    /**
-     * Populate customers from DataFiles to temporary ArrayList to show to user when the program start.
-     *
-     * @param file the file
-     * @return the array list
-     * @throws IOException the io exception
-     */
+//    /**
+//     * Populate customers from DataFiles to temporary ArrayList to show to user when the program start.
+//     *
+//     * @param file the file
+//     * @return the array list
+//     * @throws IOException the io exception
+//     */
 
 
     //cannot exist general customers
@@ -45,6 +45,67 @@ public class DataFileLoader {
 //        }
 //        return customers;
 //    }
+    public static ArrayList<Dependent> loadDependentsFromFile(File customerFile) throws IOException {
+        ArrayList<Dependent> dependents = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(customerFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(","); // Split the line by comma
+
+                // Assuming each part corresponds to the data in the file
+                if (parts.length <= 4) { // Assuming there are 4 parts for each line of PolicyHolder
+                    String cId = parts[0];
+
+                    String fullName = parts[1];
+                    String insuranceCard = parts[2];
+                    //this ArrayList store the Strings of ClaimID, not the Claim Objects itself
+                    ArrayList<String> listOfClaims = new ArrayList<>(Arrays.asList(parts[3]));
+
+
+                    // Create a Dependent object using parsed data
+                    Dependent dependent = new Dependent(cId, fullName, insuranceCard, listOfClaims);
+                    // Add the PolicyHolder objects to the policyHolders ArrayList
+                    dependents.add(dependent);
+                }
+            }
+        }
+
+
+        return dependents;
+    }
+
+    public static ArrayList<PolicyHolder> loadPolicyHoldersFromFile(File customerFile) throws IOException {
+        ArrayList<PolicyHolder> policyHolders = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(customerFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(","); // Split the line by comma
+
+                // Assuming each part corresponds to the data in the file
+                if (parts.length >= 5) { // Assuming there are 5 parts for each line of PolicyHolder
+                    String cId = parts[0];
+
+                    String fullName = parts[1];
+                    String insuranceCard = parts[2];
+                    //this ArrayList store the Strings of ClaimID, not the Claim Objects itself
+                    ArrayList<String> listOfClaims = new ArrayList<>(Arrays.asList(parts[3]));
+                    //listOfDependents: store dependents cID
+                    ArrayList<String> listOfDependents = new ArrayList<>(Arrays.asList(parts[4]));
+
+                    // Create a PolicyHolder object using parsed data
+                    PolicyHolder policyHolder = new PolicyHolder(cId, fullName, insuranceCard, listOfClaims, listOfDependents);
+                    // Add the PolicyHolder objects to the policyHolders ArrayList
+                    policyHolders.add(policyHolder);
+                }
+            }
+        }
+
+
+        return policyHolders;
+    }
+
 
     /**
      * Populate insurance cards from file to array list.
