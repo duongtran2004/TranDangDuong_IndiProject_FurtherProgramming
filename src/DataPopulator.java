@@ -18,8 +18,14 @@ public class DataPopulator {
     private static ArrayList<String> RMITListOfDependents = new ArrayList<>();
     private static ArrayList<String> FPTListOfDependents = new ArrayList<>();
     private static ArrayList<String> BUVListOfDependents = new ArrayList<>();
+    //declare listofClaims ArrayList, cId and insuranceCard variables outside the loop so all methods can use it
+    private static ArrayList<String> listOfClaims = new ArrayList<>();
+    private static String cId = "";
+    private static String insuranceCard = "";
 
-    //add
+    //variable to format date
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
 
     // Method to populate sample customer data into a file
     public static void populateSampleCustomerData(File customersFile) throws IOException {
@@ -27,10 +33,6 @@ public class DataPopulator {
         if (customersFile.exists() && customersFile.length() == 0) {
             try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(customersFile))) {
                 // Write sample customer data to the file
-                //declare listofClaims ArrayList, cId and insuranceCard variables outside the loop so both dependents and policy holders can use it
-                ArrayList<String> listOfClaims = new ArrayList<>();
-                String cId = "";
-                String insuranceCard = "";
 
 
                 // Populate sample 15 Dependents customer data
@@ -52,7 +54,9 @@ public class DataPopulator {
 
                     String fullName = "Customer " + i;
                     //insurance card:  card number (10 digits)
+                    //variable to hold padded10dDigitsNumbers
                     String padded10digitsNumber = String.format("%010d", i);
+
                     insuranceCard = padded10digitsNumber;
                     // Write customer data to the file
                     bufferedWriter.write(cId + "," + fullName + "," + insuranceCard + "," + listOfClaims.toString() + "\n");
@@ -114,7 +118,7 @@ public class DataPopulator {
                     // Generate expiration date: Today/CurrentDate + 10 days + last 2 digits of Cid
                     LocalDate currentDate = LocalDate.now();
                     LocalDate expirationLocalDate = currentDate.plusDays(10).plusDays(Integer.parseInt(cId.substring(cId.length() - 2)));
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
                     expirationDate = expirationLocalDate.format(formatter);
 
                     // Write insurance card data to the file
@@ -128,35 +132,42 @@ public class DataPopulator {
         }
     }
 
-    // Similar implementation as above for insurance card data
-//        //An insurance card contains card number (10 digits), card holder, policy owner, and an expiration date (Note that one card can only have one holder).
-    //1 insurance card for every customer => 18 insurance card
-
-    //read through each line of customer file => copy to insurance file (i is the counter = last 2 digits of Cid)
-    //copy the insurance card id
-    //copy the customer name => card holder
-    //if cId >= 1001000 (Policy Holder) => Policy Owner = Card Holder
-    //
-    //if CId <= 1001000 (dependent), then:
-//        if (Cid % 5 == 0) { //i is divisible by 5
-//              PolicyOwner = BUV
-//        } else if (Cid % 2 == 0) { // i is even
-//              PolicyOwner = RMIT Vietnam
-//
-//        } else { //i is odd AND not divisible by 5
-//            PolicyOwner = FPT
-//
-//        }
-    //Expiration data: Today/CurrentDate + 10 days + i
-
 
     // Method to populate sample claim data into a file
-    public static void populateSampleClaimData(File file) throws IOException {
+    public static void populateSampleClaimData(File customersFile, File claimsFile) throws IOException {
+        //each dependents make 1 claim
+        //read through customersFile
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(customersFile));
+             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(claimsFile))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                //1 line = 1 customer object's data
+                //store each attributes of customer's data as 1 element in the customerData Array, each split by ","
+                String[] customerData = line.split(",");
+                insuranceCard = customerData[2];
+                //id (with the format f-numbers; 10 numbers)
+                String claimId =  "f-" + insuranceCard;
+
+
+
+
+
+                //ClaimDate: The day when customers fill in claim form
+                String claimDate ="";
+                String examDate = "";
+                LocalDate currentDate = LocalDate.now();
+                LocalDate claimLocalDate = currentDate.plusDays(-10).plusDays(-(Integer.parseInt(insuranceCard)%10));
+
+                claimDate = claimLocalDate.format(formatter);
+
+                //ExamDate: The day when customers visit hospital
+                //=> ClaimDate > ExamDate
 //A claim contains the following information:
 //
 //- id (with the format f-numbers; 10 numbers)
 //
 //- Claim date
+                //Today/CurrentDate - 5 days + -i
 //
 //- Insured person
 //
@@ -165,6 +176,9 @@ public class DataPopulator {
 //- Exam date
 //
 //- List of documents (with the format ClaimId_CardNumber_DocumentName.pdf)
+                //2 default documents:
+                //1. HospitalBill
+                //2. PatientRecord
 //
 //- Claim amount
 //
@@ -172,14 +186,16 @@ public class DataPopulator {
 //
 //- Receiver Banking Info (Bank – Name – Number)
 
-        //"f-" + 9 formatted numbers if i <10
-        //claimID = "f-" + "300000000" + i;
-        //"f-" + 8 formatted numbers if i>=10
-        //claimID = "f-" + "300000000" + i;
+                //"f-" + 9 formatted numbers if i <10
+                //claimID = "f-" + "300000000" + i;
+                //"f-" + 8 formatted numbers if i>=10
+                //claimID = "f-" + "300000000" + i;
 
-        //claimDate = currentDate - 5 days - i
+                //claimDate = currentDate - 5 days - i
 
 
+            }
+        }
     }
 }
 

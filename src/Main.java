@@ -62,7 +62,7 @@ public class Main {
     public static void populateDataToEmptyFiles() throws IOException {
         DataPopulator.populateSampleCustomerData(customerFile);
         DataPopulator.populateSampleInsuranceCardData(customerFile,insuranceCardsFile);
-        DataPopulator.populateSampleClaimData(claimFiles);
+        DataPopulator.populateSampleClaimData(customerFile,claimFiles);
     }
 
     /**
