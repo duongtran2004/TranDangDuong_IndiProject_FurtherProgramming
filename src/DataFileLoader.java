@@ -16,35 +16,18 @@ import java.util.List;
  * @since $ {11.0.18}
  */
 public class DataFileLoader {
+    /**
+     * The Date format.
+     */
     static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-    //Step 1: Read through the DataFiles
-
-    //Canot have a common fileReader method as the logic for data generation is different from each file
-
-//    /**
-//     * Populate customers from DataFiles to temporary ArrayList to show to user when the program start.
-//     *
-//     * @param file the file
-//     * @return the array list
-//     * @throws IOException the io exception
-//     */
-
-
-    //cannot exist general customers
-    //need 2 method: load dependents from file AND load policy holde from file  (all read the same customer file
-//    public static ArrayList<Customer> loadCustomersFromFile(File file) throws IOException {
-//        ArrayList<Customer> customers = new ArrayList<>();
-//        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                // Parse the line and create Customer objects
-//
-//                // Add Customer objects to the customers list
-//            }
-//        }
-//        return customers;
-//    }
+    /**
+     * Load dependents from file array list.
+     *
+     * @param customerFile the customer file
+     * @return the array list
+     * @throws IOException the io exception
+     */
     public static ArrayList<Dependent> loadDependentsFromFile(File customerFile) throws IOException {
         ArrayList<Dependent> dependents = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(customerFile))) {
