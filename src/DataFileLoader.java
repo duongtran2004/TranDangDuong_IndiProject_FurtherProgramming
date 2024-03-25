@@ -31,7 +31,6 @@ public class DataFileLoader {
      */
 
 
-
     //cannot exist general customers
     //need 2 method: load dependents from file AND load policy holde from file  (all read the same customer file
 //    public static ArrayList<Customer> loadCustomersFromFile(File file) throws IOException {
@@ -56,6 +55,34 @@ public class DataFileLoader {
      */
     public static ArrayList<InsuranceCard> loadInsuranceCardsFromFile(File insuranceCardFile) throws IOException {
         ArrayList<InsuranceCard> insuranceCards = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(insuranceCardFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(","); // Split the line by comma
+
+                // Assuming each part corresponds to the data in the file
+                if (parts.length >= 4) { // Assuming there are 4 parts in each line
+                    String cardNumber = parts[0];
+
+                    String cardHolder = parts[1];
+                    String policyHolder = parts[2];
+                    Date expirationDate = dateFormat.parse(parts[3]);
+
+                    // Create a InsuranceCard object using parsed data
+                    InsuranceCard insuranceCard = new InsuranceCard(cardNumber, cardHolder, policyHolder, expirationDate);
+
+                    // Add the Claim object to the claims list
+                    insuranceCards.add(insuranceCard);
+                } else {
+                    // Handle lines with incorrect format, if needed
+                    System.err.println("Skipping line with incorrect format: " + line);
+                }
+            }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
 
         return insuranceCards;
     }
@@ -78,10 +105,10 @@ public class DataFileLoader {
                 // Assuming each part corresponds to the data in the file
                 if (parts.length >= 11) { // Assuming there are 11 parts in each line
                     String claimID = parts[0];
-                    Date claimDate = dateFormat.parse(parts[1]) ;
+                    Date claimDate = dateFormat.parse(parts[1]);
                     String insuredPerson = parts[2];
                     String insuranceCard = parts[3];
-                    Date examDate = dateFormat.parse(parts[4]) ;
+                    Date examDate = dateFormat.parse(parts[4]);
                     String documents = parts[5]; // This part contains a list of documents
                     ArrayList<String> listOfDocuments = new ArrayList<>(Arrays.asList(parts[6]));
 //                    // Split the list of documents by comma and remove square brackets
@@ -103,7 +130,7 @@ public class DataFileLoader {
                     System.err.println("Skipping line with incorrect format: " + line);
                 }
             }
-            } catch (ParseException e) {
+        } catch (ParseException e) {
             throw new RuntimeException(e);
         }
 

@@ -16,7 +16,8 @@ import static org.junit.Assert.assertEquals;
  */
 class DataFileLoaderTest {
     File claimsFile = new File(Main.CLAIMS_FILE_PATH);
-    @Test
+    File insuranceCardsFile = new File(Main.INSURANCE_CARDS_FILE_PATH);
+    //@Test
     void testLoadClaimsFromFile() throws IOException {
 
 
@@ -28,6 +29,21 @@ class DataFileLoaderTest {
         //assertEquals(null, result); // Change this assertion according to your expected result
         System.out.println(result.toString());
     }
+
+    @Test
+    void testLoadInsuranceCardsFromFile() throws IOException {
+
+
+        // Call the method to be tested
+        ArrayList<InsuranceCard> result = DataFileLoader.loadInsuranceCardsFromFile(insuranceCardsFile);
+
+        // Assert that the result is as expected
+        // Example assertion: check if the result list is not null
+        //assertEquals(null, result); // Change this assertion according to your expected result
+        System.out.println(result.toString());
+    }
+
+
 
 
 }
