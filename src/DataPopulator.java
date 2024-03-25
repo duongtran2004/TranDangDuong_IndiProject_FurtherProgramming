@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class DataPopulator {
     // add listOfDependents that store Cid as String for policy Owner
@@ -82,9 +83,9 @@ public class DataPopulator {
 
     // Method to populate sample insurance card data into a file
     //Copy data from customers file to insurance card file
-    public static void populateSampleInsuranceCardData(File customerFile, File insuranceCardFile) throws IOException {
-        if (customerFile.exists() && customerFile.isFile() && customerFile.length() > 0) {
-            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(customerFile));
+    public static void populateSampleInsuranceCardData(File customersFile, File insuranceCardFile) throws IOException {
+        if (insuranceCardFile.exists()  && insuranceCardFile.length() == 0) {
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(customersFile));
                  BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(insuranceCardFile))) {
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
@@ -95,6 +96,8 @@ public class DataPopulator {
                     String cId = customerData[0];
                     //cardHolder is 2nd element
                     String cardHolder = customerData[1];
+                    //remove comma for 3 policyHolder
+
                     //cardNumber is 3rd element
                     String cardNumber = customerData[2];
                     String policyOwner = "";
@@ -102,6 +105,7 @@ public class DataPopulator {
 
                     // Determine the policy owner based on the cId
                     if (cId.compareTo("c-1001000") >= 0) {
+                        policyOwner = cardHolder;
 
                     } else {
                         // Dependent
@@ -134,68 +138,110 @@ public class DataPopulator {
 
 
     // Method to populate sample claim data into a file
-    public static void populateSampleClaimData(File customersFile, File claimsFile) throws IOException {
-        //each dependents make 1 claim
-        //read through customersFile
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(customersFile));
-             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(claimsFile))) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                //1 line = 1 customer object's data
-                //store each attributes of customer's data as 1 element in the customerData Array, each split by ","
-                String[] customerData = line.split(",");
-                insuranceCard = customerData[2];
-                //id (with the format f-numbers; 10 numbers)
-                String claimId =  "f-" + insuranceCard;
+    public static void populateSampleClaimsData(File customersFile, File claimsFile) throws IOException {
+        if (claimsFile.exists() && claimsFile.length() == 0) {
+
+            //each dependents make 1 claim. Only make claims for dependents
+            //read through customersFile
+            //write to claimsFile
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(customersFile));
+                 BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(claimsFile))) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+
+                    //variable to hold list of documents
+                    ArrayList<String> listOfDocuments = new ArrayList<>();
+                    //String variable to hold 2 defaults documents
+                    String hospitalBill = "";
+                    String patientRecord = "";
+
+                    //variable to hold claimAmount
+                    double claimAmount = 0;
+                    //variable to hold status
+                    String status = "";
+                    //variable to hold Banking info
+                    String bankName = "";
+                    String accountOwner = "";
+                    String accountNumber = "";
+
+                    //1 line = 1 customer object's data
+                    //store each attributes of customer's data as 1 element in the customerData Array, each split by ","
+                    String[] customerData = line.split(",");
+                    insuranceCard = customerData[2];
+                    //skip the current line if a customer is a policy holder
+                    if (Integer.parseInt(insuranceCard) >= 2000001000){
+                        continue;
+                    }
+                    //id (with the format f-numbers; 10 numbers)
+                    String claimId = "f-" + insuranceCard;
+                    String insuredPerson = customerData[1];
 
 
+                    //ClaimDate: The day when customers fill in claim form
+                    String claimDate = "";
+                    String examDate = "";
+                    LocalDate currentDate = LocalDate.now();
+                    //claimDate = currentDate - 2 days - n days (n = last digits of claim ID. ClaimID = InsuranceCard)
+                    LocalDate claimLocalDate = currentDate.plusDays(-2).plusDays(-(Integer.parseInt(insuranceCard) % 10));
+
+                    claimDate = claimLocalDate.format(formatter);
+
+                    //examDate: The day when customers visit hospital
+                    //examDate = claimDate - 5 days - n days (n = last digits of claim ID. ClaimID = InsuranceCard).
+                    //So examDate would always be smaller than claimDate
+                    LocalDate examLocalDate = claimLocalDate.plusDays(-5).plusDays(-(Integer.parseInt(insuranceCard) % 10));
+
+                    examDate = examLocalDate.format(formatter);
+                    //generate listOfDocuments (with the format ClaimId_CardNumber_DocumentName.pdf)
+                    hospitalBill = claimId + "_" + insuranceCard + "_hospitalBill.pdf";
+                    patientRecord = claimId + "_" + insuranceCard + "_patientRecord.pdf";
+                    //add 2 documents to listOfDocuments
+                    listOfDocuments.add(hospitalBill);
+                    listOfDocuments.add(patientRecord);
+                    //generate claimAmount = last digits of card * 100
+                    claimAmount = (Integer.parseInt(insuranceCard) % 10) * 100;
+                    //generate random status
+                    Random random = new Random();
+                    int randomNumber = random.nextInt(3); //generate randomNumber from 0 to 2
+                    switch (randomNumber) {
+                        case 0:
+                            status = "New";
+                            break;
+                        case 1:
+                            status = "Processing";
+                            break;
+                        case 2:
+                            status = "Done";
+                            break;
+                        default:
+                            status = "New"; // Default to "New" status
+                            break;
+                    }
 
 
+                    //generate BankingInfo
+                    accountOwner = insuredPerson;
+                    accountNumber = "b-" + insuranceCard;
+                    //generate bankName: Techcombank for even cards, Vietcombank for odd cards
+                    if (((Integer.parseInt(insuranceCard)) % 2) == 0) {
+                        bankName = "Techcombank";
+                    } else {
+                        bankName = "Vietcombank";
 
-                //ClaimDate: The day when customers fill in claim form
-                String claimDate ="";
-                String examDate = "";
-                LocalDate currentDate = LocalDate.now();
-                LocalDate claimLocalDate = currentDate.plusDays(-10).plusDays(-(Integer.parseInt(insuranceCard)%10));
+                    }
 
-                claimDate = claimLocalDate.format(formatter);
-
-                //ExamDate: The day when customers visit hospital
-                //=> ClaimDate > ExamDate
-//A claim contains the following information:
-//
-//- id (with the format f-numbers; 10 numbers)
-//
-//- Claim date
-                //Today/CurrentDate - 5 days + -i
-//
-//- Insured person
-//
-//- Card number
-//
-//- Exam date
-//
-//- List of documents (with the format ClaimId_CardNumber_DocumentName.pdf)
-                //2 default documents:
-                //1. HospitalBill
-                //2. PatientRecord
-//
-//- Claim amount
-//
-//- Status (New, Processing, Done)
-//
-//- Receiver Banking Info (Bank – Name – Number)
-
-                //"f-" + 9 formatted numbers if i <10
-                //claimID = "f-" + "300000000" + i;
-                //"f-" + 8 formatted numbers if i>=10
-                //claimID = "f-" + "300000000" + i;
-
-                //claimDate = currentDate - 5 days - i
+                    //add claimID to Customer claimList (write to customer file) (how to do this?)
 
 
+                    // Write claims data to the file
+                    bufferedWriter.write(claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + listOfDocuments + ","  + claimAmount + ","  + status + ","  + bankName + ","  + accountOwner + ","  + accountNumber  + "\n");
+                }
+                System.out.println("Sample " + claimsFile.getName() + " data populated successfully.");
             }
         }
+        else {
+            System.out.println("File " + claimsFile.getName() + " is not empty. Skipping data population.");
+     }
     }
 }
 
