@@ -20,7 +20,7 @@ class DataFileLoaderTest {
     File claimsFile = new File(Main.CLAIMS_FILE_PATH);
     File insuranceCardsFile = new File(Main.INSURANCE_CARDS_FILE_PATH);
     File customersFile = new File(Main.CUSTOMERS_FILE_PATH);
-    //@Test
+    @Test
     void testLoadClaimsFromFile() throws IOException {
 
 
@@ -31,7 +31,7 @@ class DataFileLoaderTest {
         System.out.println(result.toString());
     }
 
-    //@Test
+    @Test
     void testLoadInsuranceCardsFromFile() throws IOException {
 
 
@@ -41,7 +41,7 @@ class DataFileLoaderTest {
 
         System.out.println(result.toString());
     }
-    //@Test
+    @Test
 
     void testLoadPolicyHoldersFromFile() throws IOException {
         // Call the method to be tested

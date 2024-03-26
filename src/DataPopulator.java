@@ -14,10 +14,6 @@ import java.util.*;
 
 public class DataPopulator {
 
-    //declare HashMap to store mapping between insurance card number and ClaimLists
-    //key: insuranceCard/cardNumber
-    //value: claimId
-    private static Map<String, ArrayList<String>> customerClaimsMap = new HashMap<>();
 
 
     //variable to format date
@@ -36,8 +32,10 @@ public class DataPopulator {
                 ArrayList<String> BUVListOfDependents = new ArrayList<>();
 
                 ArrayList<String> listOfClaims = new ArrayList<>();
+
                 String cId = "";
                 String insuranceCard = "";
+
 
                 // Populate sample 15 Dependents customer data
                 for (int i = 1; i <= 15; i++) {
@@ -62,8 +60,16 @@ public class DataPopulator {
                     String padded10digitsNumber = String.format("%010d", i);
 
                     insuranceCard = padded10digitsNumber;
+
+                    //each customers would automatically generate 1 claimID. claimID = insuranceCardNumber
+                    String claimID = "f-" + insuranceCard;
+                    //add claimID to listOfClaims.
+
+                    listOfClaims.add(claimID);
                     // Write customer data to the file
                     bufferedWriter.write(cId + "," + fullName + "," + insuranceCard + "," + listOfClaims.toString() + "\n");
+                    //empty listOfClaims for the next Customer's object line
+                    listOfClaims.removeAll(listOfClaims);
 
                 }
                 //Populate sample 3 PolicyHolder Customer to hold 15 dependents,
@@ -186,12 +192,6 @@ public class DataPopulator {
                     String insuredPerson = customerDataLine[1];
                     //store claimId into CustomersData.txt's claimsList ArrayList
 
-                    // Iterate over the populated customer data
-                    for (Map.Entry<String, ArrayList<String>> entry : customerClaimsMap.entrySet()) {
-                        String cId = entry.getKey();
-                        ArrayList<String> customerData = (ArrayList<String>) entry.getValue();
-                    }
-
 
                     //ClaimDate: The day when customers fill in claim form
                     String claimDate = "";
@@ -246,10 +246,6 @@ public class DataPopulator {
 
                     }
 
-                    //add claimID to Customer claimList (write to customer file) (how to do this?)
-
-
-                    // Add ClaimID to customer's claimList in CustomerData.txt
 
                     // Write claims data to the ClaimData.txt file
                     bufferedWriter.write(claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + listOfDocuments + "," + claimAmount + "," + status + "," + bankName + "," + accountOwner + "," + accountNumber + "\n");
@@ -261,18 +257,7 @@ public class DataPopulator {
         }
     }
 
-// Now update the CustomerData.txt by adding claimId into claimList
-    //Method to read through ClaimsData
-    //for each line, extract
-    //Methods to read through CustomerData
 
-    //Write back the updated customerClaimMap to CustomersData.txt's claimLists
-
-    //Here's a general outline of how you can approach this:
-    //
-    //Read the existing customer data from CustomerData.txt.
-    //For each customer entry, update the claim list with the claim IDs from customerClaimsMap.
-    //Rewrite the entire CustomerData.txt file with the updated customer data, including the updated claim lists.
 }
 
 
