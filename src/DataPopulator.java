@@ -40,6 +40,8 @@ public class DataPopulator {
 
                 ArrayList<String> listOfClaims = new ArrayList<>();
 
+                //other attribute
+
                 String cId = "";
                 String insuranceCard = "";
 
@@ -50,16 +52,7 @@ public class DataPopulator {
 
                     String padded7digitsNumber = String.format("%07d", i); // Format the number with leading zeros
                     cId = "c-" + padded7digitsNumber; // Concatenate the formatted number and "c-"
-                    //add dependents's Cid into policy owner listOfDependents
-                    if (i % 5 == 0) { //i is divisible by 5
-                        BUVListOfDependents.add(cId);
-                    } else if (i % 2 == 0) { // i is even
-                        RMITListOfDependents.add(cId);
 
-                    } else { //i is odd AND not divisible by 5
-                        FPTListOfDependents.add(cId);
-
-                    }
 
                     String fullName = "Customer " + i;
                     //insurance card:  card number (10 digits)
@@ -70,14 +63,21 @@ public class DataPopulator {
 
                     //each customers would automatically generate 1 claimID. claimID = insuranceCardNumber
                     String claimID = "f-" + insuranceCard;
-                    //add claimID to listOfClaims.
 
-                    listOfClaims.add(claimID);
+                    //String variable to store line data
+                    String dependentLineData = cId + "," + fullName + "," + insuranceCard + "," + listOfClaims.toString();
                     // Write customer data to the file
-                    bufferedWriter.write(cId + "," + fullName + "," + insuranceCard + "," + listOfClaims.toString() + "\n");
-                    //empty listOfClaims for the next Customer's object line
-                    listOfClaims.removeAll(listOfClaims);
+                    bufferedWriter.write( dependentLineData + "\n");
+                    //add dependents's object data into policy owner listOfDependents
+                    if (i <= 5) { //i from 1 to 5
+                        BUVListOfDependents.add("[" + dependentLineData + "]");
+                    } else if (i<= 10) { // i from 5 to 10
+                        RMITListOfDependents.add("[" + dependentLineData + "]");
 
+                    } else { //i from 10 to 15
+                        FPTListOfDependents.add("[" + dependentLineData + "]");
+
+                    }
                 }
                 //Populate sample 3 PolicyHolder Customer to hold 15 dependents,
                 //A Customer is A Policy Holder if cId >= 1001000, otherwise dependent
@@ -89,6 +89,7 @@ public class DataPopulator {
                 bufferedWriter.write("c-1002000" + "," + "FPT" + "," + "2000002000" + "," + listOfClaims.toString() + FPTListOfDependents.toString() + "\n");
                 // Write 3rd Policy Owner to the file
                 bufferedWriter.write("c-1003000" + "," + "BUV" + "," + "2000003000" + "," + listOfClaims.toString() + BUVListOfDependents.toString() + "\n");
+
 
                 System.out.println("Sample " + customersFile.getName() + " data populated successfully.");
             }
@@ -146,8 +147,9 @@ public class DataPopulator {
                     LocalDate currentDate = LocalDate.now();
                     LocalDate expirationLocalDate = currentDate.plusDays(10).plusDays(Integer.parseInt(cId.substring(cId.length() - 2)));
 
-
-                    expirationDate = Main.DATE_FORMAT.format(expirationLocalDate).toString();
+                    // Convert CurrentLocalDate to Date
+                    Date epxDate = java.sql.Date.valueOf(currentDate);
+                    expirationDate = Main.DATE_FORMAT.format(epxDate);
 
                     // Write insurance card data to the file
                     bufferedWriter.write(cardNumber + "," + cardHolder + "," + policyOwner + "," + expirationDate + "\n");
@@ -221,17 +223,19 @@ public class DataPopulator {
                     LocalDate currentDate = LocalDate.now();
                     //claimDate = currentDate - 2 days - n days (n = last digits of claim ID. ClaimID = InsuranceCard)
                     LocalDate claimLocalDate = currentDate.plusDays(-2).plusDays(-(Integer.parseInt(insuranceCard) % 10));
+                    //convert CurrentLocalDate to Date
+                    Date clmDate = java.sql.Date.valueOf(currentDate);
 
-
-                    claimDate = Main.DATE_FORMAT.format(claimLocalDate);
+                    claimDate = Main.DATE_FORMAT.format(clmDate);
 
                     //examDate: The day when customers visit hospital
                     //examDate = claimDate - 5 days - n days (n = last digits of claim ID. ClaimID = InsuranceCard).
                     //So examDate would always be smaller than claimDate
                     LocalDate examLocalDate = claimLocalDate.plusDays(-5).plusDays(-(Integer.parseInt(insuranceCard) % 10));
+                    //convert CurrentLocalDate to Date
+                    Date exaDate = java.sql.Date.valueOf(currentDate);
 
-
-                    examDate = Main.DATE_FORMAT.format(examLocalDate);
+                    examDate = Main.DATE_FORMAT.format(exaDate);
                     //generate listOfDocuments (with the format ClaimId_CardNumber_DocumentName.pdf)
                     hospitalBill = claimId + "_" + insuranceCard + "_hospitalBill.pdf";
                     patientRecord = claimId + "_" + insuranceCard + "_patientRecord.pdf";

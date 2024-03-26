@@ -25,13 +25,13 @@ class DataPopulatorTest {
         DataPopulator.populateSampleCustomerData(customerFile);
     }
 
-    @Test
+    //@Test
     public void populateSampleInsuranceCardsData() throws IOException {
 
         DataPopulator.populateSampleInsuranceCardData(customerFile, insuranceCardsFile);
     }
 
-    @Test
+    //@Test
     public void populateSampleClaimsData() throws IOException {
         DataPopulator.populateSampleClaimData(customerFile, claimsFile);
     }

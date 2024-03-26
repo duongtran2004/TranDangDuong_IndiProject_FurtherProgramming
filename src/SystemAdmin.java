@@ -51,11 +51,13 @@ public class SystemAdmin  implements ClaimProcessManager{
     }
 
     @Override
-    public ArrayList<Claim> getAll() {
-//        // Implement logic to get all claims of the policy holder
-//        // For example:
-//        return getClaims();
-        ArrayList<Claim> hello = new ArrayList<>();
-        return hello ;
+    public  void  getAllClaims() {
+        for (Claim claim: Main.claimsTemporaryArrayList
+             ) {
+            System.out.println("List of all claims");
+            System.out.println(claim);
+        }
+
+
     }
 }

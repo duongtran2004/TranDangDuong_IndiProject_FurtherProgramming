@@ -1,6 +1,3 @@
-import java.awt.image.AreaAveragingScaleFilter;
-import java.util.ArrayList;
-
 /**
  * The interface Claim process manager.
  */
@@ -40,6 +37,9 @@ public interface ClaimProcessManager {
      *
      * @return the all
      */
-    ArrayList<Claim> getAll();
+     void getAllClaims() ;
+
+
+
 
 }

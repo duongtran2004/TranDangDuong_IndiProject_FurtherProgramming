@@ -40,7 +40,7 @@ public class DataFileLoader {
                     String fullName = parts[1];
                     String insuranceCard = parts[2];
                     //this ArrayList store the Strings of ClaimID, not the Claim Objects itself
-                    ArrayList<Claim> listOfClaims = new ArrayList<>(Integer.parseInt(parts[3]));
+                    ArrayList<Claim> listOfClaims = new ArrayList<Claim>(Integer.parseInt(parts[3]));
 
 
                     // Create a Dependent object using parsed data

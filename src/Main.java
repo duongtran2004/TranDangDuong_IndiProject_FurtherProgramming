@@ -41,19 +41,19 @@ public class Main {
 
 
     //create files object to store filePath
-    private static  File customerFile = new File(CUSTOMERS_FILE_PATH);
-    private static  File insuranceCardsFile = new File(INSURANCE_CARDS_FILE_PATH);
-    private static  File claimFiles = new File(CLAIMS_FILE_PATH);
+    private static File customerFile = new File(CUSTOMERS_FILE_PATH);
+    private static File insuranceCardsFile = new File(INSURANCE_CARDS_FILE_PATH);
+    private static File claimFiles = new File(CLAIMS_FILE_PATH);
     //Create temporary ArrayList to hold File Data, and display to user.
     //Once the user quit the program, these ArrayList would be empty.
 
 
-    private static ArrayList<InsuranceCard> insuranceCards = new ArrayList<>();
-    private static ArrayList<Claim> claims = new ArrayList<>();
+    private static ArrayList<InsuranceCard> insuranceCardsTemporaryArrayList = new ArrayList<>();
+    public static ArrayList<Claim> claimsTemporaryArrayList = new ArrayList<>();
 
-    private static ArrayList<Dependent> dependents = new ArrayList<>();
+    private static ArrayList<Dependent> dependentsTemporaryArrayList = new ArrayList<>();
 
-    private static ArrayList<PolicyHolder> policyHolders = new ArrayList<>();
+    private static ArrayList<PolicyHolder> policyHoldersTemporaryArrayList = new ArrayList<>();
 
     // Create 4 methods:
     //1. createNewFile
@@ -80,20 +80,18 @@ public class Main {
      */
     public static void populateDataToEmptyFiles() throws IOException {
         DataPopulator.populateSampleCustomerData(customerFile);
-        DataPopulator.populateSampleInsuranceCardData(customerFile,insuranceCardsFile);
-        DataPopulator.populateSampleClaimData(customerFile,claimFiles);
+        DataPopulator.populateSampleInsuranceCardData(customerFile, insuranceCardsFile);
+        DataPopulator.populateSampleClaimData(customerFile, claimFiles);
     }
 
     /**
      * Method to load data from file to temporary Collections (ArrayList) that can be shown to user
      */
     private static void loadData() throws IOException {
-        //customers = DataFileLoader.loadCustomersFromFile(new File(CUSTOMERS_FILE_PATH));
-        //cannot exist general customers
-        //need 2 method: load dependents from file AND load policy holde from file
-
-        insuranceCards = DataFileLoader.loadInsuranceCardsFromFile(new File(INSURANCE_CARDS_FILE_PATH));
-        claims = DataFileLoader.loadClaimsFromFile(new File(CLAIMS_FILE_PATH));
+        dependentsTemporaryArrayList = DataFileLoader.loadDependentsFromFile(new File(CUSTOMERS_FILE_PATH));
+        policyHoldersTemporaryArrayList = DataFileLoader.loadPolicyHoldersFromFile(new File(CUSTOMERS_FILE_PATH));
+        insuranceCardsTemporaryArrayList = DataFileLoader.loadInsuranceCardsFromFile(new File(INSURANCE_CARDS_FILE_PATH));
+        claimsTemporaryArrayList = DataFileLoader.loadClaimsFromFile(new File(CLAIMS_FILE_PATH));
     }
 
     /**
@@ -101,28 +99,32 @@ public class Main {
      */
 
     private static void saveData() throws IOException {
-        DataSaver.saveCustomersToFile(dependents, policyHolders, customerFile);
-        DataSaver.saveInsuranceCardsToFile(insuranceCards,insuranceCardsFile);
-        DataSaver.saveClaimsToFile(claims,claimFiles);
+        DataSaver.saveCustomersToFile(dependentsTemporaryArrayList, policyHoldersTemporaryArrayList, customerFile);
+        DataSaver.saveInsuranceCardsToFile(insuranceCardsTemporaryArrayList, insuranceCardsFile);
+        DataSaver.saveClaimsToFile(claimsTemporaryArrayList, claimFiles);
     }
+    //create a system admin object
+    public static   SystemAdmin systemAdmin = new SystemAdmin();
 
     /**
      * The entry point of application.
      *
      * @param args the input arguments
      */
-    public static void main(String[] args) {
-        try {
-            WelcomingScreen.displayWelcomeScreen(); //display the welcoming screen only once at start
-            createNewEmptyFiles(); //create 3 new DataFiles for Customer, InsuranceCard and Claim if these files are not exist
-            populateDataToEmptyFiles();
-            loadData();
-            TextUI.displayMainMenu(); //display menu of options to users
-            saveData();
-        } catch (IOException e) {
-            System.out.println("Error: File not found.");
-            e.printStackTrace();
-        }
+    public static void main(String[] args) throws IOException {
+//        try {
+//            WelcomingScreen.displayWelcomeScreen(); //display the welcoming screen only once at start
+//            createNewEmptyFiles(); //create 3 new DataFiles for Customer, InsuranceCard and Claim if these files are not exist
+//            populateDataToEmptyFiles();
+//            loadData();
+//            TextUI.displayMainMenu(); //display menu of options to users
+//            saveData();
+//        } catch (IOException e) {
+//            System.out.println("Error: File not found.");
+//            e.printStackTrace();
+//        }
+        loadData();
+        systemAdmin.getAllClaims();
     }
 
 }
