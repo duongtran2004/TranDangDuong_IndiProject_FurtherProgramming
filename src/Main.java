@@ -17,14 +17,26 @@ import java.util.ArrayList;
  */
 public class Main {
 
-    //naming convention for final variable : cap locks + underscore
+    /**
+     * The constant CUSTOMERS_FILE_PATH.
+     */
+//naming convention for final variable : cap locks + underscore
     //filepath format for Window OS: ..\\..\\..
     //define constant variables to store FilePath String for Data Files
     public static final String CUSTOMERS_FILE_PATH = "src\\DataFiles\\CustomersData.txt";
+    /**
+     * The constant INSURANCE_CARDS_FILE_PATH.
+     */
     public static final String INSURANCE_CARDS_FILE_PATH = "src\\DataFiles\\InsuranceCardsData.txt";
 
+    /**
+     * The constant CLAIMS_FILE_PATH.
+     */
     public static final String CLAIMS_FILE_PATH = "src\\DataFiles\\ClaimsData.txt";
-    // Define the desired date format object
+    /**
+     * The constant DATE_FORMAT.
+     */
+// Define the desired date format object
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
 
@@ -51,6 +63,8 @@ public class Main {
 
     /**
      * Method to create new DataFiles  no files ever created or
+     *
+     * @throws IOException the io exception
      */
     public static void createNewEmptyFiles() throws IOException {
 
@@ -61,6 +75,8 @@ public class Main {
 
     /**
      * Method to populate data to DataFiles if File exists AND file is empty
+     *
+     * @throws IOException the io exception
      */
     public static void populateDataToEmptyFiles() throws IOException {
         DataPopulator.populateSampleCustomerData(customerFile);

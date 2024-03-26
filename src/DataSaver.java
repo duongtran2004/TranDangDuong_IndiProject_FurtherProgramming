@@ -30,17 +30,13 @@ public class DataSaver {
     //lacking of time format for InsuranceCard
 
 
-
     /**
      * Save customers objects' information from the temporary ArrayList to the DataFiles, after the user exit the program.
      *
      * @param dependents    the dependents
      * @param policyHolders the policy holders
-     * @param customerFile          the DataFile
-     * @throws IOException the io exception
-     *                     <p> Using PrintWriter is more convenience for immediate flushing,
-     *                     like  writing data from file to temporary ArrayList to show to user</p>
-     *                     <p>Methods like println(), printf(), and format() can help to write data directly without converting to String</p>
+     * @param customerFile  the DataFile
+     * @throws IOException the io exception                     <p> Using PrintWriter is more convenience for immediate flushing,                     like  writing data from file to temporary ArrayList to show to user</p>                     <p>Methods like println(), printf(), and format() can help to write data directly without converting to String</p>
      */
     public static void saveCustomersToFile(ArrayList<Dependent> dependents, ArrayList<PolicyHolder> policyHolders, File customerFile) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(customerFile))) {
@@ -62,8 +58,8 @@ public class DataSaver {
     /**
      * Save insuranceCards objects' information from the temporary ArrayList to the DataFiles.
      *
-     * @param insuranceCards the insurance cards
-     * @param insuranceCardFile           the file
+     * @param insuranceCards    the insurance cards
+     * @param insuranceCardFile the file
      * @throws IOException the io exception
      */
     public static void saveInsuranceCardsToFile(ArrayList<InsuranceCard> insuranceCards, File insuranceCardFile) throws IOException {
@@ -79,8 +75,8 @@ public class DataSaver {
     /**
      * Save Claim objects' information from the temporary ArrayList to the DataFiles.
      *
-     * @param claims the claims
-     * @param claimFile   the file
+     * @param claims    the claims
+     * @param claimFile the file
      * @throws IOException the io exception
      */
     public static void saveClaimsToFile(ArrayList<Claim> claims, File claimFile) throws IOException {

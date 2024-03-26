@@ -12,13 +12,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * The type Data populator.
+ */
 public class DataPopulator {
 
 
     //variable to format date
 
 
-    // Method to populate sample customer data into a file
+    /**
+     * Populate sample customer data.
+     *
+     * @param customersFile the customers file
+     * @throws IOException the io exception
+     */
+// Method to populate sample customer data into a file
     public static void populateSampleCustomerData(File customersFile) throws IOException {
         // Check if the file exists and is empty
         if (customersFile.exists() && customersFile.length() == 0) {
@@ -88,7 +97,14 @@ public class DataPopulator {
         }
     }
 
-    // Method to populate sample insurance card data into a file
+    /**
+     * Populate sample insurance card data.
+     *
+     * @param customersFile     the customers file
+     * @param insuranceCardFile the insurance card file
+     * @throws IOException the io exception
+     */
+// Method to populate sample insurance card data into a file
     //Copy data from customers file to insurance card file
     public static void populateSampleInsuranceCardData(File customersFile, File insuranceCardFile) throws IOException {
         if (insuranceCardFile.exists() && insuranceCardFile.length() == 0) {
@@ -147,7 +163,14 @@ public class DataPopulator {
     // Method to initialize customerClaimsMap by reading customer data from customersFile
 
 
-    // Method to populate sample claim data into a file
+    /**
+     * Populate sample claim data.
+     *
+     * @param customersFile the customers file
+     * @param claimsFile    the claims file
+     * @throws IOException the io exception
+     */
+// Method to populate sample claim data into a file
     public static void populateSampleClaimData(File customersFile, File claimsFile) throws IOException {
         if (claimsFile.exists() && claimsFile.length() == 0) {
             // Initialize customerClaimsMap by reading customer data from customersFile.

@@ -16,10 +16,10 @@ public class PolicyHolder  extends  Customer{
     /**
      * Instantiates a new Policy holder.
      *
-     * @param cId              the customer's id (c-numbers format)
-     * @param fullName         the customer's full name
-     * @param insuranceCard    the insurance card
-     * @param listOfClaims     the list of claims
+     * @param cId                  the customer's id (c-numbers format)
+     * @param fullName             the customer's full name
+     * @param insuranceCard        the insurance card
+     * @param listOfClaims         the list of claims
      * @param listOfDependentsByID the list of dependents
      */
     public PolicyHolder(String cId, String fullName, String insuranceCard, ArrayList<String> listOfClaims, ArrayList<String> listOfDependentsByID) {
@@ -28,13 +28,24 @@ public class PolicyHolder  extends  Customer{
     }
     //getters and setters
 
+    /**
+     * Gets list of dependents by id.
+     *
+     * @return the list of dependents by id
+     */
     public ArrayList<String> getListOfDependentsByID() {
         return listOfDependentsByID;
     }
 
+    /**
+     * Sets list of dependents by id.
+     *
+     * @param listOfDependentsByID the list of dependents by id
+     */
     public void setListOfDependentsByID(ArrayList<String> listOfDependentsByID) {
         this.listOfDependentsByID = listOfDependentsByID;
     }
+    //override methods from ClaimProcessManager Interface
 
     @Override
     public void add(Claim claim) {

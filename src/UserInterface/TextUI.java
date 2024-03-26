@@ -91,12 +91,10 @@ public  class TextUI  {
     }
 
     /**
-     * The entry point of the textUI class.
-     *
-     * @param args the input arguments
+     * For Unit Testing
      */
-    public static void main(String[] args) {
-        TextUI textUI = new TextUI();
-        textUI.displayMainMenu();
-    }
+//    public static void main(String[] args) {
+//        TextUI textUI = new TextUI();
+//        textUI.displayMainMenu();
+//    }
 }

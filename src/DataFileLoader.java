@@ -18,7 +18,6 @@ import java.util.List;
 public class DataFileLoader {
 
 
-
     /**
      * Load dependents from file array list.
      *
@@ -56,6 +55,13 @@ public class DataFileLoader {
         return dependents;
     }
 
+    /**
+     * Load policy holders from file array list.
+     *
+     * @param customerFile the customer file
+     * @return the array list
+     * @throws IOException the io exception
+     */
     public static ArrayList<PolicyHolder> loadPolicyHoldersFromFile(File customerFile) throws IOException {
         ArrayList<PolicyHolder> policyHolders = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(customerFile))) {

@@ -17,6 +17,12 @@ import java.io.IOException;
  * Create the 3 DataFiles: CustomersData.txt; InsuranceCardsData.txt and ClaimsData.txt if files NOT exist
  */
 public class DataFileCreator {
+    /**
+     * Create empty file.
+     *
+     * @param filePath the file path
+     * @throws IOException the io exception
+     */
     public static void createEmptyFile(String filePath) throws IOException {
         // Create a File object to store filepath
         File file = new File(filePath);
