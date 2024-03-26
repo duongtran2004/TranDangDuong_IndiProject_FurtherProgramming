@@ -148,7 +148,7 @@ public class DataPopulator {
 
 
     // Method to populate sample claim data into a file
-    public static void populateSampleClaimsData(File customersFile, File claimsFile) throws IOException {
+    public static void populateSampleClaimData(File customersFile, File claimsFile) throws IOException {
         if (claimsFile.exists() && claimsFile.length() == 0) {
             // Initialize customerClaimsMap by reading customer data from customersFile.
             //Do this before the loop

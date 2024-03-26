@@ -33,7 +33,7 @@ class DataPopulatorTest {
 
     @Test
     public void populateSampleClaimsData() throws IOException {
-        DataPopulator.populateSampleClaimsData(customerFile, claimsFile);
+        DataPopulator.populateSampleClaimData(customerFile, claimsFile);
     }
 
 

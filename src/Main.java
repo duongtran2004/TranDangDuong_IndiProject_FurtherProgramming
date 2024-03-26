@@ -24,7 +24,7 @@ public class Main {
     public static final String INSURANCE_CARDS_FILE_PATH = "src\\DataFiles\\InsuranceCardsData.txt";
 
     public static final String CLAIMS_FILE_PATH = "src\\DataFiles\\ClaimsData.txt";
-    // Define the desired date format
+    // Define the desired date format object
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
 
@@ -65,7 +65,7 @@ public class Main {
     public static void populateDataToEmptyFiles() throws IOException {
         DataPopulator.populateSampleCustomerData(customerFile);
         DataPopulator.populateSampleInsuranceCardData(customerFile,insuranceCardsFile);
-        DataPopulator.populateSampleClaimsData(customerFile,claimFiles);
+        DataPopulator.populateSampleClaimData(customerFile,claimFiles);
     }
 
     /**

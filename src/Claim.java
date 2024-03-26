@@ -13,10 +13,10 @@ import java.util.Date;
  */
 public class Claim {
     private String claimID;
-    private Date claimDate;
+    private String claimDate;
     private String insuredPerson;
     private String cardNumber;
-    private Date examDate;
+    private String examDate;
     private ArrayList<String> listOfDocuments; // Using ArrayList
     private double claimAmount;
     private String status;
@@ -26,7 +26,7 @@ public class Claim {
     //constructor
 
 
-    public Claim(String claimID, Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber) {
+    public Claim(String claimID, String claimDate, String insuredPerson, String cardNumber, String examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber) {
         this.claimID = claimID;
         this.claimDate = claimDate;
         this.insuredPerson = insuredPerson;
@@ -50,11 +50,11 @@ public class Claim {
         this.claimID = claimID;
     }
 
-    public Date getClaimDate() {
+    public String getClaimDate() {
         return claimDate;
     }
 
-    public void setClaimDate(Date claimDate) {
+    public void setClaimDate(String claimDate) {
         this.claimDate = claimDate;
     }
 
@@ -74,11 +74,11 @@ public class Claim {
         this.cardNumber = cardNumber;
     }
 
-    public Date getExamDate() {
+    public String getExamDate() {
         return examDate;
     }
 
-    public void setExamDate(Date examDate) {
+    public void setExamDate(String examDate) {
         this.examDate = examDate;
     }
 
@@ -150,10 +150,10 @@ public class Claim {
                 '}';
     }
 
-    public String getFormattedClaimDate() {
-        // Create a SimpleDateFormat object with desired date format
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        // Format the claimDate
-        return sdf.format(claimDate);
-    }
+//    public String getFormattedClaimDate() {
+//        // Create a SimpleDateFormat object with desired date format
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+//        // Format the claimDate
+//        return sdf.format(claimDate);
+//    }
 }
