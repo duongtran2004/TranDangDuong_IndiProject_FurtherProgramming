@@ -9,61 +9,61 @@ import java.util.ArrayList;
  * @project IndiProject
  * @since $ {11.0.18}
  */
-public abstract class Customer implements ClaimProcessManager {
+public abstract class Customer  {
     private String cId;
     private String fullName;
     private String insuranceCard;
-    private ArrayList<String> listOfClaimsById;
+    private ArrayList<Claim> listOfClaims;
     //constructor
+
 
     /**
      * Instantiates a new Customer.
      *
-     * @param cId           the customer's id (with the format c-numbers)
+     * @param cId           the c id
      * @param fullName      the full name
      * @param insuranceCard the insurance card
      * @param listOfClaims  the list of claims
      */
-    public Customer(String cId, String fullName, String insuranceCard, ArrayList<String> listOfClaims) {
+    public Customer(String cId, String fullName, String insuranceCard, ArrayList<Claim> listOfClaims) {
         this.cId = cId;
         this.fullName = fullName;
         this.insuranceCard = insuranceCard;
-        this.listOfClaimsById = listOfClaims;
+        this.listOfClaims = listOfClaims;
     }
     //getters and setters
 
-
     /**
-     * Gets customer's id.
+     * Gets id.
      *
-     * @return the customer's id
+     * @return the id
      */
     public String getcId() {
         return cId;
     }
 
     /**
-     * Sets customer's id.
+     * Sets id.
      *
-     * @param cId the customer's id
+     * @param cId the c id
      */
     public void setcId(String cId) {
         this.cId = cId;
     }
 
     /**
-     * Gets customer's full name.
+     * Gets full name.
      *
-     * @return the customer's full name
+     * @return the full name
      */
     public String getFullName() {
         return fullName;
     }
 
     /**
-     * Sets customer's full name.
+     * Sets full name.
      *
-     * @param fullName the customer's full name
+     * @param fullName the full name
      */
     public void setFullName(String fullName) {
         this.fullName = fullName;
@@ -92,8 +92,8 @@ public abstract class Customer implements ClaimProcessManager {
      *
      * @return the list of claims
      */
-    public ArrayList<String> getListOfClaimsById() {
-        return listOfClaimsById;
+    public ArrayList<Claim> getListOfClaims() {
+        return listOfClaims;
     }
 
     /**
@@ -101,9 +101,11 @@ public abstract class Customer implements ClaimProcessManager {
      *
      * @param listOfClaims the list of claims
      */
-    public void setListOfClaimsById(ArrayList<String> listOfClaims) {
-        this.listOfClaimsById = listOfClaims;
+    public void setListOfClaims(ArrayList<Claim> listOfClaims) {
+        this.listOfClaims = listOfClaims;
     }
+
+
     //toString method
 
     @Override
@@ -112,7 +114,7 @@ public abstract class Customer implements ClaimProcessManager {
                 "cId='" + cId + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", insuranceCard='" + insuranceCard + '\'' +
-                ", listOfClaimsById=" + listOfClaimsById +
+                ", listOfClaims=" + listOfClaims +
                 '}';
     }
 }

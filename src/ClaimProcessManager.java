@@ -3,48 +3,42 @@ import java.util.ArrayList;
 
 /**
  * The interface Claim process manager.
- *
- * @author Tran Dang Duong Student ID: s3979381
- * @version $ {11.0.18}
- * @created 13 -Mar-24 1:58 PM
- * @project IndiProject
- * @since $ {11.0.18}
  */
 public interface ClaimProcessManager {
 
     /**
-     * Add Claims Objects.
+     * Add claim.
      *
-     * @param claim the Claim
+     * @param claim the claim
      */
-    void add(Claim claim);
+    void addClaim(Claim claim);
 
     /**
-     * Update Claims Objects.
+     * Update claim.
      *
-     * @param claim the Claim
+     * @param claim the claim
      */
-    void update(Claim claim );
+    void updateClaim(Claim claim );
 
     /**
-     * Delete Claims Objects by ID.
+     * Delete claim.
      *
-     * @param claimID the id
+     * @param claim the claim
      */
-    void delete(String claimID);
+    void deleteClaim(Claim claim);
 
     /**
-     * Gets one Claims Object by ID.
+     * Gets one.
      *
-     * @param claimID the id
-     * @return the one claim with the correspond ID
+     * @param claimID the claim id
+     * @return the one
      */
     Claim getOne(String claimID);
 
     /**
-     * Gets all Claims Objects.
+     * Gets all.
      *
-     * @return the ArrayList of Claims
+     * @return the all
      */
     ArrayList<Claim> getAll();
 

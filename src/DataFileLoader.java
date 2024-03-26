@@ -40,7 +40,7 @@ public class DataFileLoader {
                     String fullName = parts[1];
                     String insuranceCard = parts[2];
                     //this ArrayList store the Strings of ClaimID, not the Claim Objects itself
-                    ArrayList<String> listOfClaims = new ArrayList<>(Arrays.asList(parts[3]));
+                    ArrayList<Claim> listOfClaims = new ArrayList<>(Integer.parseInt(parts[3]));
 
 
                     // Create a Dependent object using parsed data
@@ -77,9 +77,9 @@ public class DataFileLoader {
                     String fullName = parts[1];
                     String insuranceCard = parts[2];
                     //this ArrayList store the Strings of ClaimID, not the Claim Objects itself
-                    ArrayList<String> listOfClaims = new ArrayList<>(Arrays.asList(parts[3]));
+                    ArrayList<Claim> listOfClaims = new ArrayList<>(Integer.parseInt(parts[3]));
                     //listOfDependents: store dependents cID
-                    ArrayList<String> listOfDependents = new ArrayList<>(Arrays.asList(parts[4]));
+                    ArrayList<Dependent> listOfDependents = new ArrayList<>(Integer.parseInt(parts[4]));
 
                     // Create a PolicyHolder object using parsed data
                     PolicyHolder policyHolder = new PolicyHolder(cId, fullName, insuranceCard, listOfClaims, listOfDependents);

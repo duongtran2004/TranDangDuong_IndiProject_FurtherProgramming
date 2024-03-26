@@ -17,7 +17,7 @@ public class Claim {
     private String insuredPerson;
     private String cardNumber;
     private String examDate;
-    private ArrayList<String> listOfDocuments; // Using ArrayList
+    private ArrayList<String> listOfDocuments;
     private double claimAmount;
     private String status;
     private String bankName;

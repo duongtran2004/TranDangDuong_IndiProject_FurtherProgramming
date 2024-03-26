@@ -42,13 +42,13 @@ public class DataSaver {
         try (PrintWriter writer = new PrintWriter(new FileWriter(customerFile))) {
             // Save Dependent Objects' info to file
             for (Dependent dependent : dependents) {
-                String listOfClaims = "[" + String.join(", ", dependent.getListOfClaimsById()) + "]";
+                String listOfClaims = "[" + String.join((CharSequence) ", ", (CharSequence) dependent.getListOfClaims()) + "]";
                 writer.println(dependent.getcId() + "," + dependent.getFullName() + "," + dependent.getInsuranceCard() + "," + listOfClaims);
             }
             // Save PolicyHolder Objects' info to file
             for (PolicyHolder policyHolder : policyHolders) {
-                String listOfClaims = "[" + String.join(", ", policyHolder.getListOfClaimsById()) + "]";
-                String listOfDependents = "[" + String.join(", ", policyHolder.getListOfDependentsByID()) + "]";
+                String listOfClaims = "[" + String.join((CharSequence) ", ", (CharSequence) policyHolder.getListOfClaims()) + "]";
+                String listOfDependents = "[" + String.join((CharSequence) ", ", (CharSequence) policyHolder.getListOfDependents()) + "]";
                 writer.println(policyHolder.getcId() + "," + policyHolder.getFullName() + "," + policyHolder.getInsuranceCard() + "," + listOfClaims + "," + listOfDependents);
             }
             System.out.println("Success to save data to " + customerFile.getName());

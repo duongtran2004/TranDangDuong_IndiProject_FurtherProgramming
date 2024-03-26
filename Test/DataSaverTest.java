@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * @author Tran Dang Duong
@@ -40,9 +41,9 @@ class DataSaverTest {
 
         //Adding object of PolicyHolder
 
-        policyHolders.add(new PolicyHolder("c-1001000", "RMIT Vietnam", "2000001000", new ArrayList<String>() , new ArrayList<String>(Arrays.asList("c-0000002", "c-0000004", "c-0000006", "c-0000008", "c-0000012", "c-0000014"))));
-        policyHolders.add(new PolicyHolder("c-1002000", "FPT", "2000002000", new ArrayList<String>(), new ArrayList<String>(Arrays.asList("c-0000001", "c-0000003", "c-0000007", "c-0000009", "c-0000011", "c-0000013"))));
-        policyHolders.add(new PolicyHolder("c-1003000", "BUV", "2000003000", new ArrayList<String>(), new ArrayList<String>(Arrays.asList("c-0000005", "c-0000010", "c-0000015"))));
+        policyHolders.add(new PolicyHolder("c-1001000", "RMIT Vietnam", "2000001000", new ArrayList<Claim>() , new ArrayList<Dependent>()));
+        policyHolders.add(new PolicyHolder("c-1002000", "FPT", "2000002000", new ArrayList<Claim>(), new ArrayList<Dependent>()));
+        policyHolders.add(new PolicyHolder("c-1003000", "BUV", "2000003000", new ArrayList<Claim>(), new ArrayList<Dependent>()));
 
         // Adding objects of InsuranceCard
         insuranceCards.add(new InsuranceCard("0000000001", "Customer 1", "FPT", "05-04-2024"));

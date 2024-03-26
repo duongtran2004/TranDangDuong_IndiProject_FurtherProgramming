@@ -10,40 +10,24 @@ import java.util.ArrayList;
  * @since $ {11.0.18}
  */
 public class Dependent  extends Customer{
+
+
     /**
      * Instantiates a new Dependent.
      *
-     * @param cId           the customer's id (c-numbers format)
-     * @param fullName      the customer's full name
+     * @param cId           the c id
+     * @param fullName      the full name
      * @param insuranceCard the insurance card
      * @param listOfClaims  the list of claims
      */
-    public Dependent(String cId, String fullName, String insuranceCard, ArrayList<String> listOfClaims) {
+    public Dependent(String cId, String fullName, String insuranceCard, ArrayList<Claim> listOfClaims) {
         super(cId, fullName, insuranceCard, listOfClaims);
     }
 
-    @Override
-    public void add(Claim claim) {
 
-    }
 
-    @Override
-    public void update(Claim claim) {
 
-    }
 
-    @Override
-    public void delete(String claimID) {
 
-    }
 
-    @Override
-    public Claim getOne(String claimID) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Claim> getAll() {
-        return null;
-    }
 }

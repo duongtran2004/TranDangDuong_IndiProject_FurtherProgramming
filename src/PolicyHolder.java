@@ -10,65 +10,34 @@ import java.util.ArrayList;
  * @since $ {11.0.18}
  */
 public class PolicyHolder  extends  Customer{
-    private ArrayList<String> listOfDependentsByID;
+    private ArrayList<Dependent> listOfDependents;
     //constructor
 
-    /**
-     * Instantiates a new Policy holder.
-     *
-     * @param cId                  the customer's id (c-numbers format)
-     * @param fullName             the customer's full name
-     * @param insuranceCard        the insurance card
-     * @param listOfClaims         the list of claims
-     * @param listOfDependentsByID the list of dependents
-     */
-    public PolicyHolder(String cId, String fullName, String insuranceCard, ArrayList<String> listOfClaims, ArrayList<String> listOfDependentsByID) {
+
+    public PolicyHolder(String cId, String fullName, String insuranceCard, ArrayList<Claim> listOfClaims, ArrayList<Dependent> listOfDependents) {
         super(cId, fullName, insuranceCard, listOfClaims);
-        this.listOfDependentsByID = listOfDependentsByID;
+        this.listOfDependents = listOfDependents;
     }
-    //getters and setters
+    //getter and setters
 
-    /**
-     * Gets list of dependents by id.
-     *
-     * @return the list of dependents by id
-     */
-    public ArrayList<String> getListOfDependentsByID() {
-        return listOfDependentsByID;
-    }
 
-    /**
-     * Sets list of dependents by id.
-     *
-     * @param listOfDependentsByID the list of dependents by id
-     */
-    public void setListOfDependentsByID(ArrayList<String> listOfDependentsByID) {
-        this.listOfDependentsByID = listOfDependentsByID;
+    public ArrayList<Dependent> getListOfDependents() {
+        return listOfDependents;
     }
-    //override methods from ClaimProcessManager Interface
+    public void setListOfDependents(ArrayList<Dependent> listOfDependents) {
+        this.listOfDependents = listOfDependents;
+    }
+    //toString method
 
     @Override
-    public void add(Claim claim) {
-
+    public String toString() {
+        return "PolicyHolder{" +
+                "listOfDependents=" + listOfDependents +
+                '}';
     }
 
-    @Override
-    public void update(Claim claim) {
 
-    }
 
-    @Override
-    public void delete(String claimID) {
 
-    }
-
-    @Override
-    public Claim getOne(String claimID) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Claim> getAll() {
-        return null;
-    }
 }
+

@@ -147,7 +147,7 @@ public class DataPopulator {
                     LocalDate expirationLocalDate = currentDate.plusDays(10).plusDays(Integer.parseInt(cId.substring(cId.length() - 2)));
 
 
-                    expirationDate = Main.DATE_FORMAT.format(expirationLocalDate);
+                    expirationDate = Main.DATE_FORMAT.format(expirationLocalDate).toString();
 
                     // Write insurance card data to the file
                     bufferedWriter.write(cardNumber + "," + cardHolder + "," + policyOwner + "," + expirationDate + "\n");
