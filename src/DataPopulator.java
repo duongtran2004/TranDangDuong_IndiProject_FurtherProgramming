@@ -15,9 +15,7 @@ import java.util.*;
 public class DataPopulator {
 
 
-
     //variable to format date
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 
     // Method to populate sample customer data into a file
@@ -132,7 +130,8 @@ public class DataPopulator {
                     LocalDate currentDate = LocalDate.now();
                     LocalDate expirationLocalDate = currentDate.plusDays(10).plusDays(Integer.parseInt(cId.substring(cId.length() - 2)));
 
-                    expirationDate = expirationLocalDate.format(formatter);
+
+                    expirationDate = Main.DATE_FORMAT.format(expirationLocalDate);
 
                     // Write insurance card data to the file
                     bufferedWriter.write(cardNumber + "," + cardHolder + "," + policyOwner + "," + expirationDate + "\n");
@@ -200,14 +199,16 @@ public class DataPopulator {
                     //claimDate = currentDate - 2 days - n days (n = last digits of claim ID. ClaimID = InsuranceCard)
                     LocalDate claimLocalDate = currentDate.plusDays(-2).plusDays(-(Integer.parseInt(insuranceCard) % 10));
 
-                    claimDate = claimLocalDate.format(formatter);
+
+                    claimDate = Main.DATE_FORMAT.format(claimLocalDate);
 
                     //examDate: The day when customers visit hospital
                     //examDate = claimDate - 5 days - n days (n = last digits of claim ID. ClaimID = InsuranceCard).
                     //So examDate would always be smaller than claimDate
                     LocalDate examLocalDate = claimLocalDate.plusDays(-5).plusDays(-(Integer.parseInt(insuranceCard) % 10));
 
-                    examDate = examLocalDate.format(formatter);
+
+                    examDate = Main.DATE_FORMAT.format(examLocalDate);
                     //generate listOfDocuments (with the format ClaimId_CardNumber_DocumentName.pdf)
                     hospitalBill = claimId + "_" + insuranceCard + "_hospitalBill.pdf";
                     patientRecord = claimId + "_" + insuranceCard + "_patientRecord.pdf";

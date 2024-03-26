@@ -21,7 +21,7 @@ import java.util.Date;
  */
 public class DataSaver {
     //Define desired date format dd-MM-yy
-    static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); // Define the desired date format
+
    //loop through each element/ object of the ArrayList
     //write them to the file, 1 line each, with comma
     //unit test
@@ -87,8 +87,8 @@ public class DataSaver {
         try (PrintWriter writer = new PrintWriter(new FileWriter(claimFile))) {
 
             for (Claim claim : claims) { //loop through each claim object in the ArrayList
-                String formattedClaimDate = dateFormat.format(claim.getClaimDate()); // Format the claim date
-                String formattedExamDate = dateFormat.format(claim.getExamDate()); // Format the exam date
+                String formattedClaimDate = Main.DATE_FORMAT.format(claim.getClaimDate()); // Format the claim date
+                String formattedExamDate = Main.DATE_FORMAT.format(claim.getExamDate()); // Format the exam date
                 String documents = "[" + String.join(";", claim.getListOfDocuments()) + "]" ; //variable to store documents and add square brackets around the listOfDocuments
                 writer.println(claim.getClaimID() + "," + formattedClaimDate+ "," + claim.getInsuredPerson() + "," + claim.getCardNumber() +
                         "," + formattedExamDate + "," + documents + "," + claim.getClaimAmount() + "," + claim.getStatus() +

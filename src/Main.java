@@ -3,6 +3,7 @@ import UserInterface.WelcomingScreen;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +24,8 @@ public class Main {
     public static final String INSURANCE_CARDS_FILE_PATH = "src\\DataFiles\\InsuranceCardsData.txt";
 
     public static final String CLAIMS_FILE_PATH = "src\\DataFiles\\ClaimsData.txt";
+    // Define the desired date format
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
 
     //create files object to store filePath
