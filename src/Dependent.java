@@ -22,4 +22,28 @@ public class Dependent  extends Customer{
         super(cId, fullName, insuranceCard, listOfClaims);
     }
 
+    @Override
+    public void add(Claim claim) {
+
+    }
+
+    @Override
+    public void update(Claim claim) {
+
+    }
+
+    @Override
+    public void delete(String claimID) {
+
+    }
+
+    @Override
+    public Claim getOne(String claimID) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Claim> getAll() {
+        return null;
+    }
 }

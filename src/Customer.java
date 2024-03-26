@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @project IndiProject
  * @since $ {11.0.18}
  */
-public abstract class Customer {
+public abstract class Customer implements ClaimProcessManager {
     private String cId;
     private String fullName;
     private String insuranceCard;

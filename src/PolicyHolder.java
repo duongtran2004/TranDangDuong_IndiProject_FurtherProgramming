@@ -35,4 +35,29 @@ public class PolicyHolder  extends  Customer{
     public void setListOfDependentsByID(ArrayList<String> listOfDependentsByID) {
         this.listOfDependentsByID = listOfDependentsByID;
     }
+
+    @Override
+    public void add(Claim claim) {
+
+    }
+
+    @Override
+    public void update(Claim claim) {
+
+    }
+
+    @Override
+    public void delete(String claimID) {
+
+    }
+
+    @Override
+    public Claim getOne(String claimID) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Claim> getAll() {
+        return null;
+    }
 }

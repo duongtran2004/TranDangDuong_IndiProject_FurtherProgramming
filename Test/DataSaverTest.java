@@ -54,29 +54,17 @@ class DataSaverTest {
         //Adding objects of Claim
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-        try {
-            claims.add(new Claim("f-0000000001", dateFormat.parse("22-03-2024"), "Customer 1", "0000000001", dateFormat.parse("16-03-2024"),
-                    new ArrayList<>(Arrays.asList("f-0000000001_0000000001_hospitalBill.pdf", "f-0000000001_0000000001_patientRecord.pdf")),
-                    100.0, "New", "Vietcombank", "Customer 1", "b-0000000001"));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        claims.add(new Claim("f-0000000001", "22-03-2024", "Customer 1", "0000000001", "16-03-2024",
+                new ArrayList<>(Arrays.asList("f-0000000001_0000000001_hospitalBill.pdf", "f-0000000001_0000000001_patientRecord.pdf")),
+                100.0, "New", "Vietcombank", "Customer 1", "b-0000000001"));
 
-        try {
-            claims.add(new Claim("f-0000000002", dateFormat.parse("21-03-2024"), "Customer 2", "0000000002", dateFormat.parse("14-03-2024"),
-                    new ArrayList<>(Arrays.asList("f-0000000002_0000000002_hospitalBill.pdf", "f-0000000002_0000000002_patientRecord.pdf")),
-                    200.0, "Processing", "Techcombank", "Customer 2", "b-0000000002"));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        claims.add(new Claim("f-0000000002", "21-03-2024", "Customer 2", "0000000002", "14-03-2024",
+                new ArrayList<>(Arrays.asList("f-0000000002_0000000002_hospitalBill.pdf", "f-0000000002_0000000002_patientRecord.pdf")),
+                200.0, "Processing", "Techcombank", "Customer 2", "b-0000000002"));
 
-        try {
-            claims.add(new Claim("f-0000000003", dateFormat.parse("20-03-2024"), "Customer 3", "0000000003", dateFormat.parse("12-03-2024"),
-                    new ArrayList<>(Arrays.asList("f-0000000003_0000000003_hospitalBill.pdf", "f-0000000003_0000000003_patientRecord.pdf")),
-                    300.0, "New", "Vietcombank", "Customer 3", "b-0000000003"));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        claims.add(new Claim("f-0000000003", "20-03-2024", "Customer 3", "0000000003", "12-03-2024",
+                new ArrayList<>(Arrays.asList("f-0000000003_0000000003_hospitalBill.pdf", "f-0000000003_0000000003_patientRecord.pdf")),
+                300.0, "New", "Vietcombank", "Customer 3", "b-0000000003"));
     }
     //create files objects with correct file path
     File claimsFile = new File(Main.CLAIMS_FILE_PATH);
