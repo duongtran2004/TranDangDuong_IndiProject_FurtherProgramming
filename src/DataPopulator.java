@@ -65,13 +65,13 @@ public class DataPopulator {
                     String claimID = "f-" + insuranceCard;
 
                     //String variable to store line data
-                    String dependentLineData = cId + "," + fullName + "," + insuranceCard + "," + listOfClaims.toString();
+                    String dependentLineData = cId + "," + fullName + "," + insuranceCard + "," + listOfClaims ;
                     // Write customer data to the file
-                    bufferedWriter.write( dependentLineData + "\n");
+                    bufferedWriter.write(dependentLineData + "\n");
                     //add dependents's object data into policy owner listOfDependents
                     if (i <= 5) { //i from 1 to 5
                         BUVListOfDependents.add("[" + dependentLineData + "]");
-                    } else if (i<= 10) { // i from 5 to 10
+                    } else if (i <= 10) { // i from 5 to 10
                         RMITListOfDependents.add("[" + dependentLineData + "]");
 
                     } else { //i from 10 to 15
@@ -185,7 +185,11 @@ public class DataPopulator {
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(customersFile));
                  BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(claimsFile))) {
                 String line;
+                //variable to hold line-counter. This would be use to identify PolicyHolders
+                int lineCounter = 0;
                 while ((line = bufferedReader.readLine()) != null) {
+                    lineCounter ++;
+
 
                     //variable to hold list of documents
                     ArrayList<String> listOfDocuments = new ArrayList<>();
@@ -208,7 +212,7 @@ public class DataPopulator {
                     String[] customerDataLine = line.split(",");
                     insuranceCard = customerDataLine[2];
                     //skip the current line if a customer is a policy holder
-                    if (Integer.parseInt(insuranceCard) >= 2000001000) {
+                    if (lineCounter >=16) {
                         continue;
                     }
                     //id (with the format f-numbers; 10 numbers)
@@ -220,18 +224,22 @@ public class DataPopulator {
                     //ClaimDate: The day when customers fill in claim form
                     String claimDate = "";
                     String examDate = "";
+                    //create random positive integer from 1 to 20
+                    Random random = new Random();
+                    int randomPositiveIntegerClaim = random.nextInt(20) + 1; //bound start from 0
                     LocalDate currentDate = LocalDate.now();
                     //claimDate = currentDate - 2 days - n days (n = last digits of claim ID. ClaimID = InsuranceCard)
-                    LocalDate claimLocalDate = currentDate.plusDays(-2).plusDays(-(Integer.parseInt(insuranceCard) % 10));
+                    LocalDate claimLocalDate = currentDate.plusDays(-randomPositiveIntegerClaim);
                     //convert CurrentLocalDate to Date
                     Date clmDate = java.sql.Date.valueOf(currentDate);
 
                     claimDate = Main.DATE_FORMAT.format(clmDate);
 
                     //examDate: The day when customers visit hospital
-                    //examDate = claimDate - 5 days - n days (n = last digits of claim ID. ClaimID = InsuranceCard).
+
                     //So examDate would always be smaller than claimDate
-                    LocalDate examLocalDate = claimLocalDate.plusDays(-5).plusDays(-(Integer.parseInt(insuranceCard) % 10));
+                    int randomPositiveIntegerExam = random.nextInt(20) + 1; //bound start from 0
+                    LocalDate examLocalDate = claimLocalDate.plusDays(-randomPositiveIntegerExam);
                     //convert CurrentLocalDate to Date
                     Date exaDate = java.sql.Date.valueOf(currentDate);
 
@@ -245,7 +253,7 @@ public class DataPopulator {
                     //generate claimAmount = last digits of card * 100
                     claimAmount = (Integer.parseInt(insuranceCard) % 10) * 100;
                     //generate random status
-                    Random random = new Random();
+                    random = new Random();
                     int randomNumber = random.nextInt(3); //generate randomNumber from 0 to 2
                     switch (randomNumber) {
                         case 0:
@@ -273,18 +281,48 @@ public class DataPopulator {
                         bankName = "Vietcombank";
 
                     }
+                    //variable to store claimData
 
-
+                    String claimData = claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + listOfDocuments + "," + claimAmount + "," + status + "," + bankName + "," + accountOwner + "," + accountNumber;
                     // Write claims data to the ClaimData.txt file
-                    bufferedWriter.write(claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + listOfDocuments + "," + claimAmount + "," + status + "," + bankName + "," + accountOwner + "," + accountNumber + "\n");
+                    bufferedWriter.write(claimData + "\n");
+                    // Append claim data to the corresponding customer data in the customers file
+                    String customerId = customerDataLine[0];
+                    String existingCustomerDataLine = line;
+                    // Check if the claim data has already been appended
+                    if (!existingCustomerDataLine.contains("[" + claimData + "]")) {
+                        // Append claim data only if it hasn't been added before
+                        String newCustomerDataLine = existingCustomerDataLine + "[" + claimData + "]";
+                        replaceLine(customersFile, customerId, newCustomerDataLine);
+                    }
                 }
                 System.out.println("Sample " + claimsFile.getName() + " data populated successfully.");
+
             }
         } else {
             System.out.println("File " + claimsFile.getName() + " is not empty. Skipping data population.");
         }
     }
-
+    // Method to replace a line in a file
+    private static void replaceLine(File file, String targetId, String newLine) throws IOException {
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith(targetId)) {
+                    lines.add(newLine);
+                } else {
+                    lines.add(line);
+                }
+            }
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        }
+    }
 
 }
 
