@@ -148,7 +148,7 @@ public class DataPopulator {
                     LocalDate expirationLocalDate = currentDate.plusDays(10).plusDays(Integer.parseInt(cId.substring(cId.length() - 2)));
 
                     // Convert CurrentLocalDate to Date
-                    Date epxDate = java.sql.Date.valueOf(currentDate);
+                    Date epxDate = java.sql.Date.valueOf(expirationLocalDate);
                     expirationDate = Main.DATE_FORMAT.format(epxDate);
 
                     // Write insurance card data to the file
@@ -211,7 +211,7 @@ public class DataPopulator {
                     //store each attributes of customer's data as 1 element in the customerData Array, each split by ","
                     String[] customerDataLine = line.split(",");
                     insuranceCard = customerDataLine[2];
-                    //skip the current line if a customer is a policy holder
+                    //skip the current line if a customer is a policy holder, create no claim at first
                     if (lineCounter >=16) {
                         continue;
                     }
@@ -231,7 +231,8 @@ public class DataPopulator {
                     //claimDate = currentDate - 2 days - n days (n = last digits of claim ID. ClaimID = InsuranceCard)
                     LocalDate claimLocalDate = currentDate.plusDays(-randomPositiveIntegerClaim);
                     //convert CurrentLocalDate to Date
-                    Date clmDate = java.sql.Date.valueOf(currentDate);
+                    Date clmDate = java.sql.Date.valueOf(claimLocalDate);
+                    //convert Date to String
 
                     claimDate = Main.DATE_FORMAT.format(clmDate);
 
@@ -241,7 +242,8 @@ public class DataPopulator {
                     int randomPositiveIntegerExam = random.nextInt(20) + 1; //bound start from 0
                     LocalDate examLocalDate = claimLocalDate.plusDays(-randomPositiveIntegerExam);
                     //convert CurrentLocalDate to Date
-                    Date exaDate = java.sql.Date.valueOf(currentDate);
+                    Date exaDate = java.sql.Date.valueOf(examLocalDate);
+                    //convert Date to String
 
                     examDate = Main.DATE_FORMAT.format(exaDate);
                     //generate listOfDocuments (with the format ClaimId_CardNumber_DocumentName.pdf)

@@ -115,7 +115,7 @@ public class DataFileLoader {
 
                     String cardHolder = parts[1];
                     String policyHolder = parts[2];
-                    String expirationDate = String.valueOf(Main.DATE_FORMAT.parse(parts[3]));
+                    Date expirationDate = (Main.DATE_FORMAT.parse(parts[3]));
 
                     // Create a InsuranceCard object using parsed data
                     InsuranceCard insuranceCard = new InsuranceCard(cardNumber, cardHolder, policyHolder, expirationDate);
@@ -153,10 +153,10 @@ public class DataFileLoader {
                 // Assuming each part corresponds to the data in the file
                 if (parts.length >= 11) { // Assuming there are 11 parts in each line
                     String claimID = parts[0];
-                    String claimDate = String.valueOf(Main.DATE_FORMAT.parse(parts[1]));
+                    Date claimDate = (Main.DATE_FORMAT.parse(parts[1]));
                     String insuredPerson = parts[2];
                     String insuranceCard = parts[3];
-                    String examDate = String.valueOf(Main.DATE_FORMAT.parse(parts[4]));
+                    Date examDate = (Main.DATE_FORMAT.parse(parts[4]));
                     String documents = parts[5]; // This part contains a list of documents
                     ArrayList<String> listOfDocuments = new ArrayList<>(Arrays.asList(parts[6]));
 //                    // Split the list of documents by comma and remove square brackets
