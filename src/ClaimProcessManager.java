@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * The interface Claim process manager.
  */
@@ -8,21 +11,25 @@ public interface ClaimProcessManager {
      *
      * @param claim the claim
      */
-    void addClaim(Claim claim);
+
+
+    void addClaim(String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber);
 
     /**
      * Update claim.
      *
-     * @param claim the claim
+     * @param claimIDAsInput the claim
      */
-    void updateClaim(Claim claim );
+    void updateClaimById(String claimIDAsInput, Date claimDate, String insuredPerson, String cardNumber,
+                         Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status,
+                         String bankName, String accountOwner, String accountNumber);
 
     /**
      * Delete claim.
      *
      * @param claim the claim
      */
-    void deleteClaim(Claim claim);
+    void deleteClaimById(String claimIDAsInput);
 
     /**
      * Gets one.
@@ -30,7 +37,7 @@ public interface ClaimProcessManager {
      * @param claimID the claim id
      * @return the one
      */
-    Claim getOne(String claimID);
+    Claim getOneClaimById(String claimID);
 
     /**
      * Gets all.

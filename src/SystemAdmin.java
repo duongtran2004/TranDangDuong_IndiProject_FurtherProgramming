@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author Tran Dang Duong
@@ -8,56 +9,109 @@ import java.util.ArrayList;
  * @project IndiProject
  * @since ${11.0.18}
  */
-public class SystemAdmin  implements ClaimProcessManager{
+public class SystemAdmin implements ClaimProcessManager {
     //override methods from ClaimProcessManager Interface
 
 
     @Override
-    public void addClaim(Claim claim) {
+    public void addClaim(String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber) {
+        //do not allow user to set claimID, so remove the claimID from the parameter
+        //generate random unique claimID
+        String newClaimID = ClaimIdManager.generateClaimID();
+        //create new claim Object to store the random claimID anb user's input as attributes
+        Claim claim = new Claim(newClaimID, new Date(), insuredPerson, cardNumber, examDate, listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
+        // Add the new claim to the temporary ArrayList
+        Main.claimsTemporaryArrayList.add(claim);
+        //print the message if success
+        System.out.println("Claim added successfully");
+    }
+    //method overloading  for user to just add claim without any arguments
+    public void addClaim() {
+        //do not allow user to set claimID, so remove the claimID from the parameter
+        //generate random unique claimID
+        String newClaimID = ClaimIdManager.generateClaimID();
+        //create new claim Object to store the random claimID anb user's input as attributes
+        Claim claim = new Claim();
+        // Add the new claim to the temporary ArrayList
+        Main.claimsTemporaryArrayList.add(claim);
+        //print the message if success
+        System.out.println("Claim added successfully");
+    }
 
+
+    @Override
+    public void updateClaimById(String claimIDAsInput, Date claimDate, String insuredPerson, String cardNumber,
+                                Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status,
+                                String bankName, String accountOwner, String accountNumber) {
+
+        // Variable to store the claim object with the specified claim ID
+        Claim claimToUpdate = getOneClaimById(claimIDAsInput);
+        if (claimToUpdate != null) {
+            // Update claim details if the respective argument is not null
+            if (claimDate != null) claimToUpdate.setClaimDate(claimDate);
+            if (insuredPerson != null) claimToUpdate.setInsuredPerson(insuredPerson);
+            if (cardNumber != null) claimToUpdate.setCardNumber(cardNumber);
+            if (examDate != null) claimToUpdate.setExamDate(examDate);
+            if (listOfDocuments != null) claimToUpdate.setListOfDocuments(listOfDocuments);
+            if (claimAmount != 0) {
+                claimToUpdate.setClaimAmount(claimAmount);
+            }
+            if (status != null) claimToUpdate.setStatus(status);
+            if (bankName != null) claimToUpdate.setBankName(bankName);
+            if (accountOwner != null) claimToUpdate.setAccountOwner(accountOwner);
+            if (accountNumber != null) claimToUpdate.setAccountNumber(accountNumber);
+            // Print a message to indicate that the claim was updated
+            System.out.println("Claim with ID " + claimIDAsInput + " has been updated.");
+        } else {
+            //exception handling, return error message
+            System.out.println("ClaimId not found, please try another claimID !");
+        }
 
     }
 
     @Override
-    public void updateClaim(Claim claim) {
-//        String claimIDToUpdate = claim.getClaimID(); // Get the claim ID to update
-//        // Implement logic to update a claim for the policy holder
-//        // For example:
-//        for (String c :getListOfClaimsById()) {
-//            if (c.get().equals(claim.getClaimID())) {
-//                // Update claim details
-//                // e.g., c.setClaimDate(claim.getClaimDate());
-//                break;
-//            }
-//        }
+    public void deleteClaimById(String claimIDAsInput) {
+        // Variable to store the claim object with the specified claim ID
+        Claim claimToDelete = getOneClaimById(claimIDAsInput);
+        if (claimToDelete != null) {
+            // Remove the claim from the list of claims
+            Main.claimsTemporaryArrayList.remove(claimToDelete);
+            // Print a message to indicate that the claim was updated
+            System.out.println("Claim with ID " + claimIDAsInput + " has been deleted.");
+        } else {
+            //exception handling, return error message
+            System.out.println("ClaimId not found, please try another claimID !");
+        }
     }
 
     @Override
-    public void deleteClaim(Claim claim) {
-        // Implement logic to delete a claim for the policy holder
-//        // For example:
-//        getClaims().removeIf(claim -> claim.getClaimID().equals(claimID));
+    public Claim getOneClaimById(String claimIDAsInput) {
+        // Iterate through the temporary claims list
+        //Implement getClaim By Id first, then recall it here
+        for (Claim c : Main.claimsTemporaryArrayList) {
+            // Check if the claim ID matches the input claim ID
+            if (c.getClaimID().equals(claimIDAsInput)) {
+                System.out.println("Success to find claim by claimID");
+                System.out.println("The claim with id " + claimIDAsInput + "is: ");
+                return c;
+            }
+        }
+        //exception handling errors
+        //claimID not found
+        System.out.println("ClaimId not found, please try another claimID !");
+        return null;
     }
 
+    //overload getOne to getClaims by all the attributes, return ArrayList of similar claims if overlapping attributes, else if find only 1, return 1 calim Object
+    //get AllClaims from the System
     @Override
-    public Claim getOne(String claimID) {
-//        // Implement logic to get a specific claim of the policy holder
-//        // For example:
-//        for (Claim c : getClaims()) {
-//            if (c.getClaimID().equals(claimID)) {
-//                return c;
-//            }
-//        }
-        return null; // Claim not found
-    }
-
-    @Override
-    public  void  getAllClaims() {
-        for (Claim claim: Main.claimsTemporaryArrayList
-             ) {
-            System.out.println("List of all claims");
+    public void getAllClaims() {
+        System.out.println("List of all claims");
+        for (Claim claim : Main.claimsTemporaryArrayList
+        ) {
             System.out.println(claim);
         }
+
 
 
     }
