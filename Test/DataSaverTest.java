@@ -72,9 +72,9 @@ class DataSaverTest {
                 300.0, "New", "Vietcombank", "Customer 3", "b-0000000003"));
     }
 
-    File claimsFile = new File("path_to_claims_file");
-    File insuranceCardsFile = new File("path_to_insurance_cards_file");
-    File customersFile = new File("path_to_customers_file");
+    File claimsFile = new File(Main.CLAIMS_FILE_PATH);
+    File insuranceCardsFile = new File(Main.INSURANCE_CARDS_FILE_PATH);
+    File customersFile = new File(Main.CUSTOMERS_FILE_PATH);
 
     @Test
     public void saveCustomersToFile() throws IOException {

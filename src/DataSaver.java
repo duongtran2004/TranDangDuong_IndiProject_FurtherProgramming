@@ -20,15 +20,19 @@ import java.util.Date;
  * The DataSaver Class
  */
 public class DataSaver {
-    //Define desired date format dd-MM-yy
 
-   //loop through each element/ object of the ArrayList
-    //write them to the file, 1 line each, with comma
-    //unit test
-
-    //wrong time format for Claim
-    //lacking of time format for InsuranceCard
-
+    //method to check if the input ArrayList is empty to format saving into Files (avoid duplicating square brackets [[]] )
+    private static String formatList(ArrayList<?> arrayList) {
+        if (arrayList.isEmpty()) { //return [] if save to file from empty ArrayList
+            return "[]";
+        } else { //if save to file from a non-empty ArrayList
+            ArrayList<String> stringArrayList = new ArrayList<>(); //convert ArrayList to String
+            for (Object item : arrayList) {
+                stringArrayList.add(item.toString());
+            }
+            return "[" + String.join(", ", stringArrayList) + "]"; //join all objects together inside []
+        }
+    }
 
     /**
      * Save customers objects' information from the temporary ArrayList to the DataFiles, after the user exit the program.
@@ -42,13 +46,13 @@ public class DataSaver {
         try (PrintWriter writer = new PrintWriter(new FileWriter(customerFile))) {
             // Save Dependent Objects' info to file
             for (Dependent dependent : dependents) {
-                String listOfClaims = "[" + String.join((CharSequence) ", ", (CharSequence) dependent.getListOfClaims()) + "]";
+                String listOfClaims = formatList(dependent.getListOfClaims()); //format the listOfClaims
                 writer.println(dependent.getcId() + "," + dependent.getFullName() + "," + dependent.getInsuranceCard() + "," + listOfClaims);
             }
             // Save PolicyHolder Objects' info to file
             for (PolicyHolder policyHolder : policyHolders) {
-                String listOfClaims = "[" + String.join((CharSequence) ", ", (CharSequence) policyHolder.getListOfClaims()) + "]";
-                String listOfDependents = "[" + String.join((CharSequence) ", ", (CharSequence) policyHolder.getListOfDependents()) + "]";
+                String listOfClaims = formatList(policyHolder.getListOfClaims()); //format the listOfClaims
+                String listOfDependents = formatList(policyHolder.getListOfDependents()); //format the listOfDependents
                 writer.println(policyHolder.getcId() + "," + policyHolder.getFullName() + "," + policyHolder.getInsuranceCard() + "," + listOfClaims + "," + listOfDependents);
             }
             System.out.println("Success to save data to " + customerFile.getName());
