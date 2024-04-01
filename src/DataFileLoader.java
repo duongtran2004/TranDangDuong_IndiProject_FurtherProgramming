@@ -34,23 +34,20 @@ public class DataFileLoader {
                 String[] parts = line.split(","); // Split the line by comma
 
                 // Assuming each part corresponds to the data in the file
-                if (parts.length <= 4) { // Assuming there are 4 parts for each line of PolicyHolder
+                if (parts.length <= 5) { // Assuming there are 5 parts for each line of PolicyHolder, so each line of Dependent has less than 5 parts
                     String cId = parts[0];
 
                     String fullName = parts[1];
                     String insuranceCard = parts[2];
-                    //this ArrayList store the Strings of ClaimID, not the Claim Objects itself
-                    ArrayList<Claim> listOfClaims = new ArrayList<Claim>(Integer.parseInt(parts[3]));
-
-
+                    //this ArrayList store the Claim object, but currently listOfClaims for dependent is empty
+                    ArrayList<Claim> listOfClaims = new ArrayList<Claim>();
                     // Create a Dependent object using parsed data
                     Dependent dependent = new Dependent(cId, fullName, insuranceCard, listOfClaims);
-                    // Add the PolicyHolder objects to the policyHolders ArrayList
+                    // Add the Dependent objects to the Dependent ArrayList
                     dependents.add(dependent);
                 }
             }
         }
-
 
         return dependents;
     }
@@ -67,29 +64,56 @@ public class DataFileLoader {
         try (BufferedReader reader = new BufferedReader(new FileReader(customerFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
-
                 String[] parts = line.split(","); // Split the line by comma
 
                 // Assuming each part corresponds to the data in the file
                 if (parts.length >= 5) { // Assuming there are 5 parts for each line of PolicyHolder
                     String cId = parts[0];
-
                     String fullName = parts[1];
                     String insuranceCard = parts[2];
-                    //this ArrayList store the Strings of ClaimID, not the Claim Objects itself
-                    ArrayList<Claim> listOfClaims = new ArrayList<>(Integer.parseInt(parts[3]));
-                    //listOfDependents: store dependents cID
-                    ArrayList<Dependent> listOfDependents = new ArrayList<>(Integer.parseInt(parts[4]));
+
+                    // Parse list of claims
+                    String[] claimsData = parts[3].split("\\]\\[");
+                    ArrayList<Claim> listOfClaims = new ArrayList<>();
+                    for (String claimData : claimsData) {
+                        // Parse claim data elements
+                        String[] claimParts = claimData.split(",");
+                        if (claimParts.length >= 11) { // Assuming there are 11 parts for each claim data
+                            try {
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                                Date claimDate = dateFormat.parse(claimParts[1].trim());
+                                Date examDate = dateFormat.parse(claimParts[4].trim());
+                                // Create a Claim object using parsed data and add it to the list of claims
+                                Claim claim = new Claim(claimParts[0], claimDate, claimParts[2], claimParts[3], examDate,
+                                        new ArrayList<>(Arrays.asList(claimParts[5].split(" "))), Double.parseDouble(claimParts[6]),
+                                        claimParts[7], claimParts[8], claimParts[9], claimParts[10]);
+                                listOfClaims.add(claim);
+                            } catch (ParseException e) {
+                                e.printStackTrace(); // Handle parsing exception as needed
+                            }
+                        }
+                    }
+
+                    // Parse list of dependents
+                    String[] dependentsData = parts[4].split("\\]\\[");
+                    ArrayList<Dependent> listOfDependents = new ArrayList<>();
+                    for (String dependentData : dependentsData) {
+                        // Parse dependent data elements
+                        String[] dependentParts = dependentData.split(",");
+                        if (dependentParts.length >= 3) { // Assuming there are 3 parts for each dependent data
+                            // Create a Dependent object using parsed data and add it to the list of dependents
+                            Dependent dependent = new Dependent(dependentParts[0], dependentParts[1], dependentParts[2], new ArrayList<>());
+                            listOfDependents.add(dependent);
+                        }
+                    }
 
                     // Create a PolicyHolder object using parsed data
                     PolicyHolder policyHolder = new PolicyHolder(cId, fullName, insuranceCard, listOfClaims, listOfDependents);
-                    // Add the PolicyHolder objects to the policyHolders ArrayList
+                    // Add the PolicyHolder object to the policyHolders ArrayList
                     policyHolders.add(policyHolder);
                 }
             }
         }
-
-
         return policyHolders;
     }
 
