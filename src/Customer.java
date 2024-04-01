@@ -15,21 +15,21 @@ public abstract class Customer  {
     private String insuranceCard;
     private ArrayList<Claim> listOfClaims;
     //constructor
-
-
-    /**
-     * Instantiates a new Customer.
-     *
-     * @param cId           the c id
-     * @param fullName      the full name
-     * @param insuranceCard the insurance card
-     * @param listOfClaims  the list of claims
-     */
+    // Constructor with default values for partial arguments
     public Customer(String cId, String fullName, String insuranceCard, ArrayList<Claim> listOfClaims) {
-        this.cId = cId;
-        this.fullName = fullName;
-        this.insuranceCard = insuranceCard;
-        this.listOfClaims = listOfClaims;
+        this.cId = (cId != null && !cId.isEmpty()) ? cId : "default";
+        this.fullName = (fullName != null && !fullName.isEmpty()) ? fullName : "default";
+        this.insuranceCard = (insuranceCard != null && !insuranceCard.isEmpty()) ? insuranceCard : "default";
+        this.listOfClaims = (listOfClaims != null) ? listOfClaims : new ArrayList<>();
+    }
+
+
+    // Constructor with default value, no arguments needed
+    public Customer() {
+        this.cId = "default";
+        this.fullName = "default";
+        this.insuranceCard = "default";
+        this.listOfClaims = new ArrayList<>();
     }
     //getters and setters
 

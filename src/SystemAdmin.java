@@ -15,6 +15,7 @@ public class SystemAdmin  implements ClaimProcessManager{
     @Override
     public void addClaim(Claim claim) {
 
+
     }
 
     @Override

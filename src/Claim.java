@@ -25,18 +25,21 @@ public class Claim {
     private String accountNumber;
     //constructor
 
-    public Claim(String claimID, Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber) {
-        this.claimID = claimID;
-        this.claimDate = claimDate;
-        this.insuredPerson = insuredPerson;
-        this.cardNumber = cardNumber;
-        this.examDate = examDate;
-        this.listOfDocuments = listOfDocuments;
-        this.claimAmount = claimAmount;
-        this.status = status;
-        this.bankName = bankName;
-        this.accountOwner = accountOwner;
-        this.accountNumber = accountNumber;
+    // Constructor with default values for partial arguments
+    public Claim(String claimID, Date claimDate, String insuredPerson, String cardNumber, Date examDate,
+                 ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName,
+                 String accountOwner, String accountNumber) {
+        this.claimID = (claimID != null && !claimID.isEmpty()) ? claimID : "default";
+        this.claimDate = (claimDate != null) ? claimDate : new Date(2024 - 1900, 0, 1);
+        this.insuredPerson = (insuredPerson != null && !insuredPerson.isEmpty()) ? insuredPerson : "default";
+        this.cardNumber = (cardNumber != null && !cardNumber.isEmpty()) ? cardNumber : "default";
+        this.examDate = (examDate != null) ? examDate : new Date(2024 - 1900, 0, 1);
+        this.listOfDocuments = (listOfDocuments != null) ? listOfDocuments : new ArrayList<>();
+        this.claimAmount = claimAmount; // No default value for claimAmount, it's a double
+        this.status = (status != null && !status.isEmpty()) ? status : "default";
+        this.bankName = (bankName != null && !bankName.isEmpty()) ? bankName : "default";
+        this.accountOwner = (accountOwner != null && !accountOwner.isEmpty()) ? accountOwner : "default";
+        this.accountNumber = (accountNumber != null && !accountNumber.isEmpty()) ? accountNumber : "default";
     }
 
     //constructor with default value, no arguments needed
@@ -53,6 +56,7 @@ public class Claim {
         this.accountOwner = "default";
         this.accountNumber = "default";
     }
+
 
 
     //getters and setters

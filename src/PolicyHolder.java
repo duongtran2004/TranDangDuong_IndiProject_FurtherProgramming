@@ -11,12 +11,17 @@ import java.util.ArrayList;
  */
 public class PolicyHolder  extends  Customer{
     private ArrayList<Dependent> listOfDependents;
-    //constructor
 
-
+    // Constructor with default values for partial arguments
     public PolicyHolder(String cId, String fullName, String insuranceCard, ArrayList<Claim> listOfClaims, ArrayList<Dependent> listOfDependents) {
         super(cId, fullName, insuranceCard, listOfClaims);
-        this.listOfDependents = listOfDependents;
+        this.listOfDependents = (listOfDependents != null) ? listOfDependents : new ArrayList<>();
+    }
+
+    // Constructor with default value, no arguments needed
+    public PolicyHolder() {
+        super("default", "default", "default", new ArrayList<>());
+        this.listOfDependents = new ArrayList<>();
     }
     //getter and setters
 

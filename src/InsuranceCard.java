@@ -16,13 +16,16 @@ public class InsuranceCard {
     private Date expirationDate;
     //constructor
 
+
+    // Constructor with default values for partial arguments
     public InsuranceCard(String cardNumber, String cardHolder, String policyOwner, Date expirationDate) {
-        this.cardNumber = cardNumber;
-        this.cardHolder = cardHolder;
-        this.policyOwner = policyOwner;
-        this.expirationDate = expirationDate;
+        this.cardNumber = (cardNumber != null && !cardNumber.isEmpty()) ? cardNumber : "default";
+        this.cardHolder = (cardHolder != null && !cardHolder.isEmpty()) ? cardHolder : "default";
+        this.policyOwner = (policyOwner != null && !policyOwner.isEmpty()) ? policyOwner : "default";
+        this.expirationDate = (expirationDate != null) ? expirationDate : new Date(2024 - 1900, 0, 1);
     }
-    //constructor with default value, no arguments needed
+
+    // Constructor with default value, no arguments needed
     public InsuranceCard() {
         this.cardNumber = "default";
         this.cardHolder = "default";
