@@ -106,20 +106,13 @@ public class DataPopulator {
                     String policyOwner = "";
                     String expirationDate = "";
 
-                    // Determine the policy owner based on the cId
-                    if (cId.compareTo("c-1001000") >= 0) {
+                    // Determine the policy owner based on the cardNumber (last two digits < 50)
+                    if (cardNumber.compareTo("0000000050") <= 0) {
                         policyOwner = cardHolder;
 
                     } else {
                         // Dependent
-                        //same logic as  populateSampleCustomerData
-                        if (Integer.parseInt(cardNumber) % 5 == 0) {
-                            policyOwner = "BUV";
-                        } else if (Integer.parseInt(cardNumber) % 2 == 0) {
-                            policyOwner = "RMIT Vietnam";
-                        } else {
-                            policyOwner = "FPT";
-                        }
+                       policyOwner = "PolicyHolder" + " " + (99 - Integer.parseInt(cardNumber));
                     }
 
                     // Generate expiration date: Today/CurrentDate + 10 days + last 2 digits of Cid
