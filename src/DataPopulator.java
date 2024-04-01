@@ -112,7 +112,7 @@ public class DataPopulator {
 
                     } else {
                         // Dependent
-                       policyOwner = "PolicyHolder" + " " + (99 - Integer.parseInt(cardNumber));
+                       policyOwner = "PolicyHolder" + " " + (99 - (Integer.parseInt(cardNumber)));
                     }
 
                     // Generate expiration date: Today/CurrentDate + 10 days + last 2 digits of Cid
@@ -183,15 +183,16 @@ public class DataPopulator {
                     //store each attributes of customer's data as 1 element in the customerData Array, each split by ","
                     String[] customerDataLine = line.split(",");
                     insuranceCard = customerDataLine[2];
-                    //skip the current line if a customer is a policy holder, create no claim at first
-                    if (lineCounter >= 16) {
+                    //skip the current line if a customer is a dependent, create no claim at first
+                    //dependent has insurance card >= 50
+                    if (insuranceCard.compareTo("0000000050") >= 0)  {
                         continue;
                     }
+                    //make claims for PolicyHolders only
                     //id (with the format f-numbers; 10 numbers)
                     String claimId = "f-" + insuranceCard;
                     String insuredPerson = customerDataLine[1];
                     //store claimId into CustomersData.txt's claimsList ArrayList
-
 
                     //ClaimDate: The day when customers fill in claim form
                     String claimDate = "";
@@ -225,7 +226,7 @@ public class DataPopulator {
                     listOfDocuments.add(hospitalBill);
                     listOfDocuments.add(patientRecord);
                     //generate claimAmount = last digits of card * 100
-                    claimAmount = (Integer.parseInt(insuranceCard) % 10) * 100;
+                    claimAmount = ((Integer.parseInt(insuranceCard)) % 10) * 100;
                     //generate random status
                     random = new Random();
                     int randomNumber = random.nextInt(3); //generate randomNumber from 0 to 2
@@ -257,16 +258,18 @@ public class DataPopulator {
                     }
                     //variable to store claimData
 
-                    String claimData = claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + listOfDocuments + "," + claimAmount + "," + status + "," + bankName + "," + accountOwner + "," + accountNumber;
+                    String claimDataLine = claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + listOfDocuments + "," + claimAmount + "," + status + "," + bankName + "," + accountOwner + "," + accountNumber;
                     // Write claims data to the ClaimData.txt file
-                    bufferedWriter.write(claimData + "\n");
+                    bufferedWriter.write(claimDataLine + "\n");
                     // Append claim data to the corresponding customer data in the customers file
                     String customerId = customerDataLine[0];
                     String existingCustomerDataLine = line;
-                    // Check if the claim data has already been appended
-                    if (!existingCustomerDataLine.contains("[" + claimData + "]")) {
+                    // Check the condition to append claimData:
+                    // 1. if the claim data has NOT already been appended
+                    // 2. if the current CustomerDataLine is a PolicyHolder (insuranceCard < = 60
+                    if (!existingCustomerDataLine.contains("[" + claimDataLine + "]") && (insuranceCard.compareTo("0000000050") <= 0)) {
                         // Append claim data only if it hasn't been added before
-                        String newCustomerDataLine = existingCustomerDataLine + "[" + claimData + "]";
+                        String newCustomerDataLine = existingCustomerDataLine + "[" + claimDataLine + "]";
                         replaceLine(customersFile, customerId, newCustomerDataLine);
                     }
                 }
