@@ -139,7 +139,14 @@ public class DataFileLoader {
 
                     String cardHolder = parts[1];
                     String policyHolder = parts[2];
-                    Date expirationDate = (Main.DATE_FORMAT.parse(parts[3]));
+                    Date expirationDate =  null;
+                    try {
+                        expirationDate = Main.DATE_FORMAT.parse(parts[3]); // Parse the expiration date
+                    } catch (ParseException e) {
+                        // Handle invalid date format
+                        System.err.println("Error parsing expiration date for line: " + line);
+                        continue; // Skip to the next line
+                    }
 
                     // Create a InsuranceCard object using parsed data
                     InsuranceCard insuranceCard = new InsuranceCard(cardNumber, cardHolder, policyHolder, expirationDate);
@@ -151,8 +158,6 @@ public class DataFileLoader {
                     System.err.println("Skipping line with incorrect format: " + line);
                 }
             }
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
         }
 
 

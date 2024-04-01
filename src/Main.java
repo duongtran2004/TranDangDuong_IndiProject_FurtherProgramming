@@ -1,6 +1,3 @@
-import UserInterface.TextUI;
-import UserInterface.WelcomingScreen;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -112,19 +109,20 @@ public class Main {
      * @param args the input arguments
      */
     public static void main(String[] args) throws IOException {
-//        try {
-//            WelcomingScreen.displayWelcomeScreen(); //display the welcoming screen only once at start
-//            createNewEmptyFiles(); //create 3 new DataFiles for Customer, InsuranceCard and Claim if these files are not exist
-//            populateDataToEmptyFiles();
-//            loadData();
-//            TextUI.displayMainMenu(); //display menu of options to users
-//            saveData();
-//        } catch (IOException e) {
-//            System.out.println("Error: File not found.");
-//            e.printStackTrace();
-//        }
-        loadData();
-        systemAdmin.getAllClaims();
+        try {
+
+            WelcomingScreen.displayWelcomeScreen(); //display the welcoming screen only once at start
+            createNewEmptyFiles(); //create 3 new DataFiles for Customer, InsuranceCard and Claim if these files are not exist
+            populateDataToEmptyFiles();
+            loadData();
+            TextUI textUI = new TextUI(); // Create an instance of TextUI
+            textUI.displayMainMenu(); // Call the method using the instance
+            saveData();
+        } catch (IOException e) {
+            System.out.println("Error: File not found.");
+            e.printStackTrace();
+        }
+
     }
 
 

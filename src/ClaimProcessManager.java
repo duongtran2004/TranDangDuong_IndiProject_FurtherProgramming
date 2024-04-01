@@ -9,27 +9,17 @@ public interface ClaimProcessManager {
     /**
      * Add claim.
      *
-     * @param claim the claim
+     * @param
      */
 
 
-    void addClaim(String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber);
+    void addClaim(Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber);
 
     /**
      * Update claim.
      *
      * @param claimIDAsInput the claim
      */
-    void updateClaimById(String claimIDAsInput, Date claimDate, String insuredPerson, String cardNumber,
-                         Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status,
-                         String bankName, String accountOwner, String accountNumber);
-
-    /**
-     * Delete claim.
-     *
-     * @param claim the claim
-     */
-    void deleteClaimById(String claimIDAsInput);
 
     /**
      * Gets one.
@@ -44,7 +34,20 @@ public interface ClaimProcessManager {
      *
      * @return the all
      */
-     void getAllClaims() ;
+    void getAllClaims() ;
+    void updateClaimById(String claimIDAsInput, Date claimDate, String insuredPerson, String cardNumber,
+                         Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status,
+                         String bankName, String accountOwner, String accountNumber);
+
+    /**
+     * Delete claim.
+     *
+     * @param
+     */
+    void deleteClaimById(String claimIDAsInput);
+
+    void deleteAllClaimInTheSystem();
+
 
 
 

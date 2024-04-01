@@ -65,9 +65,7 @@ public class Claim {
         return claimID;
     }
 
-    public void setClaimID(String claimID) {
-        this.claimID = claimID;
-    }
+   //do not allow user to set/change claimID
 
     public Date getClaimDate() {
         return claimDate;

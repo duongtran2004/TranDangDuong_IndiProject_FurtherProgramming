@@ -57,13 +57,13 @@ public class DataPopulator {
                     String dependentInsuranceCard = padded10digitsNumberForDependent;
 
                     //Variable to store dependent data in a line of String
-                    String dependentDataLine = dependentCId + "," + dependentFullName + "," + dependentInsuranceCard + "," + emptyListOfClaims.toString() ;
+                    String dependentDataLine = dependentCId + "," + dependentFullName + "," + dependentInsuranceCard + "," + emptyListOfClaims.toString();
 
                     //add dependent data to listOfDependent
                     listOfDependents.add(dependentDataLine);
 
                     //Variable to store policyHolder data in a line of String
-                    String policyHolderDataLine = policyHolderCId + "," + policyHolderFullName + "," + policyHolderInsuranceCard + "," + listOfClaims.toString() + listOfDependents.toString() ;
+                    String policyHolderDataLine = policyHolderCId + "," + policyHolderFullName + "," + policyHolderInsuranceCard + "," + listOfClaims.toString() + listOfDependents.toString();
 
                     // Write policyHolder data to the file
                     bufferedWriter.write(policyHolderDataLine + "\n");
@@ -112,7 +112,7 @@ public class DataPopulator {
 
                     } else {
                         // Dependent
-                       policyOwner = "PolicyHolder" + " " + (99 - (Integer.parseInt(cardNumber)));
+                        policyOwner = "PolicyHolder" + " " + (99 - (Integer.parseInt(cardNumber)));
                     }
 
                     // Generate expiration date: Today/CurrentDate + 10 days + last 2 digits of Cid
@@ -185,7 +185,7 @@ public class DataPopulator {
                     insuranceCard = customerDataLine[2];
                     //skip the current line if a customer is a dependent, create no claim at first
                     //dependent has insurance card >= 50
-                    if (insuranceCard.compareTo("0000000050") >= 0)  {
+                    if (insuranceCard.compareTo("0000000050") >= 0) {
                         continue;
                     }
                     //make claims for PolicyHolders only
@@ -226,7 +226,8 @@ public class DataPopulator {
                     listOfDocuments.add(hospitalBill);
                     listOfDocuments.add(patientRecord);
                     //generate claimAmount = last digits of card * 100
-                    claimAmount = ((Integer.parseInt(insuranceCard)) % 10) * 100;
+                    Random randomClaimAmount = new Random();
+                    claimAmount = random.nextDouble(901) + 100; // Generates a random double between 100 and 1000 (inclusive)
                     //generate random status
                     random = new Random();
                     int randomNumber = random.nextInt(3); //generate randomNumber from 0 to 2

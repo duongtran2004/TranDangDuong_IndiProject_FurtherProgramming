@@ -1,5 +1,3 @@
-package UserInterface;
-
 /**
  * The interface Welcoming screen.
  *
@@ -31,7 +29,7 @@ public class WelcomingScreen {
     }
 
     /**
-     * The entry point of the UserInterface.WelcomingScreen Class.
+     * The entry point of the WelcomingScreen Class.
      *
      * @param args the input arguments
      */
