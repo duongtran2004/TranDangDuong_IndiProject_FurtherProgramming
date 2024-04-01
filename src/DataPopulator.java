@@ -32,65 +32,44 @@ public class DataPopulator {
         // Check if the file exists and is empty
         if (customersFile.exists() && customersFile.length() == 0) {
             try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(customersFile))) {
+                //generate 15 policyholder objects
 
-                // add listOfDependents that store Cid as String for policy Owner
-                ArrayList<String> RMITListOfDependents = new ArrayList<>();
-                ArrayList<String> FPTListOfDependents = new ArrayList<>();
-                ArrayList<String> BUVListOfDependents = new ArrayList<>();
-
-                ArrayList<String> listOfClaims = new ArrayList<>();
-
-                //other attribute
-
-                String cId = "";
-                String insuranceCard = "";
-
-
-                // Populate sample 15 Dependents customer data
                 for (int i = 1; i <= 15; i++) {
+                    //variables to hold attribute
+
+                    ArrayList<String> listOfClaims = new ArrayList<>();
+                    ArrayList<String> emptyListOfClaims = new ArrayList<>();
+                    ArrayList<String> listOfDependents = new ArrayList<>();
+
                     // id (with the format c-numbers; 7 numbers) =>
-
-                    String padded7digitsNumber = String.format("%07d", i); // Format the number with leading zeros
-                    cId = "c-" + padded7digitsNumber; // Concatenate the formatted number and "c-"
-
-
-                    String fullName = "Customer " + i;
+                    String padded7digitsNumberForPolicyHolder = String.format("%07d", i); // Format the number with leading zeros
+                    String policyHolderCId = "c-" + padded7digitsNumberForPolicyHolder; // Concatenate the formatted number and "c-"
+                    String policyHolderFullName = "PolicyHolder " + i;
                     //insurance card:  card number (10 digits)
                     //variable to hold padded10dDigitsNumbers
-                    String padded10digitsNumber = String.format("%010d", i);
+                    String padded10digitsNumberForPolicyHolder = String.format("%010d", i);
+                    String policyHolderInsuranceCard = padded10digitsNumberForPolicyHolder;
+                    //now generate 1 Dependents object for each PolicyHolder
+                    String padded7digitsNumberForDependent = String.format("%07d", 99 - i);
+                    String dependentCId = "c-" + padded7digitsNumberForDependent;
+                    String dependentFullName = "Dependent " + i;
+                    String padded10digitsNumberForDependent = String.format("%010d", 99 - i);
+                    String dependentInsuranceCard = padded10digitsNumberForDependent;
 
-                    insuranceCard = padded10digitsNumber;
+                    //Variable to store dependent data in a line of String
+                    String dependentDataLine = dependentCId + "," + dependentFullName + "," + dependentInsuranceCard + "," + emptyListOfClaims.toString() ;
 
-                    //each customers would automatically generate 1 claimID. claimID = insuranceCardNumber
-                    String claimID = "f-" + insuranceCard;
+                    //add dependent data to listOfDependent
+                    listOfDependents.add(dependentDataLine);
 
-                    //String variable to store line data
-                    String dependentLineData = cId + "," + fullName + "," + insuranceCard + "," + listOfClaims ;
-                    // Write customer data to the file
-                    bufferedWriter.write(dependentLineData + "\n");
-                    //add dependents's object data into policy owner listOfDependents
-                    if (i <= 5) { //i from 1 to 5
-                        BUVListOfDependents.add("[" + dependentLineData + "]");
-                    } else if (i <= 10) { // i from 5 to 10
-                        RMITListOfDependents.add("[" + dependentLineData + "]");
+                    //Variable to store policyHolder data in a line of String
+                    String policyHolderDataLine = policyHolderCId + "," + policyHolderFullName + "," + policyHolderInsuranceCard + "," + listOfClaims.toString() + listOfDependents.toString() ;
 
-                    } else { //i from 10 to 15
-                        FPTListOfDependents.add("[" + dependentLineData + "]");
-
-                    }
+                    // Write policyHolder data to the file
+                    bufferedWriter.write(policyHolderDataLine + "\n");
+                    //Write Dependent data to the file
+                    bufferedWriter.write(dependentDataLine + "\n");
                 }
-                //Populate sample 3 PolicyHolder Customer to hold 15 dependents,
-                //A Customer is A Policy Holder if cId >= 1001000, otherwise dependent
-
-                //So PolicyHolder store 2 ArrayList
-                // Write 1st Policy Owner to the file
-                bufferedWriter.write("c-1001000" + "," + "RMIT Vietnam," + "2000001000" + "," + listOfClaims.toString() + RMITListOfDependents.toString() + "\n");
-                // Write 2nd Policy Owner to the file
-                bufferedWriter.write("c-1002000" + "," + "FPT" + "," + "2000002000" + "," + listOfClaims.toString() + FPTListOfDependents.toString() + "\n");
-                // Write 3rd Policy Owner to the file
-                bufferedWriter.write("c-1003000" + "," + "BUV" + "," + "2000003000" + "," + listOfClaims.toString() + BUVListOfDependents.toString() + "\n");
-
-
                 System.out.println("Sample " + customersFile.getName() + " data populated successfully.");
             }
         } else {
@@ -188,7 +167,7 @@ public class DataPopulator {
                 //variable to hold line-counter. This would be use to identify PolicyHolders
                 int lineCounter = 0;
                 while ((line = bufferedReader.readLine()) != null) {
-                    lineCounter ++;
+                    lineCounter++;
 
 
                     //variable to hold list of documents
@@ -212,7 +191,7 @@ public class DataPopulator {
                     String[] customerDataLine = line.split(",");
                     insuranceCard = customerDataLine[2];
                     //skip the current line if a customer is a policy holder, create no claim at first
-                    if (lineCounter >=16) {
+                    if (lineCounter >= 16) {
                         continue;
                     }
                     //id (with the format f-numbers; 10 numbers)
@@ -305,6 +284,7 @@ public class DataPopulator {
             System.out.println("File " + claimsFile.getName() + " is not empty. Skipping data population.");
         }
     }
+
     // Method to replace a line in a file
     private static void replaceLine(File file, String targetId, String newLine) throws IOException {
         List<String> lines = new ArrayList<>();
