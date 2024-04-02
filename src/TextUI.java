@@ -138,7 +138,7 @@ public class TextUI {
                 break;
             case 3:
                 System.out.println("Moving back to main menu ...");
-                displayMainMenu();
+                //do nothing = go back 1 step (The current method would return to the method that call it
                 break;
 
             case 4:
@@ -178,7 +178,6 @@ public class TextUI {
                 break;
             case 3:
                 System.out.println("Moving back to main menu ...");
-                displayMainMenu();
                 break;
 
             case 4:
@@ -255,7 +254,7 @@ public class TextUI {
                 break;
             case 2:
                 System.out.println("Moving back to main menu ...");
-                displayMainMenu();
+
                 break;
 
             case 3:
@@ -295,7 +294,7 @@ public class TextUI {
                 break;
             case 3:
                 System.out.println("Moving back to main menu ...");
-                displayMainMenu();
+
                 break;
 
             case 4:
