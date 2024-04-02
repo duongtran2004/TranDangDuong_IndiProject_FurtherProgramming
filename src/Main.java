@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -121,6 +122,8 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Error: File not found.");
             e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
 
     }

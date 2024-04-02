@@ -27,7 +27,7 @@ public class TextUI {
     /**
      * Display main menu with choices
      */
-    public void displayMainMenu() {
+    public void displayMainMenu() throws ParseException {
         int choice = 0;
         System.out.println("Welcome to the Insurance Claims Management System!");
         System.out.println("Menu of choices: ");
@@ -46,7 +46,7 @@ public class TextUI {
      *
      * @param choice the choice
      */
-    public void handleMainMenuInput(int choice) {
+    public void handleMainMenuInput(int choice) throws ParseException {
 
         switch (choice) {
             case 1:
@@ -63,7 +63,7 @@ public class TextUI {
                 break;
             case 5:
                 System.out.println("Exiting the program...");
-                System.exit(0); // exit status code of 0
+
                 break;
             default: //handle wrong user input if cannot find choice that match to options
                 System.out.println("Invalid choice. Please try again.");
@@ -74,7 +74,7 @@ public class TextUI {
     }
 
     //remember has option to move back to previous step
-    public void displayMenuForAddingClaims() {
+    public void displayMenuForAddingClaims() throws ParseException {
         int choice = 0;
         System.out.println("Menu of choices for adding claims: ");
         System.out.println("1. Add claims by default values");
@@ -83,7 +83,7 @@ public class TextUI {
         System.out.println("4. Exit");
         System.out.print("Enter your choice (must be integer from 1 to 4): ");
         choice = scanner.nextInt();
-        handleMainMenuInput(choice);
+        handleMenuForAddingClaims(choice);
     }
 
     public void handleMenuForAddingClaims(int choice) throws ParseException {
@@ -143,7 +143,6 @@ public class TextUI {
 
             case 4:
                 System.out.println("Exiting the program...");
-                System.exit(0); // exit status code of 0
                 break;
             default: //handle wrong user input if cannot find choice that match to options
                 System.out.println("Invalid choice. Please try again.");
@@ -153,7 +152,7 @@ public class TextUI {
 
     }
 
-    public void displayMenuForGettingClaims() {
+    public void displayMenuForGettingClaims() throws ParseException {
         int choice = 0;
         System.out.println("Menu of choices for getting/viewing claims: ");
         System.out.println("1. Get claims by claim ID");
@@ -162,7 +161,7 @@ public class TextUI {
         System.out.println("4. Exit");
         System.out.print("Enter your choice (must be integer from 1 to 4): ");
         choice = scanner.nextInt();
-        handleMainMenuInput(choice);
+        handleMenuForGettingClaims(choice);
     }
 
     public void handleMenuForGettingClaims(int choice) {
@@ -182,7 +181,6 @@ public class TextUI {
 
             case 4:
                 System.out.println("Exiting the program...");
-                System.exit(0); // exit status code of 0
                 break;
             default: //handle wrong user input if cannot find choice that match to options
                 System.out.println("Invalid choice. Please try again.");
@@ -192,7 +190,7 @@ public class TextUI {
 
     }
 
-    public void displayMenuForUpdatingClaims() {
+    public void displayMenuForUpdatingClaims() throws ParseException {
         int choice = 0;
         System.out.println("Menu of choices for updating/changing claims: ");
         System.out.println("1. Update claims by claim ID");
@@ -200,7 +198,7 @@ public class TextUI {
         System.out.println("3. Exit");
         System.out.print("Enter your choice (must be integer from 1 to 3): ");
         choice = scanner.nextInt();
-        handleMainMenuInput(choice);
+        handleMenuForUpdatingClaims(choice);
     }
 
     public void handleMenuForUpdatingClaims(int choice) throws ParseException {
@@ -259,7 +257,6 @@ public class TextUI {
 
             case 3:
                 System.out.println("Exiting the program...");
-                System.exit(0); // exit status code of 0
                 break;
             default: //handle wrong user input if cannot find choice that match to options
                 System.out.println("Invalid choice. Please try again.");
@@ -278,7 +275,7 @@ public class TextUI {
         System.out.println("4. Exit");
         System.out.print("Enter your choice (must be integer from 1 to 4): ");
         choice = scanner.nextInt();
-        handleMainMenuInput(choice);
+        handleMenuForDeletingClaims(choice);
     }
 
     public void handleMenuForDeletingClaims(int choice) {
@@ -299,7 +296,6 @@ public class TextUI {
 
             case 4:
                 System.out.println("Exiting the program...");
-                System.exit(0); // exit status code of 0
                 break;
             default: //handle wrong user input if cannot find choice that match to options
                 System.out.println("Invalid choice. Please try again.");
