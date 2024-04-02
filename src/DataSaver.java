@@ -70,7 +70,9 @@ public class DataSaver {
         try (PrintWriter writer = new PrintWriter(new FileWriter(insuranceCardFile))) {
 
             for (InsuranceCard card : insuranceCards) { //loop through each insurance object in the ArrayList
-                writer.println(card.getCardNumber() + "," + card.getCardHolder() + "," + card.getPolicyOwner() + "," + card.getExpirationDate()); //format to write 1 line (append not re-write)
+                //format the expirationDate
+                String formattedExpirationDate = Main.DATE_FORMAT.format(card.getExpirationDate());
+                writer.println(card.getCardNumber() + "," + card.getCardHolder() + "," + card.getPolicyOwner() + "," + formattedExpirationDate); //format to write 1 line (append not re-write)
             }
             System.out.println("Success to save data to " + insuranceCardFile.getName());
         }

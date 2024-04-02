@@ -11,7 +11,7 @@ public class TextUI {
      * Attribute:
      * Create scanner attribute for TextUI class
      */
-    private static Scanner scanner;
+    private Scanner scanner;
 
     /**
      * Constructor:
@@ -23,22 +23,12 @@ public class TextUI {
         this.scanner = new Scanner(System.in);
     }
 
-    //variable to store choice input from users
-    private static int choice = 0;
-    //variable to store claimID
-    private static String claimID = "";
-
-    //new systemAdmin object to call claim methods
-//display the instruction for user to input claimID
-    private static void aksUserForClaimID() {
-        System.out.println("Please enter the correct claimID: (with the format f-numbers; 10 numbers) ");
-        claimID = scanner.next();
-    }
 
     /**
      * Display main menu with choices
      */
-    public static void displayMainMenu() {
+    public void displayMainMenu() {
+        int choice = 0;
         System.out.println("Welcome to the Insurance Claims Management System!");
         System.out.println("Menu of choices: ");
         System.out.println("1. Add claims");
@@ -56,7 +46,7 @@ public class TextUI {
      *
      * @param choice the choice
      */
-    public static void handleMainMenuInput(int choice) {
+    public void handleMainMenuInput(int choice) {
 
         switch (choice) {
             case 1:
@@ -77,12 +67,15 @@ public class TextUI {
                 break;
             default: //handle wrong user input if cannot find choice that match to options
                 System.out.println("Invalid choice. Please try again.");
-                displayMainMenu(); //back to main menu
+                break;
+
         }
+
     }
 
     //remember has option to move back to previous step
-    public static void displayMenuForAddingClaims() {
+    public void displayMenuForAddingClaims() {
+        int choice = 0;
         System.out.println("Menu of choices for adding claims: ");
         System.out.println("1. Add claims by default values");
         System.out.println("2. Add claims with values from your input");
@@ -93,7 +86,7 @@ public class TextUI {
         handleMainMenuInput(choice);
     }
 
-    public static void handleMenuForAddingClaims() throws ParseException {
+    public void handleMenuForAddingClaims(int choice) throws ParseException {
         SystemAdmin systemAdmin = new SystemAdmin();
         switch (choice) {
             case 1:
@@ -141,7 +134,7 @@ public class TextUI {
                 System.out.println("Please enter the account number (must be an integer):");
                 String accountNumber = "b-" + scanner.nextInt();
                 //pass user input the the method parameter
-                systemAdmin.addClaim(claimDate,insuredPerson, cardNumber, examDate, listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
+                systemAdmin.addClaim(claimDate, insuredPerson, cardNumber, examDate, listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
                 break;
             case 3:
                 System.out.println("Moving back to main menu ...");
@@ -154,11 +147,14 @@ public class TextUI {
                 break;
             default: //handle wrong user input if cannot find choice that match to options
                 System.out.println("Invalid choice. Please try again.");
-                displayMainMenu(); //back to main menu
+                break;
+
         }
+
     }
 
-    public static void displayMenuForGettingClaims() {
+    public void displayMenuForGettingClaims() {
+        int choice = 0;
         System.out.println("Menu of choices for getting/viewing claims: ");
         System.out.println("1. Get claims by claim ID");
         System.out.println("2. Get all claims in the system");
@@ -169,11 +165,12 @@ public class TextUI {
         handleMainMenuInput(choice);
     }
 
-    public static void handleMenuForGettingClaims() {
+    public void handleMenuForGettingClaims(int choice) {
         SystemAdmin systemAdmin = new SystemAdmin();
         switch (choice) {
             case 1:
-                aksUserForClaimID();
+                System.out.println("Please enter the claimID (must be the format f-numbers; 10 numbers)");
+                String claimID = scanner.next();
                 systemAdmin.getOneClaimById(claimID);
                 break;
             case 2:
@@ -190,11 +187,14 @@ public class TextUI {
                 break;
             default: //handle wrong user input if cannot find choice that match to options
                 System.out.println("Invalid choice. Please try again.");
-                displayMainMenu(); //back to main menu}
+                break;
+
         }
+
     }
 
-    public static void displayMenuForUpdatingClaims() {
+    public void displayMenuForUpdatingClaims() {
+        int choice = 0;
         System.out.println("Menu of choices for updating/changing claims: ");
         System.out.println("1. Update claims by claim ID");
         System.out.println("2. Back to main menu");
@@ -204,9 +204,10 @@ public class TextUI {
         handleMainMenuInput(choice);
     }
 
-    public static void handleMenuForUpdatingClaims() throws ParseException {
+    public void handleMenuForUpdatingClaims(int choice) throws ParseException {
         SystemAdmin systemAdmin = new SystemAdmin();
-        aksUserForClaimID();
+        System.out.println("Please enter the claimID (must be the format f-numbers; 10 numbers)");
+        String claimID = scanner.next();
         switch (choice) {
             case 1:
                 System.out.println("Please enter values of claim's attributes: ");
@@ -250,7 +251,7 @@ public class TextUI {
                 System.out.println("Please enter the account number (must be an integer):");
                 String accountNumber = "b-" + scanner.nextInt();
                 //pass user input the the method parameter
-                systemAdmin.addClaim(claimDate,insuredPerson, cardNumber, examDate, listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
+                systemAdmin.addClaim(claimDate, insuredPerson, cardNumber, examDate, listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
                 break;
             case 2:
                 System.out.println("Moving back to main menu ...");
@@ -263,11 +264,14 @@ public class TextUI {
                 break;
             default: //handle wrong user input if cannot find choice that match to options
                 System.out.println("Invalid choice. Please try again.");
-                displayMainMenu(); //back to main menu}
+                break;
+
         }
+
     }
 
-    public static void displayMenuForDeletingClaims() {
+    public void displayMenuForDeletingClaims() {
+        int choice = 0;
         System.out.println("Menu of choices for deleting claims: ");
         System.out.println("1. Delete 1 claim by claim ID");
         System.out.println("2. Delete all claims in the system");
@@ -278,11 +282,12 @@ public class TextUI {
         handleMainMenuInput(choice);
     }
 
-    public static void handleMenuForDeletingClaims() {
+    public void handleMenuForDeletingClaims(int choice) {
         SystemAdmin systemAdmin = new SystemAdmin();
         switch (choice) {
             case 1:
-                aksUserForClaimID();
+                System.out.println("Please enter the claimID (must be the format f-numbers; 10 numbers)");
+                String claimID = scanner.next();
                 systemAdmin.deleteClaimById(claimID);
                 break;
             case 2:
@@ -299,8 +304,9 @@ public class TextUI {
                 break;
             default: //handle wrong user input if cannot find choice that match to options
                 System.out.println("Invalid choice. Please try again.");
-                displayMainMenu(); //back to main menu}
+                break;
         }
+
     }
 //Finish menu by traditional way
 //MCV to display menu?
