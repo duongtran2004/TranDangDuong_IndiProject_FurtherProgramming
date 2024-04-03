@@ -1,6 +1,4 @@
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 /**
  * @author Tran Dang Duong
@@ -23,7 +21,7 @@ public class ClaimIdManager {
         String claimID;
         do {
             claimID = CLAIM_ID_PREFIX + String.format("%010d", random.nextInt(MAX_CLAIM_ID) + 1);
-        } while (Main.claimsTemporaryArrayList.contains(claimID));
+        } while (FileIOManager.claimsTemporaryArrayList.contains(claimID));
         return claimID;
     }
 }

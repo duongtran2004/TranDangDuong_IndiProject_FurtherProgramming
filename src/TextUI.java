@@ -96,7 +96,7 @@ public class TextUI {
                 System.out.println("Please enter values of claim's attributes: ");
                 System.out.println("Please enter the claim date (must be the format dd-MM-yyyy, example: 12-04-2024): ");
                 String stringClaimDate = scanner.next();
-                Date claimDate = Main.DATE_FORMAT.parse(stringClaimDate); //parse from String input to Date
+                Date claimDate = FileIOManager.DATE_FORMAT.parse(stringClaimDate); //parse from String input to Date
                 System.out.println("Please enter the name of insured person ");
                 String insuredPerson = scanner.next();
                 System.out.println("Please enter the cardNumber (must be a 10 digits integer");
@@ -104,7 +104,7 @@ public class TextUI {
                 System.out.println("Please enter the ExamDate (must be the format dd-MM-yyyy, example: 12-04-2024)");
                 String stringExamDate = scanner.next();
                 //parse input date from String to Date
-                Date examDate = Main.DATE_FORMAT.parse(stringExamDate);
+                Date examDate = FileIOManager.DATE_FORMAT.parse(stringExamDate);
                 System.out.println("Please enter the list of documents. Each document is separated by a \",\" (comma): ");
                 ArrayList<String> listOfDocuments = new ArrayList<>();
                 String listOfDocumentContent = scanner.next();
@@ -210,7 +210,7 @@ public class TextUI {
                 System.out.println("Please enter values of claim's attributes: ");
                 System.out.println("Please enter the claim date (must be the format dd-MM-yyyy, example: 12-04-2024): ");
                 String stringClaimDate = scanner.next();
-                Date claimDate = Main.DATE_FORMAT.parse(stringClaimDate); //parse from String input to Date
+                Date claimDate = FileIOManager.DATE_FORMAT.parse(stringClaimDate); //parse from String input to Date
                 System.out.println("Please enter the name of insured person ");
                 String insuredPerson = scanner.next();
                 System.out.println("Please enter the cardNumber (must be a 10 digits integer");
@@ -218,7 +218,7 @@ public class TextUI {
                 System.out.println("Please enter the ExamDate (must be the format dd-MM-yyyy, example: 12-04-2024)");
                 String stringExamDate = scanner.next();
                 //parse input date from String to Date
-                Date examDate = Main.DATE_FORMAT.parse(stringExamDate);
+                Date examDate = FileIOManager.DATE_FORMAT.parse(stringExamDate);
                 System.out.println("Please enter the list of documents. Each document is separated by a \",\" (comma): ");
                 ArrayList<String> listOfDocuments = new ArrayList<>();
                 String listOfDocumentContent = scanner.next();

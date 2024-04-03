@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -16,15 +15,7 @@ import java.util.Date;
  * @created 25-Mar-24 3:41 PM
  * @project IndiProject
  * @since ${11.0.18}
- */import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+ */
 
 class DataSaverTest {
     private static ArrayList<Dependent> dependents = new ArrayList<>();
@@ -54,33 +45,33 @@ class DataSaverTest {
         policyHolders.add(new PolicyHolder("c-1003000", "BUV", "2000003000", new ArrayList<Claim>(), new ArrayList<>()));
 
         try {
-            insuranceCards.add(new InsuranceCard("0000000001", "Customer 1", "FPT", Main.DATE_FORMAT.parse("05-04-2024")));
+            insuranceCards.add(new InsuranceCard("0000000001", "Customer 1", "FPT", FileIOManager.DATE_FORMAT.parse("05-04-2024")));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         try {
-            insuranceCards.add(new InsuranceCard("0000000002", "Customer 2", "RMIT Vietnam", Main.DATE_FORMAT.parse("06-04-2024")));
+            insuranceCards.add(new InsuranceCard("0000000002", "Customer 2", "RMIT Vietnam", FileIOManager.DATE_FORMAT.parse("06-04-2024")));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         try {
-            insuranceCards.add(new InsuranceCard("0000000003", "Customer 3", "FPT", Main.DATE_FORMAT.parse("07-04-2024")));
+            insuranceCards.add(new InsuranceCard("0000000003", "Customer 3", "FPT", FileIOManager.DATE_FORMAT.parse("07-04-2024")));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         try {
-            insuranceCards.add(new InsuranceCard("0000000004", "Customer 4", "RMIT Vietnam", Main.DATE_FORMAT.parse("08-04-2024")));
+            insuranceCards.add(new InsuranceCard("0000000004", "Customer 4", "RMIT Vietnam", FileIOManager.DATE_FORMAT.parse("08-04-2024")));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         try {
-            insuranceCards.add(new InsuranceCard("0000000005", "Customer 5", "BUV", Main.DATE_FORMAT.parse("09-04-2024")));
+            insuranceCards.add(new InsuranceCard("0000000005", "Customer 5", "BUV", FileIOManager.DATE_FORMAT.parse("09-04-2024")));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            claims.add(new Claim("f-0000000001", parseDate("22-03-2024"), "Customer 1", "0000000001", Main.DATE_FORMAT.parse("16-03-2024"),
+            claims.add(new Claim("f-0000000001", parseDate("22-03-2024"), "Customer 1", "0000000001", FileIOManager.DATE_FORMAT.parse("16-03-2024"),
                     new ArrayList<>(Arrays.asList("f-0000000001_0000000001_hospitalBill.pdf", "f-0000000001_0000000001_patientRecord.pdf")),
                     100.0, "New", "Vietcombank", "Customer 1", "b-0000000001"));
         } catch (ParseException e) {
@@ -88,7 +79,7 @@ class DataSaverTest {
         }
 
         try {
-            claims.add(new Claim("f-0000000002", parseDate("21-03-2024"), "Customer 2", "0000000002", Main.DATE_FORMAT.parse("14-03-2024") ,
+            claims.add(new Claim("f-0000000002", parseDate("21-03-2024"), "Customer 2", "0000000002", FileIOManager.DATE_FORMAT.parse("14-03-2024") ,
                     new ArrayList<>(Arrays.asList("f-0000000002_0000000002_hospitalBill.pdf", "f-0000000002_0000000002_patientRecord.pdf")),
                     200.0, "Processing", "Techcombank", "Customer 2", "b-0000000002"));
         } catch (ParseException e) {
@@ -96,7 +87,7 @@ class DataSaverTest {
         };
 
         try {
-            claims.add(new Claim("f-0000000003", parseDate("20-03-2024"), "Customer 3", "0000000003", Main.DATE_FORMAT.parse("12-03-2024"),
+            claims.add(new Claim("f-0000000003", parseDate("20-03-2024"), "Customer 3", "0000000003", FileIOManager.DATE_FORMAT.parse("12-03-2024"),
                     new ArrayList<>(Arrays.asList("f-0000000003_0000000003_hospitalBill.pdf", "f-0000000003_0000000003_patientRecord.pdf")),
                     300.0, "New", "Vietcombank", "Customer 3", "b-0000000003"));
         } catch (ParseException e) {
@@ -104,9 +95,9 @@ class DataSaverTest {
         }
     }
 
-    File claimsFile = new File(Main.CLAIMS_FILE_PATH);
-    File insuranceCardsFile = new File(Main.INSURANCE_CARDS_FILE_PATH);
-    File customersFile = new File(Main.CUSTOMERS_FILE_PATH);
+    File claimsFile = new File(FileIOManager.CLAIMS_FILE_PATH);
+    File insuranceCardsFile = new File(FileIOManager.INSURANCE_CARDS_FILE_PATH);
+    File customersFile = new File(FileIOManager.CUSTOMERS_FILE_PATH);
 
     @Test
     public void saveCustomersToFile() throws IOException {

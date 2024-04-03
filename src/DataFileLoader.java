@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 /**
  * The type Data populator.
@@ -141,7 +140,7 @@ public class DataFileLoader {
                     String policyHolder = parts[2];
                     Date expirationDate =  null;
                     try {
-                        expirationDate = Main.DATE_FORMAT.parse(parts[3]); // Parse the expiration date
+                        expirationDate = FileIOManager.DATE_FORMAT.parse(parts[3]); // Parse the expiration date
                     } catch (ParseException e) {
                         // Handle invalid date format
                         System.err.println("Error parsing expiration date for line: " + line);
@@ -153,9 +152,6 @@ public class DataFileLoader {
 
                     // Add the Claim object to the claims list
                     insuranceCards.add(insuranceCard);
-                } else {
-                    // Handle lines with incorrect format, if needed
-                    System.err.println("Skipping line with incorrect format: " + line);
                 }
             }
         }
@@ -182,10 +178,10 @@ public class DataFileLoader {
                 // Assuming each part corresponds to the data in the file
                 if (parts.length >= 11) { // Assuming there are 11 parts in each line
                     String claimID = parts[0];
-                    Date claimDate = (Main.DATE_FORMAT.parse(parts[1]));
+                    Date claimDate = (FileIOManager.DATE_FORMAT.parse(parts[1]));
                     String insuredPerson = parts[2];
                     String insuranceCard = parts[3];
-                    Date examDate = (Main.DATE_FORMAT.parse(parts[4]));
+                    Date examDate = (FileIOManager.DATE_FORMAT.parse(parts[4]));
                     String documents = parts[5]; // This part contains a list of documents
                     ArrayList<String> listOfDocuments = new ArrayList<>(Arrays.asList(parts[6]));
 //                    // Split the list of documents by comma and remove square brackets
@@ -202,9 +198,6 @@ public class DataFileLoader {
                             listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
                     // Add the Claim object to the claims list
                     claims.add(claim);
-                } else {
-                    // Handle lines with incorrect format, if needed
-                    System.err.println("Skipping line with incorrect format: " + line);
                 }
             }
         } catch (ParseException e) {

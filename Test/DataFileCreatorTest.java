@@ -2,8 +2,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author Tran Dang Duong
  * Student ID: s3979381
@@ -17,8 +15,8 @@ class DataFileCreatorTest {
     @Test
     void createEmptyFile() throws IOException {
 
-        DataFileCreator.createEmptyFile(Main.CUSTOMERS_FILE_PATH);
-        DataFileCreator.createEmptyFile(Main.INSURANCE_CARDS_FILE_PATH);
-        DataFileCreator.createEmptyFile(Main.CLAIMS_FILE_PATH);
+        DataFileCreator.createEmptyFile(FileIOManager.CUSTOMERS_FILE_PATH);
+        DataFileCreator.createEmptyFile(FileIOManager.INSURANCE_CARDS_FILE_PATH);
+        DataFileCreator.createEmptyFile(FileIOManager.CLAIMS_FILE_PATH);
     }
 }

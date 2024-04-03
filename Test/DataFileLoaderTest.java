@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,9 +16,9 @@ import static org.junit.Assert.assertEquals;
  */
 class DataFileLoaderTest {
     //create files objects with correct file path
-    File claimsFile = new File(Main.CLAIMS_FILE_PATH);
-    File insuranceCardsFile = new File(Main.INSURANCE_CARDS_FILE_PATH);
-    File customersFile = new File(Main.CUSTOMERS_FILE_PATH);
+    File claimsFile = new File(FileIOManager.CLAIMS_FILE_PATH);
+    File insuranceCardsFile = new File(FileIOManager.INSURANCE_CARDS_FILE_PATH);
+    File customersFile = new File(FileIOManager.CUSTOMERS_FILE_PATH);
     @Test
     void testLoadClaimsFromFile() throws IOException {
 

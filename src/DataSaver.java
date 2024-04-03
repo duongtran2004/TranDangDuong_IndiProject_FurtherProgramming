@@ -11,10 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * The DataSaver Class
@@ -71,7 +68,7 @@ public class DataSaver {
 
             for (InsuranceCard card : insuranceCards) { //loop through each insurance object in the ArrayList
                 //format the expirationDate
-                String formattedExpirationDate = Main.DATE_FORMAT.format(card.getExpirationDate());
+                String formattedExpirationDate = FileIOManager.DATE_FORMAT.format(card.getExpirationDate());
                 writer.println(card.getCardNumber() + "," + card.getCardHolder() + "," + card.getPolicyOwner() + "," + formattedExpirationDate); //format to write 1 line (append not re-write)
             }
             System.out.println("Success to save data to " + insuranceCardFile.getName());
@@ -89,8 +86,8 @@ public class DataSaver {
         try (PrintWriter writer = new PrintWriter(new FileWriter(claimFile))) {
 
             for (Claim claim : claims) { //loop through each claim object in the ArrayList
-                String formattedClaimDate = Main.DATE_FORMAT.format(claim.getClaimDate()); // Format the claim date
-                String formattedExamDate = Main.DATE_FORMAT.format(claim.getExamDate()); // Format the exam date
+                String formattedClaimDate = FileIOManager.DATE_FORMAT.format(claim.getClaimDate()); // Format the claim date
+                String formattedExamDate = FileIOManager.DATE_FORMAT.format(claim.getExamDate()); // Format the exam date
                 String documents = "[" + String.join(";", claim.getListOfDocuments()) + "]" ; //variable to store documents and add square brackets around the listOfDocuments
                 writer.println(claim.getClaimID() + "," + formattedClaimDate+ "," + claim.getInsuredPerson() + "," + claim.getCardNumber() +
                         "," + formattedExamDate + "," + documents + "," + claim.getClaimAmount() + "," + claim.getStatus() +

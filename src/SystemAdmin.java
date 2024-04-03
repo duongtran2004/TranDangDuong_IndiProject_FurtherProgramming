@@ -21,7 +21,7 @@ public class SystemAdmin implements ClaimProcessManager {
         //create new claim Object to store the random claimID anb user's input as attributes
         Claim claim = new Claim(newClaimID, claimDate, insuredPerson, cardNumber, examDate, listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
         // Add the new claim to the temporary ArrayList
-        Main.claimsTemporaryArrayList.add(claim);
+        FileIOManager.claimsTemporaryArrayList.add(claim);
         //print the message if success
         System.out.println("Claim added successfully");
     }
@@ -34,7 +34,7 @@ public class SystemAdmin implements ClaimProcessManager {
         //create new claim Object to store the random claimID anb user's input as attributes
         Claim claim = new Claim();
         // Add the new claim to the temporary ArrayList
-        Main.claimsTemporaryArrayList.add(claim);
+        FileIOManager.claimsTemporaryArrayList.add(claim);
         //print the message if success
         System.out.println("Claim added successfully");
     }
@@ -42,7 +42,7 @@ public class SystemAdmin implements ClaimProcessManager {
     public Claim getOneClaimById(String claimIDAsInput) {
         // Iterate through the temporary claims list
         //Implement getClaim By Id first, then recall it here
-        for (Claim c : Main.claimsTemporaryArrayList) {
+        for (Claim c : FileIOManager.claimsTemporaryArrayList) {
             // Check if the claim ID matches the input claim ID
             if (c.getClaimID().equals(claimIDAsInput)) {
                 System.out.println("Success to find claim by claimID");
@@ -61,7 +61,7 @@ public class SystemAdmin implements ClaimProcessManager {
     @Override
     public void getAllClaims() {
         System.out.println("List of all claims");
-        for (Claim claim : Main.claimsTemporaryArrayList
+        for (Claim claim : FileIOManager.claimsTemporaryArrayList
         ) {
             System.out.println(claim);
         }
@@ -104,7 +104,7 @@ public class SystemAdmin implements ClaimProcessManager {
         Claim claimToDelete = getOneClaimById(claimIDAsInput);
         if (claimToDelete != null) {
             // Remove the claim from the list of claims
-            Main.claimsTemporaryArrayList.remove(claimToDelete);
+            FileIOManager.claimsTemporaryArrayList.remove(claimToDelete);
             // Print a message to indicate that the claim was updated
             System.out.println("Claim with ID " + claimIDAsInput + " has been deleted.");
         } else {
@@ -115,11 +115,11 @@ public class SystemAdmin implements ClaimProcessManager {
 
     @Override
     public void deleteAllClaimInTheSystem() {
-        if (Main.claimsTemporaryArrayList.isEmpty()){
+        if (FileIOManager.claimsTemporaryArrayList.isEmpty()){
             System.out.println("The systems already having 0 claims");
         }
         else {
-            Main.claimsTemporaryArrayList.removeAll(Main.claimsTemporaryArrayList);
+            FileIOManager.claimsTemporaryArrayList.removeAll(FileIOManager.claimsTemporaryArrayList);
             System.out.println("Success to empty all claims from the system !");
         }
     }

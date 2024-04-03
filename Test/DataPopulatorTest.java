@@ -3,8 +3,6 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author Tran Dang Duong
  * Student ID: s3979381
@@ -14,9 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since ${11.0.18}
  */
 class DataPopulatorTest {
-    File customerFile = new File(Main.CUSTOMERS_FILE_PATH);
-    File insuranceCardsFile = new File(Main.INSURANCE_CARDS_FILE_PATH);
-    File claimsFile = new File(Main.CLAIMS_FILE_PATH);
+    File customerFile = new File(FileIOManager.CUSTOMERS_FILE_PATH);
+    File insuranceCardsFile = new File(FileIOManager.INSURANCE_CARDS_FILE_PATH);
+    File claimsFile = new File(FileIOManager.CLAIMS_FILE_PATH);
 
     @Test
     public void populateSampleCustomerData() throws IOException {

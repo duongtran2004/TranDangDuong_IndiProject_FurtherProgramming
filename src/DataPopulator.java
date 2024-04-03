@@ -9,7 +9,6 @@
 
 import java.io.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -121,7 +120,7 @@ public class DataPopulator {
 
                     // Convert CurrentLocalDate to Date
                     Date epxDate = java.sql.Date.valueOf(expirationLocalDate);
-                    expirationDate = Main.DATE_FORMAT.format(epxDate);
+                    expirationDate = FileIOManager.DATE_FORMAT.format(epxDate);
 
                     // Write insurance card data to the file
                     bufferedWriter.write(cardNumber + "," + cardHolder + "," + policyOwner + "," + expirationDate + "\n");
@@ -207,7 +206,7 @@ public class DataPopulator {
                     Date clmDate = java.sql.Date.valueOf(claimLocalDate);
                     //convert Date to String
 
-                    claimDate = Main.DATE_FORMAT.format(clmDate);
+                    claimDate = FileIOManager.DATE_FORMAT.format(clmDate);
 
                     //examDate: The day when customers visit hospital
 
@@ -218,7 +217,7 @@ public class DataPopulator {
                     Date exaDate = java.sql.Date.valueOf(examLocalDate);
                     //convert Date to String
 
-                    examDate = Main.DATE_FORMAT.format(exaDate);
+                    examDate = FileIOManager.DATE_FORMAT.format(exaDate);
                     //generate listOfDocuments (with the format ClaimId_CardNumber_DocumentName.pdf)
                     hospitalBill = claimId + "_" + insuranceCard + "_hospitalBill.pdf";
                     patientRecord = claimId + "_" + insuranceCard + "_patientRecord.pdf";

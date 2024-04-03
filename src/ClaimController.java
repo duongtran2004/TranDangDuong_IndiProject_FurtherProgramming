@@ -6,5 +6,5 @@
  * @project IndiProject
  * @since ${11.0.18}
  */
-public class Main {
+public class ClaimController {
 }
