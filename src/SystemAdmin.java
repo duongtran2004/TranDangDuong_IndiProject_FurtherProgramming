@@ -14,10 +14,10 @@ public class SystemAdmin implements ClaimProcessManager {
 
 
     @Override
-    public void addClaim(Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber) {
+    public void addClaim(String claimId, Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber) {
         //do not allow user to set claimID, so remove the claimID from the parameter
         //generate random unique claimID
-        String newClaimID = ClaimIdManager.generateClaimID();
+        String newClaimID = IdManager.generateClaimID();
         //create new claim Object to store the random claimID anb user's input as attributes
         Claim claim = new Claim(newClaimID, claimDate, insuredPerson, cardNumber, examDate, listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
         // Add the new claim to the temporary ArrayList
@@ -30,7 +30,7 @@ public class SystemAdmin implements ClaimProcessManager {
     public void addClaim() {
         //do not allow user to set claimID, so remove the claimID from the parameter
         //generate random unique claimID
-        String newClaimID = ClaimIdManager.generateClaimID();
+        String newClaimID = IdManager.generateClaimID();
         //create new claim Object to store the random claimID anb user's input as attributes
         Claim claim = new Claim();
         // Add the new claim to the temporary ArrayList

@@ -46,12 +46,12 @@ public class FileIOManager {
     //Once the user quit the program, these ArrayList would be empty.
 
 
-    private static ArrayList<InsuranceCard> insuranceCardsTemporaryArrayList = new ArrayList<>();
+    public static ArrayList<InsuranceCard> insuranceCardsTemporaryArrayList = new ArrayList<>();
     public static ArrayList<Claim> claimsTemporaryArrayList = new ArrayList<>();
 
-    private static ArrayList<Dependent> dependentsTemporaryArrayList = new ArrayList<>();
+    public static ArrayList<Dependent> dependentsTemporaryArrayList = new ArrayList<>();
 
-    private static ArrayList<PolicyHolder> policyHoldersTemporaryArrayList = new ArrayList<>();
+    public static ArrayList<PolicyHolder> policyHoldersTemporaryArrayList = new ArrayList<>();
 
     // Create 4 methods:
     //1. createNewFile

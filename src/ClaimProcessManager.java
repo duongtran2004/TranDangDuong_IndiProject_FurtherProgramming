@@ -10,10 +10,11 @@ public interface ClaimProcessManager {
      * Add claim.
      *
      * @param
+     * @param claimId
      */
 
 
-    void addClaim(Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber);
+    void addClaim(String claimId, Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber);
 
     /**
      * Update claim.

@@ -155,10 +155,10 @@ public class Claim {
     public String toString() {
         return "Claim{" +
                 "claimID='" + claimID + '\'' +
-                ", claimDate=" + claimDate +
+                ", claimDate=" + FileIOManager.DATE_FORMAT.format(claimDate) + '\'' +
                 ", insuredPerson='" + insuredPerson + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
-                ", examDate=" + examDate +
+                ", examDate=" + FileIOManager.DATE_FORMAT.format(examDate) + '\'' +
                 ", listOfDocuments=" + listOfDocuments +
                 ", claimAmount=" + claimAmount +
                 ", status='" + status + '\'' +

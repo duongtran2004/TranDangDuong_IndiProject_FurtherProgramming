@@ -35,6 +35,7 @@ public class ClaimController {
                 view.displayMainMenu();
                 break;
             case 2: //add claim by input value
+                String claimId = IdManager.generateClaimID();
                 System.out.println("Please enter values of claim's attributes: ");
                 System.out.println("Please enter the claim date (must be the format dd-MM-yyyy, example: 12-04-2024): ");
 
@@ -77,7 +78,8 @@ public class ClaimController {
                 System.out.println("Please enter the account number (must be an integer):");
                 String accountNumber = "b-" + scanner.nextInt();
                 //pass user input the the method parameter
-                model.addClaim(claimDate, insuredPerson, cardNumber, examDate, listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
+                model.addClaim(claimId,claimDate, insuredPerson, cardNumber, examDate, listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
+                view.displayMainMenu();
                 break;
 
             case 3: //get 1 claim by claim ID
@@ -85,6 +87,7 @@ public class ClaimController {
                 System.out.println("Please enter the claimID (must be the format f-numbers; 10 numbers)");
                 String claimID = scanner.next();
                 model.getOneClaimById(claimID);
+                view.displayMainMenu();
                 break;
             case 4: //get all claims in the system
                 model.getAllClaims();
@@ -143,23 +146,28 @@ public class ClaimController {
                     System.out.println("Claim not found with the provided ID.");
                 }
 
+                view.displayMainMenu();
                 break;
 
             case 6: //delete claim by ID
                 System.out.println("Please enter the claimID (must be the format f-numbers; 10 numbers)");
                 claimID = scanner.next();
                 model.deleteClaimById(claimID);
+                view.displayMainMenu();
                 break;
             case 7: //delete all the claim in the system
                 model.deleteAllClaimInTheSystem();
 
+                view.displayMainMenu();
                 break;
             case 8:
                 System.out.println("Exiting the program...");
                 System.exit(0);
+                view.displayMainMenu();
                 break;
             default:
                 System.out.println("Invalid choice. Please try again.");
+                view.displayMainMenu();
                 break;
         }
     }

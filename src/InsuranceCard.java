@@ -76,7 +76,7 @@ public class InsuranceCard {
                 "cardNumber=" + cardNumber +
                 ", cardHolder=" + cardHolder +
                 ", policyOwner=" + policyOwner +
-                ", expirationDate=" + expirationDate +
+                ", expirationDate=" + FileIOManager.DATE_FORMAT.format(expirationDate) +
                 '}';
     }
 }
