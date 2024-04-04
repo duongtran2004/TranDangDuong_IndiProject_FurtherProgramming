@@ -88,6 +88,7 @@ public class ClaimController {
                 break;
             case 4: //get all claims in the system
                 model.getAllClaims();
+                break;
 
 
             case 5: //update claim by ID

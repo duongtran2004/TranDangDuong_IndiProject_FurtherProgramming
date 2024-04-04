@@ -40,7 +40,7 @@ public class DataSaver {
      * @throws IOException the io exception                     <p> Using PrintWriter is more convenience for immediate flushing,                     like  writing data from file to temporary ArrayList to show to user</p>                     <p>Methods like println(), printf(), and format() can help to write data directly without converting to String</p>
      */
     public static void saveCustomersToFile(ArrayList<Dependent> dependents, ArrayList<PolicyHolder> policyHolders, File customerFile) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(customerFile))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(customerFile, false))) {
             // Save Dependent Objects' info to file
             for (Dependent dependent : dependents) {
                 String listOfClaims = formatList(dependent.getListOfClaims()); //format the listOfClaims
@@ -64,7 +64,7 @@ public class DataSaver {
      * @throws IOException the io exception
      */
     public static void saveInsuranceCardsToFile(ArrayList<InsuranceCard> insuranceCards, File insuranceCardFile) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(insuranceCardFile))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(insuranceCardFile, false))) {
 
             for (InsuranceCard card : insuranceCards) { //loop through each insurance object in the ArrayList
                 //format the expirationDate
@@ -83,7 +83,7 @@ public class DataSaver {
      * @throws IOException the io exception
      */
     public static void saveClaimsToFile(ArrayList<Claim> claims, File claimFile) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(claimFile))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(claimFile, false))) { //append = false to clear the content of the file before writing back
 
             for (Claim claim : claims) { //loop through each claim object in the ArrayList
                 String formattedClaimDate = FileIOManager.DATE_FORMAT.format(claim.getClaimDate()); // Format the claim date

@@ -22,11 +22,10 @@ public class Main {
         Scanner scanner = new Scanner(System.in); // Create a Scanner object
         SystemAdmin model = new SystemAdmin(); //model: the logic for claims CRUD method
         ClaimView view = new ClaimView(); //claimView
-        ClaimController controller = new ClaimController(view, model, scanner); //claim Controller
+        ClaimController controller = new ClaimController(view, model, scanner); //create claim Controller object
         // Set the ClaimController instance in the ClaimView object
         view.setController(controller);
         //display menu to user. User choices would affect the temporary ArrayList
-       
         view.displayMainMenu();
         int choice = DataInputValidator.getValidIntegerInput(scanner);
         controller.handleMainMenuInput(choice);
