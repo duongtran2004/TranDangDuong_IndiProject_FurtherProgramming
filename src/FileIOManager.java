@@ -85,7 +85,7 @@ public class FileIOManager {
     /**
      * Method to load data from file to temporary Collections (ArrayList) that can be shown to user
      */
-    private static void loadData() throws IOException {
+    public static void loadData() throws IOException {
         dependentsTemporaryArrayList = DataFileLoader.loadDependentsFromFile(new File(CUSTOMERS_FILE_PATH));
         policyHoldersTemporaryArrayList = DataFileLoader.loadPolicyHoldersFromFile(new File(CUSTOMERS_FILE_PATH));
         insuranceCardsTemporaryArrayList = DataFileLoader.loadInsuranceCardsFromFile(new File(INSURANCE_CARDS_FILE_PATH));
@@ -96,7 +96,7 @@ public class FileIOManager {
      * Method to save and update  data from the temporary ArrayList to DataFiles once the user quit the program.
      */
 
-    private static void saveData() throws IOException {
+    public static void saveData() throws IOException {
         DataSaver.saveCustomersToFile(dependentsTemporaryArrayList, policyHoldersTemporaryArrayList, customerFile);
         DataSaver.saveInsuranceCardsToFile(insuranceCardsTemporaryArrayList, insuranceCardsFile);
         DataSaver.saveClaimsToFile(claimsTemporaryArrayList, claimFiles);

@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class ClaimIdManager {
     private static final String CLAIM_ID_PREFIX = "f-";
-    private static final int CLAIM_ID_LENGTH = 10;
+
     private static final int MAX_CLAIM_ID = 1000;
     private static final Random random = new Random();
 
