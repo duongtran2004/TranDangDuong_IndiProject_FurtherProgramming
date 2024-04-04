@@ -16,6 +16,8 @@ public class Main {
         FileIOManager.createNewEmptyFiles(); //create empty files if file not exist
         FileIOManager.populateDataToEmptyFiles(); //populate data to files if file is empty
         FileIOManager.loadData(); //load data from Files to temporary ArrayList
+        //display welcoming screen
+        WelcomingScreen.displayWelcomeScreen();
         //MVC design pattern for CRUD of claims
         Scanner scanner = new Scanner(System.in); // Create a Scanner object
         SystemAdmin model = new SystemAdmin(); //model: the logic for claims CRUD method
