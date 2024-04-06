@@ -14,7 +14,7 @@ public interface ClaimProcessManager {
      */
 
 
-    void addClaim(String claimId, Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber);
+    void addClaim(String claimId, Date claimDate, String insuredPerson, String cardNumber, Date examDate,  double claimAmount, String status, String bankName, String accountOwner, String accountNumber,ArrayList<String> listOfDocuments);
 
     /**
      * Update claim.
@@ -37,8 +37,8 @@ public interface ClaimProcessManager {
      */
     void getAllClaims() ;
     void updateClaimById(String claimIDAsInput, Date claimDate, String insuredPerson, String cardNumber,
-                         Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status,
-                         String bankName, String accountOwner, String accountNumber);
+                         Date examDate,  double claimAmount, String status,
+                         String bankName, String accountOwner, String accountNumber, ArrayList<String> listOfDocuments);
 
     /**
      * Delete claim.

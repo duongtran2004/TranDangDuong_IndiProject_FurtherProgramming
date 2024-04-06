@@ -7,6 +7,8 @@
  * @since ${11.0.18}
  */
 
+import com.sun.jdi.IntegerValue;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -62,7 +64,7 @@ public class DataPopulator {
                     listOfDependents.add(dependentDataLine);
 
                     //Variable to store policyHolder data in a line of String
-                    String policyHolderDataLine = policyHolderCId + "," + policyHolderFullName + "," + policyHolderInsuranceCard + "," + listOfClaims.toString() + listOfDependents.toString();
+                    String policyHolderDataLine = policyHolderCId + "," + policyHolderFullName + "," + policyHolderInsuranceCard + "," + listOfClaims.toString() + "," + listOfDependents.toString();
 
                     // Write policyHolder data to the file
                     bufferedWriter.write(policyHolderDataLine + "\n");
@@ -146,21 +148,15 @@ public class DataPopulator {
 // Method to populate sample claim data into a file
     public static void populateSampleClaimData(File customersFile, File claimsFile) throws IOException {
         if (claimsFile.exists() && claimsFile.length() == 0) {
-            // Initialize customerClaimsMap by reading customer data from customersFile.
-            //Do this before the loop
 
 
-            //each dependents make 1 claim. Only make claims for dependents
             //read through customersFile
             //write to claimsFile
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(customersFile));
                  BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(claimsFile))) {
                 String line;
                 //variable to hold line-counter. This would be use to identify PolicyHolders
-                int lineCounter = 0;
                 while ((line = bufferedReader.readLine()) != null) {
-                    lineCounter++;
-
 
                     //variable to hold list of documents
                     ArrayList<String> listOfDocuments = new ArrayList<>();
@@ -183,8 +179,8 @@ public class DataPopulator {
                     String[] customerDataLine = line.split(",");
                     insuranceCard = customerDataLine[2];
                     //skip the current line if a customer is a dependent, create no claim at first
-                    //dependent has insurance card >= 50
-                    if (insuranceCard.compareTo("0000000050") >= 0) {
+                    //dependent line has only 4 elements
+                    if ((customerDataLine.length) < 5) {
                         continue;
                     }
                     //make claims for PolicyHolders only
@@ -250,24 +246,26 @@ public class DataPopulator {
                     accountOwner = insuredPerson;
                     accountNumber = "b-" + insuranceCard;
                     //generate bankName: Techcombank for even cards, Vietcombank for odd cards
-                    if (((Integer.parseInt(insuranceCard)) % 2) == 0) {
+                    if ((Double.valueOf(insuranceCard) % 2) == 0) {
                         bankName = "Techcombank";
                     } else {
                         bankName = "Vietcombank";
 
                     }
-                    //variable to store claimData
-
-                    String claimDataLine = claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + listOfDocuments + "," + claimAmount + "," + status + "," + bankName + "," + accountOwner + "," + accountNumber;
+                    //variable to store claimDataLine
+                    String claimDataLine = claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + claimAmount + "," + status + "," + bankName + "," + accountOwner + "," + accountNumber + listOfDocuments + ",";
                     // Write claims data to the ClaimData.txt file
                     bufferedWriter.write(claimDataLine + "\n");
-                    // Append claim data to the corresponding customer data in the customers file
+                    // After finishing writing ClaimData.txt, Append claim data to the corresponding customer data in the customers file
                     String customerId = customerDataLine[0];
+
                     String existingCustomerDataLine = line;
+                    // Split the existing customer data line into an array
+                    String[] existingCustomerDataArray = existingCustomerDataLine.split(",");
                     // Check the condition to append claimData:
                     // 1. if the claim data has NOT already been appended
-                    // 2. if the current CustomerDataLine is a PolicyHolder (insuranceCard < = 60
-                    if (!existingCustomerDataLine.contains("[" + claimDataLine + "]") && (insuranceCard.compareTo("0000000050") <= 0)) {
+                    // 2. if the current CustomerDataLine is a PolicyHolder ( 5 attributes instead of 4, so 5 elements)
+                    if (!existingCustomerDataLine.contains("[" + claimDataLine + "]") && (existingCustomerDataArray.length > 4)) {
                         // Append claim data only if it hasn't been added before
                         String newCustomerDataLine = existingCustomerDataLine + "[" + claimDataLine + "]";
                         replaceLine(customersFile, customerId, newCustomerDataLine);
@@ -280,6 +278,8 @@ public class DataPopulator {
             System.out.println("File " + claimsFile.getName() + " is not empty. Skipping data population.");
         }
     }
+    // Helper method to construct a claim data line
+
 
     // Method to replace a line in a file
     private static void replaceLine(File file, String targetId, String newLine) throws IOException {
@@ -294,7 +294,7 @@ public class DataPopulator {
                 }
             }
         }
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
             for (String line : lines) {
                 writer.write(line);
                 writer.newLine();

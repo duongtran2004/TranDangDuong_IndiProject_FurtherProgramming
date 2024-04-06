@@ -72,24 +72,24 @@ class DataSaverTest {
 
         try {
             claims.add(new Claim("f-0000000001", parseDate("22-03-2024"), "Customer 1", "0000000001", FileIOManager.DATE_FORMAT.parse("16-03-2024"),
-                    new ArrayList<>(Arrays.asList("f-0000000001_0000000001_hospitalBill.pdf", "f-0000000001_0000000001_patientRecord.pdf")),
-                    100.0, "New", "Vietcombank", "Customer 1", "b-0000000001"));
+                    100.0, "New", "Vietcombank", "Customer 1", "b-0000000001", new ArrayList<>(Arrays.asList("f-0000000001_0000000001_hospitalBill.pdf", "f-0000000001_0000000001_patientRecord.pdf"))));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            claims.add(new Claim("f-0000000002", parseDate("21-03-2024"), "Customer 2", "0000000002", FileIOManager.DATE_FORMAT.parse("14-03-2024") ,
-                    new ArrayList<>(Arrays.asList("f-0000000002_0000000002_hospitalBill.pdf", "f-0000000002_0000000002_patientRecord.pdf")),
-                    200.0, "Processing", "Techcombank", "Customer 2", "b-0000000002"));
+            claims.add(new Claim("f-0000000002", parseDate("21-03-2024"), "Customer 2", "0000000002", FileIOManager.DATE_FORMAT.parse("14-03-2024"),
+
+                    200.0, "Processing", "Techcombank", "Customer 2", "b-0000000002", new ArrayList<>(Arrays.asList("f-0000000002_0000000002_hospitalBill.pdf", "f-0000000002_0000000002_patientRecord.pdf"))));
         } catch (ParseException e) {
             throw new RuntimeException(e);
-        };
+        }
+        ;
 
         try {
             claims.add(new Claim("f-0000000003", parseDate("20-03-2024"), "Customer 3", "0000000003", FileIOManager.DATE_FORMAT.parse("12-03-2024"),
-                    new ArrayList<>(Arrays.asList("f-0000000003_0000000003_hospitalBill.pdf", "f-0000000003_0000000003_patientRecord.pdf")),
-                    300.0, "New", "Vietcombank", "Customer 3", "b-0000000003"));
+
+                    300.0, "New", "Vietcombank", "Customer 3", "b-0000000003", new ArrayList<>(Arrays.asList("f-0000000003_0000000003_hospitalBill.pdf", "f-0000000003_0000000003_patientRecord.pdf"))));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

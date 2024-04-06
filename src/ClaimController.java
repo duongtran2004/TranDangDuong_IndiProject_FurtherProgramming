@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +29,7 @@ public class ClaimController {
      *
      * @param choice the choice
      */
-    public void handleMainMenuInput(int choice) throws ParseException {
+    public void handleMainMenuInput(int choice) throws ParseException, IOException {
         switch (choice) {
             case 1: //add claim by default value
                 model.addClaim();
@@ -78,7 +79,7 @@ public class ClaimController {
                 System.out.println("Please enter the account number (must be an integer):");
                 String accountNumber = "b-" + scanner.nextInt();
                 //pass user input the the method parameter
-                model.addClaim(claimId,claimDate, insuredPerson, cardNumber, examDate, listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
+                model.addClaim(claimId, claimDate, insuredPerson, cardNumber, examDate,  claimAmount, status, bankName, accountOwner, accountNumber,listOfDocuments);
                 view.displayMainMenu();
                 break;
 
@@ -140,7 +141,7 @@ public class ClaimController {
                     accountOwner = scanner.next();
                     System.out.println("Please enter the account number (must be an integer):");
                     accountNumber = "b-" + scanner.nextInt();
-                    model.updateClaimById(claimIDAsInput, claimDate, insuredPerson, cardNumber, examDate, listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
+                    model.updateClaimById(claimIDAsInput, claimDate, insuredPerson, cardNumber, examDate,  claimAmount, status, bankName, accountOwner, accountNumber,listOfDocuments);
 
                 } else {
                     System.out.println("Claim not found with the provided ID.");
@@ -162,8 +163,22 @@ public class ClaimController {
                 break;
             case 8:
                 System.out.println("Exiting the program...");
-                System.exit(0);
-                view.displayMainMenu();
+
+                //When user exit the program: save the data from temporary ArrayList back to files
+                System.out.println("Claim temp ArrayList before saving: ");
+                System.out.println("Claim Temporary ArrayList");
+                for (Claim claim: FileIOManager.claimsTemporaryArrayList
+                ) {
+                    System.out.println(claim);
+                }
+                FileIOManager.saveData();
+                System.out.println("Claim temp ArrayList after saving: ");
+                System.out.println("Claim Temporary ArrayList");
+                for (Claim claim: FileIOManager.claimsTemporaryArrayList
+                ) {
+                    System.out.println(claim);
+                }
+                System.exit(1);
                 break;
             default:
                 System.out.println("Invalid choice. Please try again.");

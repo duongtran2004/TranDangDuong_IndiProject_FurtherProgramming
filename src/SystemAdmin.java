@@ -14,12 +14,12 @@ public class SystemAdmin implements ClaimProcessManager {
 
 
     @Override
-    public void addClaim(String claimId, Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName, String accountOwner, String accountNumber) {
+    public void addClaim(String claimId, Date claimDate, String insuredPerson, String cardNumber, Date examDate,  double claimAmount, String status, String bankName, String accountOwner, String accountNumber, ArrayList<String> listOfDocuments) {
         //do not allow user to set claimID, so remove the claimID from the parameter
         //generate random unique claimID
         String newClaimID = IdManager.generateClaimID();
         //create new claim Object to store the random claimID anb user's input as attributes
-        Claim claim = new Claim(newClaimID, claimDate, insuredPerson, cardNumber, examDate, listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
+        Claim claim = new Claim(newClaimID, claimDate, insuredPerson, cardNumber, examDate,  claimAmount, status, bankName, accountOwner, accountNumber,listOfDocuments);
         // Add the new claim to the temporary ArrayList
         FileIOManager.claimsTemporaryArrayList.add(claim);
         //print the message if success
@@ -29,8 +29,7 @@ public class SystemAdmin implements ClaimProcessManager {
     //method overloading  for user to just add claim without any arguments (pass default values)
     public void addClaim() {
         //do not allow user to set claimID, so remove the claimID from the parameter
-        //generate random unique claimID
-        String newClaimID = IdManager.generateClaimID();
+
         //create new claim Object to store the random claimID anb user's input as attributes
         Claim claim = new Claim();
         // Add the new claim to the temporary ArrayList
@@ -70,8 +69,8 @@ public class SystemAdmin implements ClaimProcessManager {
 
     @Override
     public void updateClaimById(String claimIDAsInput, Date claimDate, String insuredPerson, String cardNumber,
-                                Date examDate, ArrayList<String> listOfDocuments, double claimAmount, String status,
-                                String bankName, String accountOwner, String accountNumber) {
+                                Date examDate, double claimAmount, String status,
+                                String bankName, String accountOwner, String accountNumber,ArrayList<String> listOfDocuments) {
 
         // Variable to store the claim object with the specified claim ID
         Claim claimToUpdate = getOneClaimById(claimIDAsInput);

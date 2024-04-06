@@ -1,8 +1,11 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * The  FileIOManager Class (Entry point for the whole program. Please start executing from this file.
@@ -56,7 +59,7 @@ public class FileIOManager {
     // Create 4 methods:
     //1. createNewFile
     //2. populateData
-    //3. loadData
+    //3. loadData and empty files
     //4. saveData
 
     /**
@@ -86,24 +89,26 @@ public class FileIOManager {
      * Method to load data from file to temporary Collections (ArrayList) that can be shown to user
      */
     public static void loadData() throws IOException {
-        dependentsTemporaryArrayList = DataFileLoader.loadDependentsFromFile(new File(CUSTOMERS_FILE_PATH));
-        policyHoldersTemporaryArrayList = DataFileLoader.loadPolicyHoldersFromFile(new File(CUSTOMERS_FILE_PATH));
-        insuranceCardsTemporaryArrayList = DataFileLoader.loadInsuranceCardsFromFile(new File(INSURANCE_CARDS_FILE_PATH));
-        claimsTemporaryArrayList = DataFileLoader.loadClaimsFromFile(new File(CLAIMS_FILE_PATH));
+
+
+        claimsTemporaryArrayList = DataFileLoader.loadClaimsFromFile(claimFiles);
+        dependentsTemporaryArrayList = DataFileLoader.loadDependentsFromFile(customerFile);
+        policyHoldersTemporaryArrayList = DataFileLoader.loadPolicyHoldersFromFile(customerFile);
+        insuranceCardsTemporaryArrayList = DataFileLoader.loadInsuranceCardsFromFile(insuranceCardsFile);
+
     }
+
 
     /**
      * Method to save and update  data from the temporary ArrayList to DataFiles once the user quit the program.
      */
 
     public static void saveData() throws IOException {
+
         DataSaver.saveCustomersToFile(dependentsTemporaryArrayList, policyHoldersTemporaryArrayList, customerFile);
         DataSaver.saveInsuranceCardsToFile(insuranceCardsTemporaryArrayList, insuranceCardsFile);
         DataSaver.saveClaimsToFile(claimsTemporaryArrayList, claimFiles);
     }
-
-
-
 
 
 }

@@ -17,44 +17,49 @@ public class Claim {
     private String insuredPerson;
     private String cardNumber;
     private Date examDate;
-    private ArrayList<String> listOfDocuments;
+
     private double claimAmount;
     private String status;
     private String bankName;
     private String accountOwner;
     private String accountNumber;
+    private ArrayList<String> listOfDocuments;
     //constructor
 
     // Constructor with default values for partial arguments
     public Claim(String claimID, Date claimDate, String insuredPerson, String cardNumber, Date examDate,
-                 ArrayList<String> listOfDocuments, double claimAmount, String status, String bankName,
-                 String accountOwner, String accountNumber) {
+                  double claimAmount, String status, String bankName,
+                 String accountOwner, String accountNumber, ArrayList<String> listOfDocuments) {
         this.claimID = (claimID != null && !claimID.isEmpty()) ? claimID : "default";
         this.claimDate = (claimDate != null) ? claimDate : new Date(2024 - 1900, 0, 1);
         this.insuredPerson = (insuredPerson != null && !insuredPerson.isEmpty()) ? insuredPerson : "default";
         this.cardNumber = (cardNumber != null && !cardNumber.isEmpty()) ? cardNumber : "default";
         this.examDate = (examDate != null) ? examDate : new Date(2024 - 1900, 0, 1);
-        this.listOfDocuments = (listOfDocuments != null) ? listOfDocuments : new ArrayList<>();
+
         this.claimAmount = claimAmount; // No default value for claimAmount, it's a double
         this.status = (status != null && !status.isEmpty()) ? status : "default";
         this.bankName = (bankName != null && !bankName.isEmpty()) ? bankName : "default";
         this.accountOwner = (accountOwner != null && !accountOwner.isEmpty()) ? accountOwner : "default";
         this.accountNumber = (accountNumber != null && !accountNumber.isEmpty()) ? accountNumber : "default";
+        this.listOfDocuments = (listOfDocuments != null) ? listOfDocuments : new ArrayList<>();
     }
 
     //constructor with default value, no arguments needed
     public Claim() {
-        this.claimID = "default";
+        //generate random unique claimID
+        String newClaimID = IdManager.generateClaimID();
+        this.claimID = newClaimID;
         this.claimDate = new Date(2024 - 1900, 0, 1); // January 1, 2024 (Note: Months are 0-based in Date class)
         this.insuredPerson = "default";
         this.cardNumber = "default";
         this.examDate = new Date(2024 - 1900, 0, 1); // January 1, 2024
-        this.listOfDocuments = new ArrayList<>(); // Default empty list of documents
+
         this.claimAmount = 0.0; // Default claim amount
         this.status = "default";
         this.bankName = "default";
         this.accountOwner = "default";
         this.accountNumber = "default";
+        this.listOfDocuments = new ArrayList<>(); // Default empty list of documents
     }
 
 
@@ -147,8 +152,11 @@ public class Claim {
         this.accountNumber = accountNumber;
     }
 
+    public void setClaimID(String claimID) {
+        this.claimID = claimID;
+    }
 
-    //toString method
+//toString method
 
 
     @Override

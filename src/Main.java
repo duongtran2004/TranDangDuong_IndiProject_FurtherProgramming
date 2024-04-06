@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
@@ -12,10 +13,24 @@ import java.util.Scanner;
  */
 
 public class Main {
+
     public static void main(String[] args) throws ParseException, IOException {
+        System.out.println(FileIOManager.claimsTemporaryArrayList);
         FileIOManager.createNewEmptyFiles(); //create empty files if file not exist
         FileIOManager.populateDataToEmptyFiles(); //populate data to files if file is empty
+        //print temp claim arrayList
+        System.out.println("Claim Temporary ArrayList");
+        for (Claim claim: FileIOManager.claimsTemporaryArrayList
+             ) {
+            System.out.println(claim);
+        }
         FileIOManager.loadData(); //load data from Files to temporary ArrayList
+        //print temp claim arrayList
+        System.out.println("Claim Temporary ArrayList after loading");
+        for (Claim claim: FileIOManager.claimsTemporaryArrayList
+        ) {
+            System.out.println(claim);
+        }
         //display welcoming screen
         WelcomingScreen.displayWelcomeScreen();
         //MVC design pattern for CRUD of claims
@@ -29,8 +44,8 @@ public class Main {
         view.displayMainMenu();
         int choice = DataInputValidator.getValidIntegerInput(scanner);
         controller.handleMainMenuInput(choice);
-        //When user exit the program: save the data from temporary ArrayList back to files
-        FileIOManager.saveData();
+
+
 
     }
 }

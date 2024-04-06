@@ -7,6 +7,7 @@
  * @since ${11.0.18}
  */
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,6 +61,8 @@ public class ClaimView {
             }
         } catch (ParseException e) {
             System.out.println("Error parsing user input: " + e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
     }

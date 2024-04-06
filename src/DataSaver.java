@@ -83,7 +83,7 @@ public class DataSaver {
      * @throws IOException the io exception
      */
     public static void saveClaimsToFile(ArrayList<Claim> claims, File claimFile) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(claimFile, false))) { //append = false to clear the content of the file before writing back
+        try (PrintWriter writer = new PrintWriter(new FileWriter(claimFile, false))) {
 
             for (Claim claim : claims) { //loop through each claim object in the ArrayList
                 String formattedClaimDate = FileIOManager.DATE_FORMAT.format(claim.getClaimDate()); // Format the claim date
@@ -97,6 +97,5 @@ public class DataSaver {
             System.out.println("Success to save data to " + claimFile.getName());
         }
     }
-    //remember notification when sucess.
-    // Remmber [] to wrap ArrayList even if empty
+
 }

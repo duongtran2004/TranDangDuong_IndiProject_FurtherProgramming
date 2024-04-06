@@ -25,7 +25,7 @@ public class DataFileLoader {
      * @throws IOException the io exception
      */
     public static ArrayList<Dependent> loadDependentsFromFile(File customerFile) throws IOException {
-        ArrayList<Dependent> dependents = new ArrayList<>();
+        FileIOManager.dependentsTemporaryArrayList.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader(customerFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -33,7 +33,7 @@ public class DataFileLoader {
                 String[] parts = line.split(","); // Split the line by comma
 
                 // Assuming each part corresponds to the data in the file
-                if (parts.length <= 5) { // Assuming there are 5 parts for each line of PolicyHolder, so each line of Dependent has less than 5 parts
+                if (parts.length < 5) { // Assuming there are 5 parts for each line of PolicyHolder, so each line of Dependent has less than 5 parts
                     String cId = parts[0];
 
                     String fullName = parts[1];
@@ -42,13 +42,15 @@ public class DataFileLoader {
                     ArrayList<Claim> listOfClaims = new ArrayList<Claim>();
                     // Create a Dependent object using parsed data
                     Dependent dependent = new Dependent(cId, fullName, insuranceCard, listOfClaims);
-                    // Add the Dependent objects to the Dependent ArrayList
-                    dependents.add(dependent);
+                    // Add the  object to the temporary ArrayList
+                    FileIOManager.dependentsTemporaryArrayList.add(dependent);
+
                 }
             }
         }
+        System.out.println("Successfully load data from files to objects of Dependents Temporary ArrayList ");
 
-        return dependents;
+        return FileIOManager.dependentsTemporaryArrayList;
     }
 
     /**
@@ -59,7 +61,8 @@ public class DataFileLoader {
      * @throws IOException the io exception
      */
     public static ArrayList<PolicyHolder> loadPolicyHoldersFromFile(File customerFile) throws IOException {
-        ArrayList<PolicyHolder> policyHolders = new ArrayList<>();
+        FileIOManager.policyHoldersTemporaryArrayList.clear();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(customerFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -80,12 +83,31 @@ public class DataFileLoader {
                         if (claimParts.length >= 11) { // Assuming there are 11 parts for each claim data
                             try {
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                                String claimId = claimParts[0];
                                 Date claimDate = dateFormat.parse(claimParts[1].trim());
+                                String insuredPerson = claimParts[2];
+                                String cardNumber = claimParts[3];
                                 Date examDate = dateFormat.parse(claimParts[4].trim());
+                                Double claimAmount = Double.valueOf(claimParts[5]);
+                                String status = claimParts[6];
+                                String bankName = claimParts[7];
+                                String accountOwner = claimParts[8];
+                                String accountNumber = claimParts[9];
+                                String listOfDocumentString = claimParts[10];
+                                //convert listOfDocumentString from String to ArrayList<String>
+                                String[] listOfDocumentsArray = listOfDocumentString.split(",");
+                                //create ArrayList of document list
+                                ArrayList<String> listOfDocuments = new ArrayList<>();
+                                //add all element from String[] to ArrayList<String>
+                                for (String documents : listOfDocumentsArray
+                                ) {
+                                    listOfDocuments.add(documents);
+
+                                }
+
                                 // Create a Claim object using parsed data and add it to the list of claims
-                                Claim claim = new Claim(claimParts[0], claimDate, claimParts[2], claimParts[3], examDate,
-                                        new ArrayList<>(Arrays.asList(claimParts[5].split(" "))), Double.parseDouble(claimParts[6]),
-                                        claimParts[7], claimParts[8], claimParts[9], claimParts[10]);
+                                Claim claim = new Claim(claimId, claimDate, insuredPerson, cardNumber, examDate, claimAmount, status, bankName, accountOwner, accountNumber, listOfDocuments);
+                                //add claim object to listOPfClaims
                                 listOfClaims.add(claim);
                             } catch (ParseException e) {
                                 e.printStackTrace(); // Handle parsing exception as needed
@@ -108,12 +130,14 @@ public class DataFileLoader {
 
                     // Create a PolicyHolder object using parsed data
                     PolicyHolder policyHolder = new PolicyHolder(cId, fullName, insuranceCard, listOfClaims, listOfDependents);
-                    // Add the PolicyHolder object to the policyHolders ArrayList
-                    policyHolders.add(policyHolder);
+                    // Add the  object to the temporary ArrayList
+                    FileIOManager.policyHoldersTemporaryArrayList.add(policyHolder);
                 }
             }
         }
-        return policyHolders;
+        System.out.println("Successfully load data from files to objects of Policy Holders Temporary ArrayList ");
+
+        return FileIOManager.policyHoldersTemporaryArrayList;
     }
 
 
@@ -125,7 +149,7 @@ public class DataFileLoader {
      * @throws IOException the io exception
      */
     public static ArrayList<InsuranceCard> loadInsuranceCardsFromFile(File insuranceCardFile) throws IOException {
-        ArrayList<InsuranceCard> insuranceCards = new ArrayList<>();
+       FileIOManager.insuranceCardsTemporaryArrayList.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader(insuranceCardFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -138,7 +162,7 @@ public class DataFileLoader {
 
                     String cardHolder = parts[1];
                     String policyHolder = parts[2];
-                    Date expirationDate =  null;
+                    Date expirationDate = null;
                     try {
                         expirationDate = FileIOManager.DATE_FORMAT.parse(parts[3]); // Parse the expiration date
                     } catch (ParseException e) {
@@ -150,14 +174,16 @@ public class DataFileLoader {
                     // Create a InsuranceCard object using parsed data
                     InsuranceCard insuranceCard = new InsuranceCard(cardNumber, cardHolder, policyHolder, expirationDate);
 
-                    // Add the Claim object to the claims list
-                    insuranceCards.add(insuranceCard);
+                    // Add the  object to the temporary ArrayList
+                   FileIOManager.insuranceCardsTemporaryArrayList.add(insuranceCard);
                 }
             }
         }
 
 
-        return insuranceCards;
+        System.out.println("Successfully load data from files to objects of Insurance Cards Temporary ArrayList ");
+
+        return FileIOManager.insuranceCardsTemporaryArrayList;
     }
 
     /**
@@ -168,44 +194,56 @@ public class DataFileLoader {
      * @throws IOException the io exception
      */
     public static ArrayList<Claim> loadClaimsFromFile(File claimFile) throws IOException {
-        ArrayList<Claim> claims = new ArrayList<>();
+        FileIOManager.claimsTemporaryArrayList.clear(); // Clear the list before use
         try (BufferedReader reader = new BufferedReader(new FileReader(claimFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
-
-                String[] parts = line.split(","); // Split the line by comma
-
+                String[] claimParts = line.split(","); // Split the line by comma
                 // Assuming each part corresponds to the data in the file
-                if (parts.length >= 11) { // Assuming there are 11 parts in each line
-                    String claimID = parts[0];
-                    Date claimDate = (FileIOManager.DATE_FORMAT.parse(parts[1]));
-                    String insuredPerson = parts[2];
-                    String insuranceCard = parts[3];
-                    Date examDate = (FileIOManager.DATE_FORMAT.parse(parts[4]));
-                    String documents = parts[5]; // This part contains a list of documents
-                    ArrayList<String> listOfDocuments = new ArrayList<>(Arrays.asList(parts[6]));
-//                    // Split the list of documents by comma and remove square brackets
-//                    String[] documentArray = documents.substring(1, documents.length() - 1).split(", ");
-//                    ArrayList<String> listOfDocuments = new ArrayList<>(List.of(documentArray));
-                    double claimAmount = Double.parseDouble(parts[7]);
-                    String status = parts[8];
-                    String bankName = parts[9];
-                    String accountOwner = parts[10];
-                    String accountNumber = parts[11];
+                if (claimParts.length >= 11) { // Assuming there are 11 parts for each claim data
+                    try {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                        String claimId = claimParts[0];
+                        Date claimDate = dateFormat.parse(claimParts[1].trim());
+                        String insuredPerson = claimParts[2];
+                        String cardNumber = claimParts[3];
+                        Date examDate = dateFormat.parse(claimParts[4].trim());
+                        Double claimAmount = Double.valueOf(claimParts[5]);
+                        String status = claimParts[6];
+                        String bankName = claimParts[7];
+                        String accountOwner = claimParts[8];
+                        String accountNumber = claimParts[9];
+                        String listOfDocumentString = claimParts[10];
+                        //convert listOfDocumentString from String to ArrayList<String>
+                        String[] listOfDocumentsArray = listOfDocumentString.split(",");
+                        //create ArrayList of document list
+                        ArrayList<String> listOfDocuments = new ArrayList<>();
+                        //add all element from String[] to ArrayList<String>
+                        for (String documents : listOfDocumentsArray
+                        ) {
+                            listOfDocuments.add(documents);
+                        }
 
-                    // Create a Claim object using parsed data
-                    Claim claim = new Claim(claimID, claimDate, insuredPerson, insuranceCard, examDate,
-                            listOfDocuments, claimAmount, status, bankName, accountOwner, accountNumber);
-                    // Add the Claim object to the claims list
-                    claims.add(claim);
+                        // Create a Claim object using parsed data and add it to the list of claims
+                        Claim claim = new Claim(claimId, claimDate, insuredPerson, cardNumber, examDate, claimAmount, status, bankName, accountOwner, accountNumber, listOfDocuments);
+                        // Add the Claim object to the claims temporary Array list
+                        FileIOManager.claimsTemporaryArrayList.add(claim);
+                    } catch (ParseException e) {
+                        e.printStackTrace(); // Handle parsing exception as needed
+                    }
                 }
+
             }
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
         }
-
-        return claims;
+        System.out.println("Successfully load data from files to objects of Claims Temporary ArrayList ");
+        return FileIOManager.claimsTemporaryArrayList;
     }
-
-
 }
+
+
+
+
+
+
+
+
