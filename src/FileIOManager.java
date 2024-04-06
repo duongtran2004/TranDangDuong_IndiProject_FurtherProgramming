@@ -82,7 +82,6 @@ public class FileIOManager {
     public static void populateDataToEmptyFiles() throws IOException {
         DataPopulator.populateCustomerData(customerFile);
         DataPopulator.populateSampleClaimData(customerFile,claimFiles);
-        DataPopulator.populateCustomerData(customerFile);
         DataPopulator.populateSampleInsuranceCardData(customerFile, insuranceCardsFile);
         System.out.println("Update CustomerData.txt by adding claims to list of claims");
 

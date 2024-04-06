@@ -144,19 +144,8 @@ public class DataPopulator {
                     // Write claims data to the ClaimData.txt file
                     bufferedWriter.write(claimDataLine);
                     bufferedWriter.newLine();
-
-                    //parse ClaimDate and ExamDate from String type to Date Type
-                    Date claimDateDateObject = FileIOManager.DATE_FORMAT.parse(claimDate);
-                    Date examDateDateObject = FileIOManager.DATE_FORMAT.parse(examDate);
-                    //create a new Claim Object and add populated data to it
-                    Claim claim = new Claim(claimId, claimDateDateObject, insuredPerson, insuranceCard, examDateDateObject, claimAmount, status, bankName, accountOwner, accountNumber, listOfDocuments);
-//add the claim to the claimsToBeAddBackToCustomerFiles ArrayList
-                    claimsToBeAddedBackToCustomerFile.add(claim);
                 }
                 System.out.println("Sample " + claimsFile.getName() + " data populated successfully.");
-
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
             }
         } else {
             System.out.println("File " + claimsFile.getName() + " is not empty. Skipping data population.");
@@ -164,57 +153,81 @@ public class DataPopulator {
     }
 
     public static void populateCustomerData(File customersFile) throws IOException {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(customersFile, false))) {
-            //generate 15 policyholder objects
+        if (customersFile.exists() && customersFile.length() == 0) {
+            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(customersFile, false))) {
+                //generate 15 policyholder objects
 
-            for (int i = 1; i <= 15; i++) {
-                //variables to hold attribute
+                for (int i = 1; i <= 15; i++) {
+                    //variables to hold attribute
 
-                ArrayList<Claim> policyHolderListOfClaims = new ArrayList<>();
-                ArrayList<String> dependentListOfClaims = new ArrayList<>();
-                ArrayList<String> listOfDependents = new ArrayList<>();
+                    ArrayList<String> policyHolderListOfClaims = new ArrayList<>();
+                    ArrayList<String> dependentListOfClaims = new ArrayList<>();
+                    ArrayList<String> listOfDependents = new ArrayList<>();
 
-                // id (with the format c-numbers; 7 numbers) =>
-                String padded7digitsNumberForPolicyHolder = String.format("%07d", i); // Format the number with leading zeros
-                String policyHolderCId = "c-" + padded7digitsNumberForPolicyHolder; // Concatenate the formatted number and "c-"
-                String policyHolderFullName = "PolicyHolder " + i;
-                //insurance card:  card number (10 digits)
-                //variable to hold padded10dDigitsNumbers
-                String padded10digitsNumberForPolicyHolder = String.format("%010d", i);
-                String policyHolderInsuranceCard = padded10digitsNumberForPolicyHolder;
-                //now generate 1 Dependents object for each PolicyHolder
-                String padded7digitsNumberForDependent = String.format("%07d", 99 - i);
-                String dependentCId = "c-" + padded7digitsNumberForDependent;
-                String dependentFullName = "Dependent " + i;
-                String padded10digitsNumberForDependent = String.format("%010d", 99 - i);
-                String dependentInsuranceCard = padded10digitsNumberForDependent;
+                    // id (with the format c-numbers; 7 numbers) =>
+                    String padded7digitsNumberForPolicyHolder = String.format("%07d", i); // Format the number with leading zeros
+                    String policyHolderCId = "c-" + padded7digitsNumberForPolicyHolder; // Concatenate the formatted number and "c-"
+                    String policyHolderFullName = "PolicyHolder " + i;
+                    //insurance card:  card number (10 digits)
+                    //variable to hold padded10dDigitsNumbers
+                    String padded10digitsNumberForPolicyHolder = String.format("%010d", i);
+                    String policyHolderInsuranceCard = padded10digitsNumberForPolicyHolder;
+                    //now generate 1 Dependents object for each PolicyHolder
+                    String padded7digitsNumberForDependent = String.format("%07d", 99 - i);
+                    String dependentCId = "c-" + padded7digitsNumberForDependent;
+                    String dependentFullName = "Dependent " + i;
+                    String padded10digitsNumberForDependent = String.format("%010d", 99 - i);
+                    String dependentInsuranceCard = padded10digitsNumberForDependent;
 
-                //Variable to store dependent data in a line of String
-                String dependentDataLine = dependentCId + "," + dependentFullName + "," + dependentInsuranceCard + "," + dependentListOfClaims;
-                //add dependent data to listOfDependent
-                listOfDependents.add(dependentDataLine);
-                for (Claim claim : claimsToBeAddedBackToCustomerFile
-                ) {
-                    if ((claim.getCardNumber()).equals(policyHolderInsuranceCard)) { //logic
-                        policyHolderListOfClaims.add(claim);
-                    }
+                    //Variable to store dependent data in a line of String
+                    String dependentDataLine = dependentCId + "," + dependentFullName + "," + dependentInsuranceCard + "," + dependentListOfClaims;
+                    //add dependent data to listOfDependent
+                    listOfDependents.add(dependentDataLine);
+
+                    //build list of claims for PolicyHolder
+                    //make claims for PolicyHolders only
+                    //id (with the format f-numbers; 10 numbers)
+                    String claimId = "f-" + policyHolderInsuranceCard;
+                    String examDate = generateRandomExamDate(30);
+                    String claimDate = generateRandomClaimDate(examDate, 10);
+
+                    //generate listOfDocuments (with the format ClaimId_CardNumber_DocumentName.pdf)
+                    ArrayList<String> listOfDocuments = generateListOfDocuments(claimId, policyHolderInsuranceCard);
+                    //generate claimAmount
+                    double claimAmount = generateRandomClaimAmount(100, 1000);
+                    //generate BankingInfo
+                    //variables to hold Banking info
+                    String bankName = generateRandomBankName();
+                    String accountOwner = policyHolderFullName;
+                    String accountNumber = "b-" + policyHolderInsuranceCard;
+                    String insuredPerson = policyHolderFullName;
+                    String insuranceCard = policyHolderInsuranceCard;
+                    String status = generateRandomStatus();
+
+                    //variable to store claimDataLine
+                    String claimDataLine = claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + claimAmount + "," + status + "," + bankName + "," + accountOwner + "," + accountNumber + "," + listOfDocuments;
+                    policyHolderListOfClaims.add(claimDataLine);
+
+                    //Variable to store policyHolder data in a line of String
+                    String policyHolderDataLine = policyHolderCId + "," + policyHolderFullName + "," + policyHolderInsuranceCard + "," + policyHolderListOfClaims + "," + listOfDependents;
+
+                    // Write policyHolder data to the file
+                    bufferedWriter.write(policyHolderDataLine + "\n");
+                    //Write Dependent data to the file
+                    bufferedWriter.write(dependentDataLine + "\n");
                 }
-                System.out.println("PolicyHolder List of claim: " + policyHolderListOfClaims);
 
-                //Variable to store policyHolder data in a line of String
-                String policyHolderDataLine = policyHolderCId + "," + policyHolderFullName + "," + policyHolderInsuranceCard + "," + policyHolderListOfClaims + "," + listOfDependents;
-
-                // Write policyHolder data to the file
-                bufferedWriter.write(policyHolderDataLine + "\n");
-                //Write Dependent data to the file
-                bufferedWriter.write(dependentDataLine + "\n");
             }
-            System.out.println("The list of claims has been added back to " + customersFile.getName() + " successfully.");
+
+        } else {
+            System.out.println("The file" + FileIOManager.customerFile.getName() + "is not empty, skipping data population");
+
         }
+
     }
 
 
-    private static ArrayList<String> generateListOfDocuments(String claimId, String insuranceCard) {
+    public static ArrayList<String> generateListOfDocuments(String claimId, String insuranceCard) {
         ArrayList<String> listOfDocuments = new ArrayList<>();
         String hospitalBill = claimId + "_" + insuranceCard + "_hospitalBill.pdf";
         String patientRecord = claimId + "_" + insuranceCard + "_patientRecord.pdf";

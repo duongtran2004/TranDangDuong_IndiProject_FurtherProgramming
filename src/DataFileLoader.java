@@ -73,47 +73,52 @@ public class DataFileLoader {
                     String cId = parts[0];
                     String fullName = parts[1];
                     String insuranceCard = parts[2];
+                    System.out.println("part 3:" + parts[3]);
 
-                    // Parse list of claims
-                    String[] claimsData = parts[3].split("\\]\\[");
+                    //parse list of claims
                     ArrayList<Claim> listOfClaims = new ArrayList<>();
-                    for (String claimData : claimsData) {
-                        // Parse claim data elements
+                    String[] claimDataArray = parts[3].split("\\]\\[");
+                    for (String claimData : claimDataArray) {
                         String[] claimParts = claimData.split(",");
-                        if (claimParts.length >= 11) { // Assuming there are 11 parts for each claim data
-                            try {
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                                String claimId = claimParts[0];
-                                Date claimDate = dateFormat.parse(claimParts[1].trim());
-                                String insuredPerson = claimParts[2];
-                                String cardNumber = claimParts[3];
-                                Date examDate = dateFormat.parse(claimParts[4].trim());
-                                Double claimAmount = Double.valueOf(claimParts[5]);
-                                String status = claimParts[6];
-                                String bankName = claimParts[7];
-                                String accountOwner = claimParts[8];
-                                String accountNumber = claimParts[9];
-                                String listOfDocumentString = claimParts[10];
-                                //convert listOfDocumentString from String to ArrayList<String>
-                                String[] listOfDocumentsArray = listOfDocumentString.split(",");
-                                //create ArrayList of document list
-                                ArrayList<String> listOfDocuments = new ArrayList<>();
-                                //add all element from String[] to ArrayList<String>
-                                for (String documents : listOfDocumentsArray
-                                ) {
-                                    listOfDocuments.add(documents);
+                        if (claimParts.length > 10) { // Assuming there are 11 parts for each claim data
+                            String claimID = claimParts[0];
+                            String claimDateString = claimParts[1]; //convert this to Date data type
+                            Date claimDate = FileIOManager.DATE_FORMAT.parse(claimDateString);
+                            String insuredPerson = claimParts[2];
+                            String cardNumber = claimParts[3];
+                            String examDateString = claimParts[4]; //convert this to Date data type
+                            Date examDate = FileIOManager.DATE_FORMAT.parse(examDateString);
+                            String claimAmountString = claimParts[5]; //convert this to Double data type
+                            double claimAmount = Double.valueOf(claimAmountString);
+                            String status = claimParts[6];
+                            String bankName = claimParts[7];
+                            String accountOwner = claimParts[8];
+                            String accountNumber = claimParts[9];
 
-                                }
+                            //parse documentList from String into ArrayList<String>
+                            String documentListString = claimParts[10];
 
-                                // Create a Claim object using parsed data and add it to the list of claims
-                                Claim claim = new Claim(claimId, claimDate, insuredPerson, cardNumber, examDate, claimAmount, status, bankName, accountOwner, accountNumber, listOfDocuments);
-                                //add claim object to listOPfClaims
-                                listOfClaims.add(claim);
-                            } catch (ParseException e) {
-                                e.printStackTrace(); // Handle parsing exception as needed
+                            // Remove enclosing square brackets [ and ]
+                            String documentsContent = documentListString.substring(1, documentListString.length() - 1);
+                            ArrayList<String> listOfDocuments = new ArrayList<>();
+
+                            // Split the content by comma
+                            String[] documentArray = documentsContent.split(",");
+                            for (String document : documentArray) {
+                                // Remove leading and trailing whitespace and add to list
+                                listOfDocuments.add(document);
                             }
+
+
+                            //create a claim object
+                            Claim claimObjectOfPolicyHolder = new Claim(claimID, claimDate, insuredPerson, cardNumber, examDate, claimAmount, status, bankName, accountOwner, accountNumber, listOfDocuments);
+                            System.out.println("Claim object is" + claimObjectOfPolicyHolder);
+                            //add it to PolicyHolder's list of claims
+                            listOfClaims.add(claimObjectOfPolicyHolder);
+                            System.out.println("Policy Holder list of Claims" + listOfClaims);
                         }
                     }
+
 
                     // Parse list of dependents
                     String[] dependentsData = parts[4].split("\\]\\[");
@@ -124,6 +129,7 @@ public class DataFileLoader {
                         if (dependentParts.length >= 3) { // Assuming there are 3 parts for each dependent data
                             // Create a Dependent object using parsed data and add it to the list of dependents
                             Dependent dependent = new Dependent(dependentParts[0], dependentParts[1], dependentParts[2], new ArrayList<>());
+                            //add it to Policy Holder's list of dependents
                             listOfDependents.add(dependent);
                         }
                     }
@@ -134,6 +140,8 @@ public class DataFileLoader {
                     FileIOManager.policyHoldersTemporaryArrayList.add(policyHolder);
                 }
             }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
         System.out.println("Successfully load data from files to objects of Policy Holders Temporary ArrayList ");
 
@@ -238,6 +246,41 @@ public class DataFileLoader {
         System.out.println("Successfully load data from files to objects of Claims Temporary ArrayList ");
         return FileIOManager.claimsTemporaryArrayList;
     }
+
+    private static ArrayList<Claim> parseListOfClaims(String claimsData) {
+        ArrayList<Claim> listOfClaims = new ArrayList<>();
+        String[] claimsArray = claimsData.split("\\]\\[");
+        for (String claimData : claimsArray) {
+            String[] claimParts = claimData.split(",");
+            if (claimParts.length >= 11) {
+                try {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    String claimId = claimParts[0];
+                    Date claimDate = dateFormat.parse(claimParts[1].trim());
+                    String insuredPerson = claimParts[2];
+                    String cardNumber = claimParts[3];
+                    Date examDate = dateFormat.parse(claimParts[4].trim());
+                    Double claimAmount = Double.valueOf(claimParts[5]);
+                    String status = claimParts[6];
+                    String bankName = claimParts[7];
+                    String accountOwner = claimParts[8];
+                    String accountNumber = claimParts[9];
+                    String listOfDocumentString = claimParts[10];
+                    ArrayList<String> listOfDocuments = new ArrayList<>();
+                    for (String document : listOfDocumentString.split(",")) {
+                        listOfDocuments.add(document.trim());
+                    }
+                    Claim claim = new Claim(claimId, claimDate, insuredPerson, cardNumber, examDate, claimAmount, status, bankName, accountOwner, accountNumber, listOfDocuments);
+                    listOfClaims.add(claim);
+                } catch (ParseException e) {
+                    e.printStackTrace(); // Handle parsing exception as needed
+                }
+            }
+        }
+        return listOfClaims;
+    }
+
+
 }
 
 

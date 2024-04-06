@@ -175,4 +175,12 @@ public class Claim {
                 ", accountNumber='" + accountNumber + '\'' +
                 '}';
     }
+
+    // Custom toString() method for a concise representation
+    public String toShortenString() {
+        return "Claim{" +
+                "claimID='" + claimID + '\'' +
+                ", insuredPerson='" + insuredPerson + '\'' +
+                '}';
+    }
 }
