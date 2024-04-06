@@ -42,9 +42,9 @@ public class FileIOManager {
 
 
     //create files object to store filePath
-    private static File customerFile = new File(CUSTOMERS_FILE_PATH);
-    private static File insuranceCardsFile = new File(INSURANCE_CARDS_FILE_PATH);
-    private static File claimFiles = new File(CLAIMS_FILE_PATH);
+    public static File customerFile = new File(CUSTOMERS_FILE_PATH);
+    public static File insuranceCardsFile = new File(INSURANCE_CARDS_FILE_PATH);
+    public static File claimFiles = new File(CLAIMS_FILE_PATH);
     //Create temporary ArrayList to hold File Data, and display to user.
     //Once the user quit the program, these ArrayList would be empty.
 
@@ -80,9 +80,12 @@ public class FileIOManager {
      * @throws IOException the io exception
      */
     public static void populateDataToEmptyFiles() throws IOException {
-        DataPopulator.populateSampleCustomerData(customerFile);
+        DataPopulator.populateCustomerData(customerFile);
+        DataPopulator.populateSampleClaimData(customerFile,claimFiles);
+        DataPopulator.populateCustomerData(customerFile);
         DataPopulator.populateSampleInsuranceCardData(customerFile, insuranceCardsFile);
-        DataPopulator.populateSampleClaimData(customerFile, claimFiles);
+        System.out.println("Update CustomerData.txt by adding claims to list of claims");
+
     }
 
     /**

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @project IndiProject
  * @since $ {11.0.18}
  */
-public class PolicyHolder  extends  Customer{
+public class PolicyHolder extends Customer {
     private ArrayList<Dependent> listOfDependents;
 
     // Constructor with default values for partial arguments
@@ -29,6 +29,7 @@ public class PolicyHolder  extends  Customer{
     public ArrayList<Dependent> getListOfDependents() {
         return listOfDependents;
     }
+
     public void setListOfDependents(ArrayList<Dependent> listOfDependents) {
         this.listOfDependents = listOfDependents;
     }
@@ -37,14 +38,13 @@ public class PolicyHolder  extends  Customer{
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(super.toString()); // Invoke parent class toString() to include Customer attributes
-
-        // Append PolicyHolder-specific attributes
-        sb.append(", listOfDependents=");
-        sb.append(listOfDependents);
-
-        return sb.toString();
+        return "PolicyHolder{" +
+                "cId='" + super.getcId() + '\'' +
+                ", fullName='" + super.getFullName() + '\'' +
+                ", insuranceCard='" + super.getInsuranceCard() + '\'' +
+                ", listOfClaims=" + super.getListOfClaims() + '\'' +
+                ", listOfDependents=" + listOfDependents + '\'' +
+                '}';
     }
 }
 

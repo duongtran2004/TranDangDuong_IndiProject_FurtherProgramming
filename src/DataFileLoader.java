@@ -130,8 +130,6 @@ public class DataFileLoader {
 
                     // Create a PolicyHolder object using parsed data // co van de
                     PolicyHolder policyHolder = new PolicyHolder(cId, fullName, insuranceCard, listOfClaims, listOfDependents);
-                    System.out.println("The policy holder is :");
-                    System.out.println(policyHolder);
                     // Add the  object to the temporary ArrayList
                     FileIOManager.policyHoldersTemporaryArrayList.add(policyHolder);
                 }
@@ -151,7 +149,7 @@ public class DataFileLoader {
      * @throws IOException the io exception
      */
     public static ArrayList<InsuranceCard> loadInsuranceCardsFromFile(File insuranceCardFile) throws IOException {
-       FileIOManager.insuranceCardsTemporaryArrayList.clear();
+        FileIOManager.insuranceCardsTemporaryArrayList.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader(insuranceCardFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -177,7 +175,7 @@ public class DataFileLoader {
                     InsuranceCard insuranceCard = new InsuranceCard(cardNumber, cardHolder, policyHolder, expirationDate);
 
                     // Add the  object to the temporary ArrayList
-                   FileIOManager.insuranceCardsTemporaryArrayList.add(insuranceCard);
+                    FileIOManager.insuranceCardsTemporaryArrayList.add(insuranceCard);
                 }
             }
         }

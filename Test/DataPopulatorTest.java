@@ -16,12 +16,12 @@ class DataPopulatorTest {
     File insuranceCardsFile = new File(FileIOManager.INSURANCE_CARDS_FILE_PATH);
     File claimsFile = new File(FileIOManager.CLAIMS_FILE_PATH);
 
-    @Test
-    public void populateSampleCustomerData() throws IOException {
-
-
-        DataPopulator.populateSampleCustomerData(customerFile);
-    }
+//    @Test
+//    public void populateSampleCustomerData() throws IOException {
+//
+//
+//        DataPopulator.populateSampleCustomerData(customerFile);
+//    }
 
     @Test
     public void populateSampleInsuranceCardsData() throws IOException {

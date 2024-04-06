@@ -16,8 +16,8 @@ public class Main {
 
     public static void main(String[] args) throws ParseException, IOException {
         FileIOManager.createNewEmptyFiles(); //create empty files if file not exist
-        FileIOManager.populateDataToEmptyFiles(); //populate data to files if file is empty
-        FileIOManager.loadData(); //load data from Files to temporary ArrayList
+        FileIOManager.populateDataToEmptyFiles(); //populate data if file is empty
+      FileIOManager.loadData(); //load data from Files to temporary ArrayList
         System.out.println("Temp ArrayList of insurance cards");
         for ( InsuranceCard insuranceCard:FileIOManager.insuranceCardsTemporaryArrayList
              ) {

@@ -7,9 +7,8 @@
  * @since ${11.0.18}
  */
 
-import com.sun.jdi.IntegerValue;
-
 import java.io.*;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -18,6 +17,8 @@ import java.util.*;
  * The type Data populator.
  */
 public class DataPopulator {
+
+    public static ArrayList<Claim> claimsToBeAddedBackToCustomerFile = new ArrayList<>();
 
 
     //variable to format date
@@ -29,55 +30,7 @@ public class DataPopulator {
      * @param customersFile the customers file
      * @throws IOException the io exception
      */
-// Method to populate sample customer data into a file
-    public static void populateSampleCustomerData(File customersFile) throws IOException {
-        // Check if the file exists and is empty
-        if (customersFile.exists() && customersFile.length() == 0) {
-            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(customersFile))) {
-                //generate 15 policyholder objects
 
-                for (int i = 1; i <= 15; i++) {
-                    //variables to hold attribute
-
-                    ArrayList<String> listOfClaims = new ArrayList<>();
-                    ArrayList<String> emptyListOfClaims = new ArrayList<>();
-                    ArrayList<String> listOfDependents = new ArrayList<>();
-
-                    // id (with the format c-numbers; 7 numbers) =>
-                    String padded7digitsNumberForPolicyHolder = String.format("%07d", i); // Format the number with leading zeros
-                    String policyHolderCId = "c-" + padded7digitsNumberForPolicyHolder; // Concatenate the formatted number and "c-"
-                    String policyHolderFullName = "PolicyHolder " + i;
-                    //insurance card:  card number (10 digits)
-                    //variable to hold padded10dDigitsNumbers
-                    String padded10digitsNumberForPolicyHolder = String.format("%010d", i);
-                    String policyHolderInsuranceCard = padded10digitsNumberForPolicyHolder;
-                    //now generate 1 Dependents object for each PolicyHolder
-                    String padded7digitsNumberForDependent = String.format("%07d", 99 - i);
-                    String dependentCId = "c-" + padded7digitsNumberForDependent;
-                    String dependentFullName = "Dependent " + i;
-                    String padded10digitsNumberForDependent = String.format("%010d", 99 - i);
-                    String dependentInsuranceCard = padded10digitsNumberForDependent;
-
-                    //Variable to store dependent data in a line of String
-                    String dependentDataLine = dependentCId + "," + dependentFullName + "," + dependentInsuranceCard + "," + emptyListOfClaims.toString();
-
-                    //add dependent data to listOfDependent
-                    listOfDependents.add(dependentDataLine);
-
-                    //Variable to store policyHolder data in a line of String
-                    String policyHolderDataLine = policyHolderCId + "," + policyHolderFullName + "," + policyHolderInsuranceCard + "," + listOfClaims.toString() + "," + listOfDependents.toString();
-
-                    // Write policyHolder data to the file
-                    bufferedWriter.write(policyHolderDataLine + "\n");
-                    //Write Dependent data to the file
-                    bufferedWriter.write(dependentDataLine + "\n");
-                }
-                System.out.println("Sample " + customersFile.getName() + " data populated successfully.");
-            }
-        } else {
-            System.out.println("File " + customersFile.getName() + " is not empty. Skipping data population.");
-        }
-    }
 
     /**
      * Populate sample insurance card data.
@@ -153,8 +106,6 @@ public class DataPopulator {
                 //variable to hold line-counter. This would be use to identify PolicyHolders
                 while ((line = bufferedReader.readLine()) != null) {
 
-                    //variable to hold list of documents
-                    ArrayList<String> listOfDocuments = new ArrayList<>();
                     //variable to hold claimAmount
                     double claimAmount = 0;
                     //variable to hold status
@@ -179,11 +130,7 @@ public class DataPopulator {
                     String claimDate = generateRandomClaimDate(examDate, 10);
 
                     //generate listOfDocuments (with the format ClaimId_CardNumber_DocumentName.pdf)
-                    String hospitalBill = claimId + "_" + insuranceCard + "_hospitalBill.pdf";
-                    String patientRecord = claimId + "_" + insuranceCard + "_patientRecord.pdf";
-                    //add 2 documents to listOfDocuments
-                    listOfDocuments.add(hospitalBill);
-                    listOfDocuments.add(patientRecord);
+                    ArrayList<String> listOfDocuments = generateListOfDocuments(claimId, insuranceCard);
                     //generate claimAmount
                     claimAmount = generateRandomClaimAmount(100, 1000);
                     //generate BankingInfo
@@ -198,52 +145,82 @@ public class DataPopulator {
                     bufferedWriter.write(claimDataLine);
                     bufferedWriter.newLine();
 
-                    // After finishing writing ClaimData.txt, Append claim data to the corresponding customer data in the customers file
-                    String customerId = customerDataLine[0];
-
-                    //another try catch block
-                    //read the customer files and write to customer files
-                    String existingCustomerDataLine = line;
-                    // Split the existing customer data line into an array
-                    String[] existingCustomerDataArray = existingCustomerDataLine.split(",");
-                    // Check the condition to append claimData:
-                    // 1. if the claim data has NOT already been appended
-                    // 2. if the current CustomerDataLine is a PolicyHolder ( 5 attributes instead of 4, so 5 elements)
-//                    if (!existingCustomerDataLine.contains("[" + claimDataLine + "]") && (existingCustomerDataArray.length > 4)) {
-//                        // Append claim data only if it hasn't been added before
-//                        String newCustomerDataLine = existingCustomerDataLine + "[" + claimDataLine + "]";
-//                        replaceLine(customersFile, customerId, newCustomerDataLine);
-//                    }
+                    //parse ClaimDate and ExamDate from String type to Date Type
+                    Date claimDateDateObject = FileIOManager.DATE_FORMAT.parse(claimDate);
+                    Date examDateDateObject = FileIOManager.DATE_FORMAT.parse(examDate);
+                    //create a new Claim Object and add populated data to it
+                    Claim claim = new Claim(claimId, claimDateDateObject, insuredPerson, insuranceCard, examDateDateObject, claimAmount, status, bankName, accountOwner, accountNumber, listOfDocuments);
+//add the claim to the claimsToBeAddBackToCustomerFiles ArrayList
+                    claimsToBeAddedBackToCustomerFile.add(claim);
                 }
                 System.out.println("Sample " + claimsFile.getName() + " data populated successfully.");
 
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
             }
         } else {
             System.out.println("File " + claimsFile.getName() + " is not empty. Skipping data population.");
         }
     }
-    // Helper method to construct a claim data line
 
+    public static void populateCustomerData(File customersFile) throws IOException {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(customersFile, false))) {
+            //generate 15 policyholder objects
 
-    // Method to replace a line in a file
-    private static void replaceLine(File file, String targetId, String newLine) throws IOException {
-        List<String> lines = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith(targetId)) {
-                    lines.add(newLine);
-                } else {
-                    lines.add(line);
+            for (int i = 1; i <= 15; i++) {
+                //variables to hold attribute
+
+                ArrayList<Claim> policyHolderListOfClaims = new ArrayList<>();
+                ArrayList<String> dependentListOfClaims = new ArrayList<>();
+                ArrayList<String> listOfDependents = new ArrayList<>();
+
+                // id (with the format c-numbers; 7 numbers) =>
+                String padded7digitsNumberForPolicyHolder = String.format("%07d", i); // Format the number with leading zeros
+                String policyHolderCId = "c-" + padded7digitsNumberForPolicyHolder; // Concatenate the formatted number and "c-"
+                String policyHolderFullName = "PolicyHolder " + i;
+                //insurance card:  card number (10 digits)
+                //variable to hold padded10dDigitsNumbers
+                String padded10digitsNumberForPolicyHolder = String.format("%010d", i);
+                String policyHolderInsuranceCard = padded10digitsNumberForPolicyHolder;
+                //now generate 1 Dependents object for each PolicyHolder
+                String padded7digitsNumberForDependent = String.format("%07d", 99 - i);
+                String dependentCId = "c-" + padded7digitsNumberForDependent;
+                String dependentFullName = "Dependent " + i;
+                String padded10digitsNumberForDependent = String.format("%010d", 99 - i);
+                String dependentInsuranceCard = padded10digitsNumberForDependent;
+
+                //Variable to store dependent data in a line of String
+                String dependentDataLine = dependentCId + "," + dependentFullName + "," + dependentInsuranceCard + "," + dependentListOfClaims;
+                //add dependent data to listOfDependent
+                listOfDependents.add(dependentDataLine);
+                for (Claim claim : claimsToBeAddedBackToCustomerFile
+                ) {
+                    if ((claim.getCardNumber()).equals(policyHolderInsuranceCard)) { //logic
+                        policyHolderListOfClaims.add(claim);
+                    }
                 }
+                System.out.println("PolicyHolder List of claim: " + policyHolderListOfClaims);
+
+                //Variable to store policyHolder data in a line of String
+                String policyHolderDataLine = policyHolderCId + "," + policyHolderFullName + "," + policyHolderInsuranceCard + "," + policyHolderListOfClaims + "," + listOfDependents;
+
+                // Write policyHolder data to the file
+                bufferedWriter.write(policyHolderDataLine + "\n");
+                //Write Dependent data to the file
+                bufferedWriter.write(dependentDataLine + "\n");
             }
+            System.out.println("The list of claims has been added back to " + customersFile.getName() + " successfully.");
         }
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
-            for (String line : lines) {
-                writer.write(line);
-                writer.newLine();
-            }
-        }
+    }
+
+
+    private static ArrayList<String> generateListOfDocuments(String claimId, String insuranceCard) {
+        ArrayList<String> listOfDocuments = new ArrayList<>();
+        String hospitalBill = claimId + "_" + insuranceCard + "_hospitalBill.pdf";
+        String patientRecord = claimId + "_" + insuranceCard + "_patientRecord.pdf";
+        listOfDocuments.add(hospitalBill);
+        listOfDocuments.add(patientRecord);
+        return listOfDocuments;
     }
 
     public static double generateRandomClaimAmount(double minAmount, double maxAmount) {
