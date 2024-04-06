@@ -30,17 +30,17 @@ public class Claim {
     public Claim(String claimID, Date claimDate, String insuredPerson, String cardNumber, Date examDate,
                   double claimAmount, String status, String bankName,
                  String accountOwner, String accountNumber, ArrayList<String> listOfDocuments) {
-        this.claimID = (claimID != null && !claimID.isEmpty()) ? claimID : "default";
+        this.claimID = (claimID != null && !claimID.isEmpty()) ? claimID : "f-1111111111";
         this.claimDate = (claimDate != null) ? claimDate : new Date(2024 - 1900, 0, 1);
         this.insuredPerson = (insuredPerson != null && !insuredPerson.isEmpty()) ? insuredPerson : "default";
-        this.cardNumber = (cardNumber != null && !cardNumber.isEmpty()) ? cardNumber : "default";
+        this.cardNumber = (cardNumber != null && !cardNumber.isEmpty()) ? cardNumber : "1111111111";
         this.examDate = (examDate != null) ? examDate : new Date(2024 - 1900, 0, 1);
 
         this.claimAmount = claimAmount; // No default value for claimAmount, it's a double
-        this.status = (status != null && !status.isEmpty()) ? status : "default";
+        this.status = (status != null && !status.isEmpty()) ? status : "New";
         this.bankName = (bankName != null && !bankName.isEmpty()) ? bankName : "default";
         this.accountOwner = (accountOwner != null && !accountOwner.isEmpty()) ? accountOwner : "default";
-        this.accountNumber = (accountNumber != null && !accountNumber.isEmpty()) ? accountNumber : "default";
+        this.accountNumber = (accountNumber != null && !accountNumber.isEmpty()) ? accountNumber : "1111111111";
         this.listOfDocuments = (listOfDocuments != null) ? listOfDocuments : new ArrayList<>();
     }
 
@@ -51,14 +51,14 @@ public class Claim {
         this.claimID = newClaimID;
         this.claimDate = new Date(2024 - 1900, 0, 1); // January 1, 2024 (Note: Months are 0-based in Date class)
         this.insuredPerson = "default";
-        this.cardNumber = "default";
+        this.cardNumber = "1111111";
         this.examDate = new Date(2024 - 1900, 0, 1); // January 1, 2024
 
         this.claimAmount = 0.0; // Default claim amount
-        this.status = "default";
+        this.status = "New";
         this.bankName = "default";
         this.accountOwner = "default";
-        this.accountNumber = "default";
+        this.accountNumber = "11111111";
         this.listOfDocuments = new ArrayList<>(); // Default empty list of documents
     }
 

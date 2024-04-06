@@ -15,22 +15,31 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws ParseException, IOException {
-        System.out.println(FileIOManager.claimsTemporaryArrayList);
         FileIOManager.createNewEmptyFiles(); //create empty files if file not exist
         FileIOManager.populateDataToEmptyFiles(); //populate data to files if file is empty
-        //print temp claim arrayList
-        System.out.println("Claim Temporary ArrayList");
+        FileIOManager.loadData(); //load data from Files to temporary ArrayList
+        System.out.println("Temp ArrayList of insurance cards");
+        for ( InsuranceCard insuranceCard:FileIOManager.insuranceCardsTemporaryArrayList
+             ) {
+            System.out.println(insuranceCard);
+        }
+        System.out.println("Temp ArrayList of dependents");
+        for (Dependent dependent: FileIOManager.dependentsTemporaryArrayList
+             ) {
+            System.out.println(dependent);
+        }
+        System.out.println("Temp ArrayList of policy holder");
+        for (PolicyHolder policyHolder: FileIOManager.policyHoldersTemporaryArrayList
+             ) {
+            System.out.println(policyHolder);
+        }
+        System.out.println("Temp ArrayList of Claims");
         for (Claim claim: FileIOManager.claimsTemporaryArrayList
              ) {
             System.out.println(claim);
         }
-        FileIOManager.loadData(); //load data from Files to temporary ArrayList
-        //print temp claim arrayList
-        System.out.println("Claim Temporary ArrayList after loading");
-        for (Claim claim: FileIOManager.claimsTemporaryArrayList
-        ) {
-            System.out.println(claim);
-        }
+
+
         //display welcoming screen
         WelcomingScreen.displayWelcomeScreen();
         //MVC design pattern for CRUD of claims
@@ -44,7 +53,6 @@ public class Main {
         view.displayMainMenu();
         int choice = DataInputValidator.getValidIntegerInput(scanner);
         controller.handleMainMenuInput(choice);
-
 
 
     }

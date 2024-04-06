@@ -17,16 +17,16 @@ public abstract class Customer  {
     //constructor
     // Constructor with default values for partial arguments
     public Customer(String cId, String fullName, String insuranceCard, ArrayList<Claim> listOfClaims) {
-        this.cId = (cId != null && !cId.isEmpty()) ? cId : "default";
+        this.cId = (cId != null && !cId.isEmpty()) ? cId : "c-1111111";
         this.fullName = (fullName != null && !fullName.isEmpty()) ? fullName : "default";
-        this.insuranceCard = (insuranceCard != null && !insuranceCard.isEmpty()) ? insuranceCard : "default";
+        this.insuranceCard = (insuranceCard != null && !insuranceCard.isEmpty()) ? insuranceCard : "1111111111";
         this.listOfClaims = (listOfClaims != null) ? listOfClaims : new ArrayList<>();
     }
 
 
     // Constructor with default value, no arguments needed
     public Customer() {
-        this.cId = "default";
+        this.cId = "c-1111111";
         this.fullName = "default";
         this.insuranceCard = "default";
         this.listOfClaims = new ArrayList<>();

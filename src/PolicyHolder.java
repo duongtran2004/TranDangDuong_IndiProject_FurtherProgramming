@@ -34,15 +34,17 @@ public class PolicyHolder  extends  Customer{
     }
     //toString method
 
+
     @Override
     public String toString() {
-        return "PolicyHolder{" +
-                "listOfDependents=" + listOfDependents +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString()); // Invoke parent class toString() to include Customer attributes
+
+        // Append PolicyHolder-specific attributes
+        sb.append(", listOfDependents=");
+        sb.append(listOfDependents);
+
+        return sb.toString();
     }
-
-
-
-
 }
 

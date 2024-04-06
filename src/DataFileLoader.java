@@ -128,8 +128,10 @@ public class DataFileLoader {
                         }
                     }
 
-                    // Create a PolicyHolder object using parsed data
+                    // Create a PolicyHolder object using parsed data // co van de
                     PolicyHolder policyHolder = new PolicyHolder(cId, fullName, insuranceCard, listOfClaims, listOfDependents);
+                    System.out.println("The policy holder is :");
+                    System.out.println(policyHolder);
                     // Add the  object to the temporary ArrayList
                     FileIOManager.policyHoldersTemporaryArrayList.add(policyHolder);
                 }

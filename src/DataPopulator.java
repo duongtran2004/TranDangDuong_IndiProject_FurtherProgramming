@@ -11,6 +11,7 @@ import com.sun.jdi.IntegerValue;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -105,10 +106,10 @@ public class DataPopulator {
                     //cardNumber is 3rd element
                     String cardNumber = customerData[2];
                     String policyOwner = "";
-                    String expirationDate = "";
 
-                    // Determine the policy owner based on the cardNumber (last two digits < 50)
-                    if (cardNumber.compareTo("0000000050") <= 0) {
+
+                    // Determine the policy owner based on the numbers of elements in customerData: 5 for Policy Owner, 4 for Dependents
+                    if ((customerData.length) > 4) {
                         policyOwner = cardHolder;
 
                     } else {
@@ -116,13 +117,7 @@ public class DataPopulator {
                         policyOwner = "PolicyHolder" + " " + (99 - (Integer.parseInt(cardNumber)));
                     }
 
-                    // Generate expiration date: Today/CurrentDate + 10 days + last 2 digits of Cid
-                    LocalDate currentDate = LocalDate.now();
-                    LocalDate expirationLocalDate = currentDate.plusDays(10).plusDays(Integer.parseInt(cId.substring(cId.length() - 2)));
-
-                    // Convert CurrentLocalDate to Date
-                    Date epxDate = java.sql.Date.valueOf(expirationLocalDate);
-                    expirationDate = FileIOManager.DATE_FORMAT.format(epxDate);
+                    String expirationDate = generateRandomExpirationDate(60);
 
                     // Write insurance card data to the file
                     bufferedWriter.write(cardNumber + "," + cardHolder + "," + policyOwner + "," + expirationDate + "\n");
@@ -160,24 +155,18 @@ public class DataPopulator {
 
                     //variable to hold list of documents
                     ArrayList<String> listOfDocuments = new ArrayList<>();
-                    //String variable to hold 2 defaults documents
-                    String hospitalBill = "";
-                    String patientRecord = "";
-                    String insuranceCard = "";
-
                     //variable to hold claimAmount
                     double claimAmount = 0;
                     //variable to hold status
-                    String status = "";
-                    //variable to hold Banking info
-                    String bankName = "";
-                    String accountOwner = "";
-                    String accountNumber = "";
+                    String status = generateRandomStatus();
+
 
                     //1 line = 1 customer object's data
                     //store each attributes of customer's data as 1 element in the customerData Array, each split by ","
                     String[] customerDataLine = line.split(",");
-                    insuranceCard = customerDataLine[2];
+                    //store claimId into CustomersData.txt's claimsList ArrayList
+                    String insuredPerson = customerDataLine[1];
+                    String insuranceCard = customerDataLine[2];
                     //skip the current line if a customer is a dependent, create no claim at first
                     //dependent line has only 4 elements
                     if ((customerDataLine.length) < 5) {
@@ -186,90 +175,45 @@ public class DataPopulator {
                     //make claims for PolicyHolders only
                     //id (with the format f-numbers; 10 numbers)
                     String claimId = "f-" + insuranceCard;
-                    String insuredPerson = customerDataLine[1];
-                    //store claimId into CustomersData.txt's claimsList ArrayList
+                    String examDate = generateRandomExamDate(30);
+                    String claimDate = generateRandomClaimDate(examDate, 10);
 
-                    //ClaimDate: The day when customers fill in claim form
-                    String claimDate = "";
-                    String examDate = "";
-                    //create random positive integer from 1 to 20
-                    Random random = new Random();
-                    int randomPositiveIntegerClaim = random.nextInt(20) + 1; //bound start from 0
-                    LocalDate currentDate = LocalDate.now();
-                    //claimDate = currentDate - 2 days - n days (n = last digits of claim ID. ClaimID = InsuranceCard)
-                    LocalDate claimLocalDate = currentDate.plusDays(-randomPositiveIntegerClaim);
-                    //convert CurrentLocalDate to Date
-                    Date clmDate = java.sql.Date.valueOf(claimLocalDate);
-                    //convert Date to String
-
-                    claimDate = FileIOManager.DATE_FORMAT.format(clmDate);
-
-                    //examDate: The day when customers visit hospital
-
-                    //So examDate would always be smaller than claimDate
-                    int randomPositiveIntegerExam = random.nextInt(20) + 1; //bound start from 0
-                    LocalDate examLocalDate = claimLocalDate.plusDays(-randomPositiveIntegerExam);
-                    //convert CurrentLocalDate to Date
-                    Date exaDate = java.sql.Date.valueOf(examLocalDate);
-                    //convert Date to String
-
-                    examDate = FileIOManager.DATE_FORMAT.format(exaDate);
                     //generate listOfDocuments (with the format ClaimId_CardNumber_DocumentName.pdf)
-                    hospitalBill = claimId + "_" + insuranceCard + "_hospitalBill.pdf";
-                    patientRecord = claimId + "_" + insuranceCard + "_patientRecord.pdf";
+                    String hospitalBill = claimId + "_" + insuranceCard + "_hospitalBill.pdf";
+                    String patientRecord = claimId + "_" + insuranceCard + "_patientRecord.pdf";
                     //add 2 documents to listOfDocuments
                     listOfDocuments.add(hospitalBill);
                     listOfDocuments.add(patientRecord);
-                    //generate claimAmount = last digits of card * 100
-                    Random randomClaimAmount = new Random();
-                    claimAmount = random.nextDouble(901) + 100; // Generates a random double between 100 and 1000 (inclusive)
-                    //generate random status
-                    random = new Random();
-                    int randomNumber = random.nextInt(3); //generate randomNumber from 0 to 2
-                    switch (randomNumber) {
-                        case 0:
-                            status = "New";
-                            break;
-                        case 1:
-                            status = "Processing";
-                            break;
-                        case 2:
-                            status = "Done";
-                            break;
-                        default:
-                            status = "New"; // Default to "New" status
-                            break;
-                    }
-
-
+                    //generate claimAmount
+                    claimAmount = generateRandomClaimAmount(100, 1000);
                     //generate BankingInfo
-                    accountOwner = insuredPerson;
-                    accountNumber = "b-" + insuranceCard;
-                    //generate bankName: Techcombank for even cards, Vietcombank for odd cards
-                    if ((Double.valueOf(insuranceCard) % 2) == 0) {
-                        bankName = "Techcombank";
-                    } else {
-                        bankName = "Vietcombank";
+                    //variables to hold Banking info
+                    String bankName = generateRandomBankName();
+                    String accountOwner = insuredPerson;
+                    String accountNumber = "b-" + insuranceCard;
 
-                    }
                     //variable to store claimDataLine
-                    String claimDataLine = claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + claimAmount + "," + status + "," + bankName + "," + accountOwner + "," + accountNumber + listOfDocuments + ",";
+                    String claimDataLine = claimId + "," + claimDate + "," + insuredPerson + "," + insuranceCard + "," + examDate + "," + claimAmount + "," + status + "," + bankName + "," + accountOwner + "," + accountNumber + "," + listOfDocuments;
                     // Write claims data to the ClaimData.txt file
-                    bufferedWriter.write(claimDataLine + "\n");
+                    bufferedWriter.write(claimDataLine);
+                    bufferedWriter.newLine();
+
                     // After finishing writing ClaimData.txt, Append claim data to the corresponding customer data in the customers file
                     String customerId = customerDataLine[0];
 
+                    //another try catch block
+                    //read the customer files and write to customer files
                     String existingCustomerDataLine = line;
                     // Split the existing customer data line into an array
                     String[] existingCustomerDataArray = existingCustomerDataLine.split(",");
                     // Check the condition to append claimData:
                     // 1. if the claim data has NOT already been appended
                     // 2. if the current CustomerDataLine is a PolicyHolder ( 5 attributes instead of 4, so 5 elements)
-                    if (!existingCustomerDataLine.contains("[" + claimDataLine + "]") && (existingCustomerDataArray.length > 4)) {
-                        // Append claim data only if it hasn't been added before
-                        String newCustomerDataLine = existingCustomerDataLine + "[" + claimDataLine + "]";
-                        replaceLine(customersFile, customerId, newCustomerDataLine);
-                    }
+//                    if (!existingCustomerDataLine.contains("[" + claimDataLine + "]") && (existingCustomerDataArray.length > 4)) {
+//                        // Append claim data only if it hasn't been added before
+//                        String newCustomerDataLine = existingCustomerDataLine + "[" + claimDataLine + "]";
+//                        replaceLine(customersFile, customerId, newCustomerDataLine);
+//                    }
                 }
                 System.out.println("Sample " + claimsFile.getName() + " data populated successfully.");
 
@@ -300,6 +244,113 @@ public class DataPopulator {
                 writer.newLine();
             }
         }
+    }
+
+    public static double generateRandomClaimAmount(double minAmount, double maxAmount) {
+        //create random object
+        Random random = new Random();
+        //random.nextDouble return values from 0.0 and 1.0
+        double generateRandomValue = random.nextDouble();
+        // Generate a random double within the specified range ex: [100,1000)
+        double unRoundedClaimAmount = minAmount + (maxAmount - minAmount) * generateRandomValue;
+        // Round the  value to two decimal places
+        double claimAmount = Math.round(unRoundedClaimAmount * 100.0) / 100.0;
+
+        return claimAmount;
+
+    }
+    // Method to generate a random LocalDate within a specified range
+
+
+    public static String generateRandomExamDate(int maxDaysBeforeToday) {
+        LocalDate currentDate = LocalDate.now(); //get the date of today
+        Random random = new Random();
+        int randomDays = random.nextInt(maxDaysBeforeToday) + 1; // Generate random days from 1 to maxDaysBeforeToday
+        LocalDate examDateLocalDate = currentDate.minusDays(randomDays);
+        // Convert LocalDate to Date (for formatting purposes)
+        Date examDateDateObject = java.sql.Date.valueOf(examDateLocalDate);
+        // Format the expiration date as a string in the desired format (e.g., "dd-MM-yyyy")
+        String formattedExamDate = FileIOManager.DATE_FORMAT.format(examDateDateObject);
+        return formattedExamDate;
+    }
+
+    public static String generateRandomClaimDate(String examDate, int maxDaysBeforeExamDate) {
+        Random random = new Random(); //new Random object
+        //convert examDate from String type to LocalDate type
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate examDateLocalDate = LocalDate.parse(examDate, dateFormat);
+        int randomDays = random.nextInt(maxDaysBeforeExamDate) + 1; // Generate random days from 1 to maxDaysAheadOfExamDate
+        LocalDate claimDateLocalDate = examDateLocalDate.minusDays(randomDays);
+        // Convert LocalDate to Date (for formatting purposes)
+        Date claimDateDateObject = java.sql.Date.valueOf(claimDateLocalDate);
+        // Format the expiration date as a string in the desired format (e.g., "dd-MM-yyyy")
+        String formattedClaimDate = FileIOManager.DATE_FORMAT.format(claimDateDateObject);
+        return formattedClaimDate;
+    }
+
+
+    public static String generateRandomExpirationDate(int maxDaysAheadOfToday) {
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Generate a random number of days between 0 and maxDaysAhead
+        Random random = new Random();
+        int randomDays = random.nextInt(maxDaysAheadOfToday + 1); // Generate random days from 0 to maxDaysAhead
+
+        // Calculate the expiration date by adding the random number of days to the current date
+        LocalDate expirationDateLocalDate = currentDate.plusDays(randomDays);
+        // Convert LocalDate to Date (for formatting purposes)
+        Date expirationDateDateObject = java.sql.Date.valueOf(expirationDateLocalDate);
+        // Format the expiration date as a string in the desired format (e.g., "dd-MM-yyyy")
+        String formattedExpirationDate = FileIOManager.DATE_FORMAT.format(expirationDateDateObject);
+
+        return formattedExpirationDate;
+    }
+
+    public static String generateRandomStatus() {
+        //generate random status
+        String status;
+        Random random = new Random(); //create Random object
+        int randomNumber = random.nextInt(3); //generate randomNumber from 0 to 2
+
+        if (randomNumber == 0) {
+            status = "New";
+        } else if (randomNumber == 1) {
+            status = "Processing";
+
+        } else if (randomNumber == 2) {
+            status = "Done";
+        } else {
+            status = "New";
+        }
+        return status;
+    }
+
+    public static String generateRandomBankName() {
+        String bankName;
+        Random random = new Random(); //create Random object
+        int randomNumber = random.nextInt(4); //generate randomNumber from 0 to 4
+        switch (randomNumber) {
+            case 0:
+                bankName = "Techcombank";
+                break;
+            case 1:
+                bankName = "Vietcombank";
+                break;
+            case 2:
+                bankName = "VPBank";
+                break;
+            case 3:
+                bankName = "AgriBank";
+                break;
+            case 4:
+                bankName = "OceanBank";
+                break;
+            default:
+                bankName = "TechcomBank";
+                break;
+        }
+        return bankName;
     }
 
 }
