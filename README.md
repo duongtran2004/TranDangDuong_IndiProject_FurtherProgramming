@@ -1,44 +1,44 @@
+INSURANCE CLAIM MANAGEMENT SYSTEM
+
 Overview
 This Java program is designed to manage insurance claims through a text-based user interface. It provides functionalities for creating, reading, updating, and deleting (CRUD) insurance claims stored in data files.
 
 Getting Started
-Requirements
-
+Prerequisites
 Java Development Kit (JDK) installed on your system
 IDE (Integrated Development Environment) like IntelliJ IDEA or Eclipse
-Clone Repository
+Installation
+Clone the repository to your local machine:
+git clone <[repository-url](https://github.com/duongtran2004/TranDangDuong_IndiProject_FurtherProgramming)>
+Open the project in your preferred IDE.
 
-bash
-Copy code
-git clone <repository-url>
-Navigate to Project Directory
+Usage
+Navigate to the src directory in your terminal or command prompt:
+cd path/to/project/src
 
-bash
-Copy code
-cd <project-directory>
-Compile and Run
+Compile the program:
+javac Main.java
 
-Compile the program using the following command:
-bash
-Copy code
-javac src/Main.java
 Run the compiled program:
-bash
-Copy code
-java -cp src Main
+java Main
+
+
 Features
-CRUD Operations on Claims
+
+CRUD OPERATION ON CLAIMS
 
 Add new claims with details like claim date, insured person, card number, etc.
 View all existing claims in the system.
 Update specific claim details such as claim amount, status, etc.
 Delete claims based on claim ID.
-Text-Based User Interface (UI)
+
+TEXT-BASED FRIENDLY UI
 
 User-friendly menu-driven interface.
 Input validation to ensure data integrity.
-Project Structure
-src/
+
+PROJECT STRUCTURE 
+
 Main.java: Main entry point of the program.
 Claim.java: Represents a claim object.
 Customer.java: Abstract class for managing customers.
@@ -52,9 +52,7 @@ SystemAdmin.java: Implements methods from ClaimProcessManager.
 DataInputValidator.java: Utility class for input validation.
 IDManager.java: Utility class for generating unique IDs.
 DataFileCreator.java, PopulateDataFile.java, LoadDataFromFile.java, DataSaver.java: Classes for managing data files and operations.
-Contributing
-Contributions are welcome! Please fork the repository and create a pull request with your changes.
+es.
 
 License
-This project is licensed under the MIT License.
-
+This project is licensed under the RMIT License
