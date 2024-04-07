@@ -4,37 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a7d2f53-ce07-4233-8df3-f60d8dd8e2eb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/IndiProject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/intellij-javadocs-4.0.1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-javadocs-4.0.1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Claim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Claim.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ClaimController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClaimController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ClaimProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClaimProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ClaimView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClaimView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFileCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFileCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFileLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFileLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFiles/ClaimsData.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFiles/CustomersData.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFiles/InsuranceCardsData.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataInputValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataInputValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataPopulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataPopulator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataSaver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataSaver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dependent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dependent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FileIOManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileIOManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IdManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IdManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InsuranceCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InsuranceCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PolicyHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PolicyHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RandomDataGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SystemAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SystemAdmin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/WelcomingScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WelcomingScreen.java" afterDir="false" />
-    </list>
+    <list default="true" id="2a7d2f53-ce07-4233-8df3-f60d8dd8e2eb" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,24 +14,28 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2ekxqr57dcS2PkS73COrtsEei5g" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -71,11 +45,14 @@
       <option name="presentableId" value="Default" />
       <updated>1712462571795</updated>
       <workItem from="1712462572831" duration="3935000" />
-      <workItem from="1712476156825" duration="1299000" />
+      <workItem from="1712476156825" duration="1398000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
