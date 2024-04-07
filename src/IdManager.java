@@ -1,12 +1,13 @@
 import java.util.Random;
 
 /**
- * @author Tran Dang Duong
- * Student ID: s3979381
- * @version ${11.0.18}
- * @created 01-Apr-24 4:27 PM
+ * The type Id manager.
+ *
+ * @author Tran Dang Duong Student ID: s3979381
+ * @version $ {11.0.18}
+ * @created 01 -Apr-24 4:27 PM
  * @project IndiProject
- * @since ${11.0.18}
+ * @since $ {11.0.18}
  */
 public class IdManager {
     private static final String CLAIM_ID_PREFIX = "f-";
@@ -16,7 +17,12 @@ public class IdManager {
     private static final Random random = new Random();
 
 
-    // Method to generate a unique claim ID from 1 to 1000 (must be difference from existing claimID)
+    /**
+     * Generate claim id string.
+     *
+     * @return the string
+     */
+// Method to generate a unique claim ID from 1 to 1000 (must be difference from existing claimID)
     //Do not allow user to enter claimID themselves
     public static String generateClaimID() {
         String claimID;
@@ -25,6 +31,12 @@ public class IdManager {
         } while (FileIOManager.claimsTemporaryArrayList.contains(claimID));
         return claimID;
     }
+
+    /**
+     * Generate customer id string.
+     *
+     * @return the string
+     */
     public static String generateCustomerID() {
         String customerID;
         do {
@@ -32,6 +44,12 @@ public class IdManager {
         } while (FileIOManager.policyHoldersTemporaryArrayList.contains(customerID) &&  FileIOManager.dependentsTemporaryArrayList.contains(customerID));
         return customerID;
     }
+
+    /**
+     * Generate insurance card number string.
+     *
+     * @return the string
+     */
     public static String generateInsuranceCardNumber(){
         String insuranceCardNumber;
         do {

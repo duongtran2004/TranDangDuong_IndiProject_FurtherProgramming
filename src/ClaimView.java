@@ -13,16 +13,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * The type Claim view.
+ */
 public class ClaimView {
     private Scanner scanner;
     private ClaimController controller;
 
+    /**
+     * Instantiates a new Claim view.
+     */
     public ClaimView() {
 
         this.scanner = new Scanner(System.in);
     }
 
-    // Setter method for ClaimController
+    /**
+     * Sets controller.
+     *
+     * @param controller the controller
+     */
+// Setter method for ClaimController
     public void setController(ClaimController controller) {
         this.controller = controller;
     }
@@ -43,13 +54,15 @@ public class ClaimView {
         System.out.println("OPTIONS FOR GETTING CLAIMS");
         System.out.println("3. Get 1 claim by claim ID");
         System.out.println("4. Get all claims in the system");
+        System.out.println("5. Get all claims in the system by status");
         System.out.println("------------------------------------------------------");
         System.out.println("OPTIONS FOR UPDATING CLAIMS");
-        System.out.println("5. Updating 1 claim by claim ID");
+        System.out.println("6. Updating 1 claim by claim ID");
+        System.out.println("7. Updating 1 claim status by claim ID");
         System.out.println("OPTIONS FOR DELETING CLAIMS");
-        System.out.println("6. Deleting 1 claim by claim ID");
-        System.out.println("7. Deleting all claims in the system");
-        System.out.println("8. Exit");
+        System.out.println("8. Deleting 1 claim by claim ID");
+        System.out.println("9. Deleting all claims in the system");
+        System.out.println("10. Exit");
         System.out.print("Enter your choice (must be integer from 1 to 8): ");
         choice = scanner.nextInt();
         // Handle the user's choice using the ClaimController

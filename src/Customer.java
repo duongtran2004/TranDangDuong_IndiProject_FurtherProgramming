@@ -14,7 +14,16 @@ public abstract class Customer  {
     private String fullName;
     private String insuranceCard;
     private ArrayList<Claim> listOfClaims;
-    //constructor
+
+    /**
+     * Instantiates a new Customer.
+     *
+     * @param cId           the c id
+     * @param fullName      the full name
+     * @param insuranceCard the insurance card
+     * @param listOfClaims  the list of claims
+     */
+//constructor
     // Constructor with default values for partial arguments
     public Customer(String cId, String fullName, String insuranceCard, ArrayList<Claim> listOfClaims) {
         this.cId = (cId != null && !cId.isEmpty()) ? cId : "c-1111111";
@@ -24,7 +33,10 @@ public abstract class Customer  {
     }
 
 
-    // Constructor with default value, no arguments needed
+    /**
+     * Instantiates a new Customer.
+     */
+// Constructor with default value, no arguments needed
     public Customer() {
         this.cId = "c-1111111";
         this.fullName = "default";
@@ -42,14 +54,7 @@ public abstract class Customer  {
         return cId;
     }
 
-    /**
-     * Sets id.
-     *
-     * @param cId the c id
-     */
-    public void setcId(String cId) {
-        this.cId = cId;
-    }
+
 
     /**
      * Gets full name.
@@ -78,14 +83,7 @@ public abstract class Customer  {
         return insuranceCard;
     }
 
-    /**
-     * Sets insurance card.
-     *
-     * @param insuranceCard the insurance card
-     */
-    public void setInsuranceCard(String insuranceCard) {
-        this.insuranceCard = insuranceCard;
-    }
+
 
     /**
      * Gets list of claims.

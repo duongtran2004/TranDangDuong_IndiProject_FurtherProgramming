@@ -12,7 +12,16 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * The type Data input validator.
+ */
 public class DataInputValidator {
+    /**
+     * Gets valid integer input.
+     *
+     * @param scanner the scanner
+     * @return the valid integer input
+     */
     public static int getValidIntegerInput(Scanner scanner) {
         int choice;
         while (true) {
@@ -28,6 +37,13 @@ public class DataInputValidator {
         }
         return choice;
     }
+
+    /**
+     * Gets valid claim date.
+     *
+     * @param scanner the scanner
+     * @return the valid claim date
+     */
     public static Date getValidClaimDate(Scanner scanner) {
         Date claimDate = null;
         boolean validClaimDate = false;
@@ -50,6 +66,13 @@ public class DataInputValidator {
         return claimDate;
     }
 
+    /**
+     * Gets valid exam date.
+     *
+     * @param scanner   the scanner
+     * @param claimDate the claim date
+     * @return the valid exam date
+     */
     public static Date getValidExamDate(Scanner scanner, Date claimDate) {
         Date examDate = null;
         boolean validExamDate = false;
@@ -71,6 +94,13 @@ public class DataInputValidator {
         }
         return examDate;
     }
+
+    /**
+     * Gets valid status.
+     *
+     * @param scanner the scanner
+     * @return the valid status
+     */
     public static String getValidStatus(Scanner scanner) {
         String status = "";
         boolean validStatus = false;
@@ -80,18 +110,32 @@ public class DataInputValidator {
             if (status.equals("new") || status.equals("processing") || status.equals("done")) {
                 validStatus = true;
             } else {
-                System.out.println("Invalid status. Please enter one of: New, Processing, or Done.");
+                System.out.println("Invalid status. Please enter one of: new, processing, or done.");
             }
         }
         return status;
     }
 
+    /**
+     * Gets valid list of documents.
+     *
+     * @param scanner the scanner
+     * @return the valid list of documents
+     */
     public static ArrayList<String> getValidListOfDocuments(Scanner scanner) {
         System.out.println("Please enter the list of documents. Each document is separated by a \",\" (comma): ");
         String listOfDocumentContent = scanner.next();
         String[] documentsArray = listOfDocumentContent.split(",");
         return new ArrayList<>(Arrays.asList(documentsArray));
     }
+
+    /**
+     * Gets valid insurance card number.
+     *
+     * @param scanner        the scanner
+     * @param insuranceCards the insurance cards
+     * @return the valid insurance card number
+     */
     public static String getValidInsuranceCardNumber(Scanner scanner, ArrayList<InsuranceCard> insuranceCards) {
         String cardNumber = "";
         boolean validCardNumber = false;
@@ -120,7 +164,13 @@ public class DataInputValidator {
         return false;
     }
 
-    public static double getValidPositiveDouble(Scanner scanner) {
+    /**
+     * Gets valid positive double.
+     *
+     * @param scanner the scanner
+     * @return the valid positive double
+     */
+    public static double getValidClaimAmount(Scanner scanner) {
         double number = 0.0;
         boolean validInput = false;
         while (!validInput) {

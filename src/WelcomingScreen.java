@@ -28,12 +28,5 @@ public class WelcomingScreen {
         System.out.println("******************************************************************************");
     }
 
-    /**
-     * The entry point of the WelcomingScreen Class.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
-displayWelcomeScreen();
-    }
+
 }

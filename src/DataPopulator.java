@@ -18,6 +18,9 @@ import java.util.*;
  */
 public class DataPopulator {
 
+    /**
+     * The constant claimsToBeAddedBackToCustomerFile.
+     */
     public static ArrayList<Claim> claimsToBeAddedBackToCustomerFile = new ArrayList<>();
 
 
@@ -25,6 +28,17 @@ public class DataPopulator {
 
 
     /**
+     * Populate sample insurance card data.
+     *
+     * @param customersFile     the customers file
+     * @param insuranceCardFile the insurance card file
+     * @param customersFile     the customers file
+     * @throws IOException the io exception
+     *                     <p>
+     *                     Populate sample customer data.
+     * @throws IOException the io exception
+     */
+/**
      * Populate sample customer data.
      *
      * @param customersFile the customers file
@@ -32,14 +46,7 @@ public class DataPopulator {
      */
 
 
-    /**
-     * Populate sample insurance card data.
-     *
-     * @param customersFile     the customers file
-     * @param insuranceCardFile the insurance card file
-     * @throws IOException the io exception
-     */
-// Method to populate sample insurance card data into a file
+    // Method to populate sample insurance card data into a file
     //Copy data from customers file to insurance card file
     public static void populateSampleInsuranceCardData(File customersFile, File insuranceCardFile) throws IOException {
         if (insuranceCardFile.exists() && insuranceCardFile.length() == 0) {
@@ -152,6 +159,12 @@ public class DataPopulator {
         }
     }
 
+    /**
+     * Populate customer data.
+     *
+     * @param customersFile the customers file
+     * @throws IOException the io exception
+     */
     public static void populateCustomerData(File customersFile) throws IOException {
         if (customersFile.exists() && customersFile.length() == 0) {
             try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(customersFile, false))) {
@@ -227,6 +240,13 @@ public class DataPopulator {
     }
 
 
+    /**
+     * Generate list of documents array list.
+     *
+     * @param claimId       the claim id
+     * @param insuranceCard the insurance card
+     * @return the array list
+     */
     public static ArrayList<String> generateListOfDocuments(String claimId, String insuranceCard) {
         ArrayList<String> listOfDocuments = new ArrayList<>();
         String hospitalBill = claimId + "_" + insuranceCard + "_hospitalBill.pdf";
@@ -236,6 +256,13 @@ public class DataPopulator {
         return listOfDocuments;
     }
 
+    /**
+     * Generate random claim amount double.
+     *
+     * @param minAmount the min amount
+     * @param maxAmount the max amount
+     * @return the double
+     */
     public static double generateRandomClaimAmount(double minAmount, double maxAmount) {
         //create random object
         Random random = new Random();
@@ -252,6 +279,12 @@ public class DataPopulator {
     // Method to generate a random LocalDate within a specified range
 
 
+    /**
+     * Generate random exam date string.
+     *
+     * @param maxDaysBeforeToday the max days before today
+     * @return the string
+     */
     public static String generateRandomExamDate(int maxDaysBeforeToday) {
         LocalDate currentDate = LocalDate.now(); //get the date of today
         Random random = new Random();
@@ -264,6 +297,13 @@ public class DataPopulator {
         return formattedExamDate;
     }
 
+    /**
+     * Generate random claim date string.
+     *
+     * @param examDate              the exam date
+     * @param maxDaysBeforeExamDate the max days before exam date
+     * @return the string
+     */
     public static String generateRandomClaimDate(String examDate, int maxDaysBeforeExamDate) {
         Random random = new Random(); //new Random object
         //convert examDate from String type to LocalDate type
@@ -279,6 +319,12 @@ public class DataPopulator {
     }
 
 
+    /**
+     * Generate random expiration date string.
+     *
+     * @param maxDaysAheadOfToday the max days ahead of today
+     * @return the string
+     */
     public static String generateRandomExpirationDate(int maxDaysAheadOfToday) {
         // Get the current date
         LocalDate currentDate = LocalDate.now();
@@ -297,6 +343,11 @@ public class DataPopulator {
         return formattedExpirationDate;
     }
 
+    /**
+     * Generate random status string.
+     *
+     * @return the string
+     */
     public static String generateRandomStatus() {
         //generate random status
         String status;
@@ -304,18 +355,23 @@ public class DataPopulator {
         int randomNumber = random.nextInt(3); //generate randomNumber from 0 to 2
 
         if (randomNumber == 0) {
-            status = "New";
+            status = "new";
         } else if (randomNumber == 1) {
-            status = "Processing";
+            status = "processing";
 
         } else if (randomNumber == 2) {
-            status = "Done";
+            status = "done";
         } else {
-            status = "New";
+            status = "new";
         }
         return status;
     }
 
+    /**
+     * Generate random bank name string.
+     *
+     * @return the string
+     */
     public static String generateRandomBankName() {
         String bankName;
         Random random = new Random(); //create Random object

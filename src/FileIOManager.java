@@ -41,19 +41,40 @@ public class FileIOManager {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
 
-    //create files object to store filePath
+    /**
+     * The constant customerFile.
+     */
+//create files object to store filePath
     public static File customerFile = new File(CUSTOMERS_FILE_PATH);
+    /**
+     * The constant insuranceCardsFile.
+     */
     public static File insuranceCardsFile = new File(INSURANCE_CARDS_FILE_PATH);
+    /**
+     * The constant claimFiles.
+     */
     public static File claimFiles = new File(CLAIMS_FILE_PATH);
     //Create temporary ArrayList to hold File Data, and display to user.
     //Once the user quit the program, these ArrayList would be empty.
 
 
+    /**
+     * The constant insuranceCardsTemporaryArrayList.
+     */
     public static ArrayList<InsuranceCard> insuranceCardsTemporaryArrayList = new ArrayList<>();
+    /**
+     * The constant claimsTemporaryArrayList.
+     */
     public static ArrayList<Claim> claimsTemporaryArrayList = new ArrayList<>();
 
+    /**
+     * The constant dependentsTemporaryArrayList.
+     */
     public static ArrayList<Dependent> dependentsTemporaryArrayList = new ArrayList<>();
 
+    /**
+     * The constant policyHoldersTemporaryArrayList.
+     */
     public static ArrayList<PolicyHolder> policyHoldersTemporaryArrayList = new ArrayList<>();
 
     // Create 4 methods:
@@ -89,6 +110,8 @@ public class FileIOManager {
 
     /**
      * Method to load data from file to temporary Collections (ArrayList) that can be shown to user
+     *
+     * @throws IOException the io exception
      */
     public static void loadData() throws IOException {
 
@@ -103,8 +126,9 @@ public class FileIOManager {
 
     /**
      * Method to save and update  data from the temporary ArrayList to DataFiles once the user quit the program.
+     *
+     * @throws IOException the io exception
      */
-
     public static void saveData() throws IOException {
 
         DataSaver.saveCustomersToFile(dependentsTemporaryArrayList, policyHoldersTemporaryArrayList, customerFile);

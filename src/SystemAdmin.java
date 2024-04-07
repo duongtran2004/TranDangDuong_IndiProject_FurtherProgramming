@@ -1,32 +1,38 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * @author Tran Dang Duong
- * Student ID: s3979381
- * @version ${11.0.18}
- * @created 26-Mar-24 8:58 PM
+ * The type System admin.
+ *
+ * @author Tran Dang Duong Student ID: s3979381
+ * @version $ {11.0.18}
+ * @created 26 -Mar-24 8:58 PM
  * @project IndiProject
- * @since ${11.0.18}
+ * @since $ {11.0.18}
  */
 public class SystemAdmin implements ClaimProcessManager {
     //override methods from ClaimProcessManager Interface
 
 
     @Override
-    public void addClaim(String claimId, Date claimDate, String insuredPerson, String cardNumber, Date examDate,  double claimAmount, String status, String bankName, String accountOwner, String accountNumber, ArrayList<String> listOfDocuments) {
+    public void addClaim(String claimId, Date claimDate, String insuredPerson, String cardNumber, Date examDate, double claimAmount, String status, String bankName, String accountOwner, String accountNumber, ArrayList<String> listOfDocuments) throws IOException {
         //do not allow user to set claimID, so remove the claimID from the parameter
         //generate random unique claimID
         String newClaimID = IdManager.generateClaimID();
         //create new claim Object to store the random claimID anb user's input as attributes
-        Claim claim = new Claim(newClaimID, claimDate, insuredPerson, cardNumber, examDate,  claimAmount, status, bankName, accountOwner, accountNumber,listOfDocuments);
+        Claim claim = new Claim(newClaimID, claimDate, insuredPerson, cardNumber, examDate, claimAmount, status, bankName, accountOwner, accountNumber, listOfDocuments);
         // Add the new claim to the temporary ArrayList
         FileIOManager.claimsTemporaryArrayList.add(claim);
+        FileIOManager.loadData();
         //print the message if success
         System.out.println("Claim added successfully");
     }
 
-    //method overloading  for user to just add claim without any arguments (pass default values)
+    /**
+     * Add claim.
+     */
+//method overloading  for user to just add claim without any arguments (pass default values)
     public void addClaim() {
         //do not allow user to set claimID, so remove the claimID from the parameter
 
@@ -37,6 +43,7 @@ public class SystemAdmin implements ClaimProcessManager {
         //print the message if success
         System.out.println("Claim added successfully");
     }
+
     @Override
     public Claim getOneClaimById(String claimIDAsInput) {
         // Iterate through the temporary claims list
@@ -45,7 +52,7 @@ public class SystemAdmin implements ClaimProcessManager {
             // Check if the claim ID matches the input claim ID
             if (c.getClaimID().equals(claimIDAsInput)) {
                 System.out.println("Success to find claim by claimID");
-                System.out.println("The claim with id " + claimIDAsInput + "is: ");
+                System.out.println("The claim with id " + c + "is: ");
                 return c;
             }
         }
@@ -70,7 +77,7 @@ public class SystemAdmin implements ClaimProcessManager {
     @Override
     public void updateClaimById(String claimIDAsInput, Date claimDate, String insuredPerson, String cardNumber,
                                 Date examDate, double claimAmount, String status,
-                                String bankName, String accountOwner, String accountNumber,ArrayList<String> listOfDocuments) {
+                                String bankName, String accountOwner, String accountNumber, ArrayList<String> listOfDocuments) {
 
         // Variable to store the claim object with the specified claim ID
         Claim claimToUpdate = getOneClaimById(claimIDAsInput);
@@ -114,13 +121,43 @@ public class SystemAdmin implements ClaimProcessManager {
 
     @Override
     public void deleteAllClaimInTheSystem() {
-        if (FileIOManager.claimsTemporaryArrayList.isEmpty()){
+        if (FileIOManager.claimsTemporaryArrayList.isEmpty()) {
             System.out.println("The systems already having 0 claims");
-        }
-        else {
-            FileIOManager.claimsTemporaryArrayList.removeAll(FileIOManager.claimsTemporaryArrayList);
+        } else {
+            FileIOManager.claimsTemporaryArrayList.clear();
             System.out.println("Success to empty all claims from the system !");
         }
+    }
+
+    @Override
+    public void updateClaimStatusById(String claimIDAsInput, String newStatus) {
+        // Find the claim by ID
+        Claim claimToUpdate = getOneClaimById(claimIDAsInput);
+
+        if (claimToUpdate != null) {
+            // Update the status of the claim
+            claimToUpdate.setStatus(newStatus);
+            System.out.println("Claim with ID " + claimIDAsInput + " has been updated with new status: " + newStatus);
+        } else {
+            System.out.println("ClaimId not found, please try another claimID !");
+        }
+    }
+
+    @Override
+    public ArrayList<Claim> getClaimsByStatus(String status) {
+        ArrayList<Claim> claimsWithStatus = new ArrayList<>();
+
+        for (Claim claim : FileIOManager.claimsTemporaryArrayList) {
+            if (claim.getStatus().equalsIgnoreCase(status)) {
+                claimsWithStatus.add(claim);
+            }
+        }
+
+        if (claimsWithStatus.isEmpty()) {
+            System.out.println("No claims found with status: " + status);
+        }
+
+        return claimsWithStatus;
     }
 
 

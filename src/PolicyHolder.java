@@ -12,13 +12,25 @@ import java.util.ArrayList;
 public class PolicyHolder extends Customer {
     private ArrayList<Dependent> listOfDependents;
 
-    // Constructor with default values for partial arguments
+    /**
+     * Instantiates a new Policy holder.
+     *
+     * @param cId              the c id
+     * @param fullName         the full name
+     * @param insuranceCard    the insurance card
+     * @param listOfClaims     the list of claims
+     * @param listOfDependents the list of dependents
+     */
+// Constructor with default values for partial arguments
     public PolicyHolder(String cId, String fullName, String insuranceCard, ArrayList<Claim> listOfClaims, ArrayList<Dependent> listOfDependents) {
         super(cId, fullName, insuranceCard, listOfClaims);
         this.listOfDependents = (listOfDependents != null) ? listOfDependents : new ArrayList<>();
     }
 
-    // Constructor with default value, no arguments needed
+    /**
+     * Instantiates a new Policy holder.
+     */
+// Constructor with default value, no arguments needed
     public PolicyHolder() {
         super("default", "default", "default", new ArrayList<>());
         this.listOfDependents = new ArrayList<>();
@@ -26,10 +38,20 @@ public class PolicyHolder extends Customer {
     //getter and setters
 
 
+    /**
+     * Gets list of dependents.
+     *
+     * @return the list of dependents
+     */
     public ArrayList<Dependent> getListOfDependents() {
         return listOfDependents;
     }
 
+    /**
+     * Sets list of dependents.
+     *
+     * @param listOfDependents the list of dependents
+     */
     public void setListOfDependents(ArrayList<Dependent> listOfDependents) {
         this.listOfDependents = listOfDependents;
     }

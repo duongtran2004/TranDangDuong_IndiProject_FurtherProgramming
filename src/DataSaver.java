@@ -1,101 +1,127 @@
-/**
- * @author Tran Dang Duong
- * Student ID: s3979381
- * @version ${11.0.18}
- * @created 21-Mar-24 2:33 PM
- * @project IndiProject
- * @since ${11.0.18}
- */
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * The DataSaver Class
+ * The type Data saver.
  */
 public class DataSaver {
 
-    //method to check if the input ArrayList is empty to format saving into Files (avoid duplicating square brackets [[]] )
-    private static String formatList(ArrayList<?> arrayList) {
-        if (arrayList.isEmpty()) { //return [] if save to file from empty ArrayList
-            return "[]";
-        } else { //if save to file from a non-empty ArrayList
-            ArrayList<String> stringArrayList = new ArrayList<>(); //convert ArrayList to String
-            for (Object item : arrayList) {
-                stringArrayList.add(item.toString());
-            }
-            return "[" + String.join(", ", stringArrayList) + "]"; //join all objects together inside []
-        }
-    }
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
     /**
-     * Save customers objects' information from the temporary ArrayList to the DataFiles, after the user exit the program.
+     * Save customers to file.
      *
      * @param dependents    the dependents
      * @param policyHolders the policy holders
-     * @param customerFile  the DataFile
-     * @throws IOException the io exception                     <p> Using PrintWriter is more convenience for immediate flushing,                     like  writing data from file to temporary ArrayList to show to user</p>                     <p>Methods like println(), printf(), and format() can help to write data directly without converting to String</p>
+     * @param customerFile  the customer file
+     * @throws IOException the io exception
      */
+// Save customers' information to file while skipping duplicates
     public static void saveCustomersToFile(ArrayList<Dependent> dependents, ArrayList<PolicyHolder> policyHolders, File customerFile) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(customerFile, false))) {
-            // Save Dependent Objects' info to file
+        Set<String> existingLines = readExistingLines(customerFile);
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(customerFile, true))) {
             for (Dependent dependent : dependents) {
-                String listOfClaims = formatList(dependent.getListOfClaims()); //format the listOfClaims
-                writer.println(dependent.getcId() + "," + dependent.getFullName() + "," + dependent.getInsuranceCard() + "," + listOfClaims);
+                String listOfClaims = formatList(dependent.getListOfClaims());
+                String newLine = dependent.getcId() + "," + dependent.getFullName() + "," + dependent.getInsuranceCard() + "," + listOfClaims;
+                if (!existingLines.contains(newLine)) {
+                    writer.println(newLine);
+                    existingLines.add(newLine); // Add new line to existingLines set
+                }
             }
-            // Save PolicyHolder Objects' info to file
             for (PolicyHolder policyHolder : policyHolders) {
-                String listOfClaims = formatList(policyHolder.getListOfClaims()); //format the listOfClaims
-                String listOfDependents = formatList(policyHolder.getListOfDependents()); //format the listOfDependents
-                writer.println(policyHolder.getcId() + "," + policyHolder.getFullName() + "," + policyHolder.getInsuranceCard() + "," + listOfClaims + "," + listOfDependents);
+                String listOfClaims = formatList(policyHolder.getListOfClaims());
+                String listOfDependents = formatList(policyHolder.getListOfDependents());
+                String newLine = policyHolder.getcId() + "," + policyHolder.getFullName() + "," + policyHolder.getInsuranceCard() + "," + listOfClaims + "," + listOfDependents;
+                if (!existingLines.contains(newLine)) {
+                    writer.println(newLine);
+                    existingLines.add(newLine); // Add new line to existingLines set
+                }
             }
-            System.out.println("Success to save data to " + customerFile.getName());
+            System.out.println("Successfully saved data to " + customerFile.getName());
         }
     }
 
     /**
-     * Save insuranceCards objects' information from the temporary ArrayList to the DataFiles.
+     * Save insurance cards to file.
      *
      * @param insuranceCards    the insurance cards
-     * @param insuranceCardFile the file
+     * @param insuranceCardFile the insurance card file
      * @throws IOException the io exception
      */
+// Save insurance cards' information to file while skipping duplicates
     public static void saveInsuranceCardsToFile(ArrayList<InsuranceCard> insuranceCards, File insuranceCardFile) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(insuranceCardFile, false))) {
+        Set<String> existingLines = readExistingLines(insuranceCardFile);
 
-            for (InsuranceCard card : insuranceCards) { //loop through each insurance object in the ArrayList
-                //format the expirationDate
-                String formattedExpirationDate = FileIOManager.DATE_FORMAT.format(card.getExpirationDate());
-                writer.println(card.getCardNumber() + "," + card.getCardHolder() + "," + card.getPolicyOwner() + "," + formattedExpirationDate); //format to write 1 line (append not re-write)
+        try (PrintWriter writer = new PrintWriter(new FileWriter(insuranceCardFile, true))) {
+            for (InsuranceCard card : insuranceCards) {
+                String formattedExpirationDate = DATE_FORMAT.format(card.getExpirationDate());
+                String newLine = card.getCardNumber() + "," + card.getCardHolder() + "," + card.getPolicyOwner() + "," + formattedExpirationDate;
+                if (!existingLines.contains(newLine)) {
+                    writer.println(newLine);
+                    existingLines.add(newLine); // Add new line to existingLines set
+                }
             }
-            System.out.println("Success to save data to " + insuranceCardFile.getName());
+            System.out.println("Successfully saved data to " + insuranceCardFile.getName());
         }
     }
 
     /**
-     * Save Claim objects' information from the temporary ArrayList to the DataFiles.
+     * Save claims to file.
      *
      * @param claims    the claims
-     * @param claimFile the file
+     * @param claimFile the claim file
      * @throws IOException the io exception
      */
+// Save claims' information to file while skipping duplicates
     public static void saveClaimsToFile(ArrayList<Claim> claims, File claimFile) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(claimFile, false))) {
+        Set<String> existingLines = readExistingLines(claimFile);
 
-            for (Claim claim : claims) { //loop through each claim object in the ArrayList
-                String formattedClaimDate = FileIOManager.DATE_FORMAT.format(claim.getClaimDate()); // Format the claim date
-                String formattedExamDate = FileIOManager.DATE_FORMAT.format(claim.getExamDate()); // Format the exam date
-                String documents = "[" + String.join(";", claim.getListOfDocuments()) + "]" ; //variable to store documents and add square brackets around the listOfDocuments
-                writer.println(claim.getClaimID() + "," + formattedClaimDate+ "," + claim.getInsuredPerson() + "," + claim.getCardNumber() +
-                        "," + formattedExamDate + "," + documents + "," + claim.getClaimAmount() + "," + claim.getStatus() +
-                        "," + claim.getBankName() + "-" + claim.getAccountOwner() +
-                        "-" + claim.getAccountNumber()); //format to write 1 line (append not re-write)
+        try (PrintWriter writer = new PrintWriter(new FileWriter(claimFile, false))) {
+            for (Claim claim : claims) {
+                String formattedClaimDate = DATE_FORMAT.format(claim.getClaimDate());
+                String formattedExamDate = DATE_FORMAT.format(claim.getExamDate());
+                String documents = "[" + String.join(";", claim.getListOfDocuments()) + "]";
+                String newLine = claim.getClaimID() + "," + formattedClaimDate + "," + claim.getInsuredPerson() + "," +
+                        claim.getCardNumber() + "," + formattedExamDate + "," + documents + "," + claim.getClaimAmount() +
+                        "," + claim.getStatus() + "," + claim.getBankName() + "-" + claim.getAccountOwner() + "-" +
+                        claim.getAccountNumber();
+                if (!existingLines.contains(newLine)) {
+                    writer.println(newLine);
+                    existingLines.add(newLine); // Add new line to existingLines set
+                }
             }
-            System.out.println("Success to save data to " + claimFile.getName());
+            System.out.println("Successfully saved data to " + claimFile.getName());
         }
     }
 
+    // Read existing lines from a file and store them in a set
+    private static Set<String> readExistingLines(File file) throws IOException {
+        Set<String> existingLines = new HashSet<>();
+        if (file.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    existingLines.add(line.trim());
+                }
+            }
+        }
+        return existingLines;
+    }
+
+    // Format list of objects to a string representation
+    private static String formatList(ArrayList<?> arrayList) {
+        if (arrayList.isEmpty()) {
+            return "[]";
+        } else {
+            ArrayList<String> stringArrayList = new ArrayList<>();
+            for (Object item : arrayList) {
+                stringArrayList.add(item.toString());
+            }
+            return "[" + String.join(", ", stringArrayList) + "]";
+        }
+    }
 }
